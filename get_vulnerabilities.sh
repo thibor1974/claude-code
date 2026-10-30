@@ -19,7 +19,10 @@
 #
 # Options:
 #   --cve CVE-ID              Fix status of one CVE for every OpenShift version
-#   --cve-file FILE           Only the CVEs listed in FILE: release fixing each one and advisory link
+#   --cve-file FILE           Only the CVEs listed in FILE: CVSS score, publication date, release fixing
+#                             each one and advisory (RHSA) link, or security bulletin (RHSB) link when
+#                             not fixed. With a full release (4.22.18), also whether
+#                             that release is still vulnerable
 #   --advisory-prefix LIST    Only CVEs with advisories starting with LIST (e.g. RHSA,RHBA)
 #   --include-unfixed         Also list CVEs not fixed in this version (slow: a few minutes)
 #   --fixed-in                Only the CVEs fixed in this exact release (version must be like 4.21.17)
@@ -33,7 +36,8 @@
 #   ./get_vulnerabilities.sh 4.12 table critical
 #   ./get_vulnerabilities.sh --include-unfixed 4.12 csv important
 #   ./get_vulnerabilities.sh --cve CVE-2026-46300
-#   ./get_vulnerabilities.sh --cve-file cves.txt 4.21.17
+#   ./get_vulnerabilities.sh --cve-file cves.txt 4.22
+#   ./get_vulnerabilities.sh --cve-file cves.txt 4.22.18 csv
 ###############################################################################
 
 set -euo pipefail
@@ -55,7 +59,9 @@ usage() {
     echo ""
     echo "Options:"
     echo "  --cve CVE-ID              Fix status of one CVE for every OpenShift version"
-    echo "  --cve-file FILE           Only the CVEs listed in FILE: release fixing each one and advisory link"
+    echo "  --cve-file FILE           Only the CVEs listed in FILE: CVSS score, publication date, release fixing"
+    echo "                            each one and RHSA link (RHSB when not fixed)"
+    echo "                            version: 4.22, or 4.22.18 to also check that release"
     echo "  --advisory-prefix LIST    Only CVEs with advisories starting with LIST (e.g. RHSA,RHBA)"
     echo "  --include-unfixed         Also list CVEs not fixed in this version (slow: a few minutes)"
     echo "  --fixed-in                Only the CVEs fixed in this exact release (version like 4.21.17)"
@@ -69,7 +75,8 @@ usage() {
     echo "  $0 4.12 table critical"
     echo "  $0 --include-unfixed 4.12 csv important"
     echo "  $0 --cve CVE-2026-46300"
-    echo "  $0 --cve-file cves.txt 4.21.17"
+    echo "  $0 --cve-file cves.txt 4.22"
+    echo "  $0 --cve-file cves.txt 4.22.18 csv"
     exit 1
 }
 

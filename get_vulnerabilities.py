@@ -19,6 +19,8 @@ from typing import List, Dict, Optional, Tuple
 OCP_PRODUCT = "Red Hat OpenShift Container Platform"
 CSAF_ADVISORY_BASE = "https://security.access.redhat.com/data/csaf/v2/advisories"
 ERRATA_BASE = "https://access.redhat.com/errata"
+CVE_PAGE_BASE = "https://access.redhat.com/security/cve"
+BULLETIN_BASE = "https://access.redhat.com/security/vulnerabilities"
 
 # When a CVE has no fix in the stream, the most actionable package state wins
 FIX_STATE_PRIORITY = ['Affected', 'Fix deferred', 'Under investigation', 'Will not fix',
@@ -36,6 +38,19 @@ class FetchError(Exception):
 def advisory_url(advisory: str) -> str:
     """Errata page of an advisory (e.g. RHSA-2026:54206), '' if none"""
     return f"{ERRATA_BASE}/{advisory}" if advisory else ''
+
+
+def vuln_link(vuln: Dict) -> str:
+    """Where to read about a CVE's fix: the advisory (RHSA) when fixed; when not fixed, the security
+    bulletin (RHSB) if Red Hat published one, else the Red Hat CVE page (status per product)"""
+    status = vuln.get('fix_status', '')
+    if status == 'Fixed':
+        return advisory_url(vuln.get('fix_advisory', ''))
+    if vuln.get('security_bulletin'):
+        return f"{BULLETIN_BASE}/{vuln['security_bulletin']}"
+    if status and status != 'Lookup failed' and vuln.get('CVE'):
+        return f"{CVE_PAGE_BASE}/{vuln['CVE']}"
+    return ''
 
 
 class VulnerabilityScanner:
@@ -56,13 +71,15 @@ class VulnerabilityScanner:
         return all(part.isdigit() for part in parts)
 
     def fetch_text(self, url: str, attempts: int = 3, connect_timeout: int = 10, max_time: int = 30,
-                   byte_range: Optional[str] = None) -> str:
+                   byte_range: Optional[str] = None, follow_redirects: bool = False) -> str:
         """Fetch a URL with curl (urllib gets 403 errors), retrying on failure.
         Raises FetchError instead of returning empty data, so an API outage
         is never reported as "no vulnerabilities"."""
         cmd = ['curl', '-sS', '-f', '--connect-timeout', str(connect_timeout), '--max-time', str(max_time)]
         if byte_range:
             cmd += ['-r', byte_range]
+        if follow_redirects:
+            cmd += ['-L']
         error = ""
         for attempt in range(attempts):
             if attempt:
@@ -257,11 +274,40 @@ class VulnerabilityScanner:
                 'CVE': cve_id,
                 'severity': (cve_data.get('threat_severity') or '').lower(),
                 'public_date': cve_data.get('public_date', ''),
+                'cvss3_score': (cve_data.get('cvss3') or {}).get('cvss3_base_score', ''),
+                'cvss3_scoring_vector': (cve_data.get('cvss3') or {}).get('cvss3_scoring_vector', ''),
                 'bugzilla_description': (cve_data.get('bugzilla') or {}).get('description', ''),
                 **info,
                 'fix_advisory_url': advisory_url(info['fix_advisory']),
             })
+        self.add_links(vulns, workers)
         return vulns
+
+    def add_links(self, vulns: List[Dict], workers: int = 8):
+        """Set link on each vulnerability with fix info (see vuln_link), and security_bulletin on the
+        unfixed ones Red Hat wrote a bulletin for (flagged csaw in the CVE details)"""
+        unfixed = [v for v in vulns if v.get('fix_status') not in (None, 'Fixed', 'Lookup failed')
+                   and (self.cve_cache.get(v.get('CVE')) or {}).get('csaw')]
+        if unfixed:
+            print(f"[*] Fetching security bulletins for {len(unfixed)} unfixed CVEs...", file=sys.stderr)
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                for vuln, bulletin in zip(unfixed, pool.map(lambda v: self.get_security_bulletin(v['CVE']), unfixed)):
+                    vuln['security_bulletin'] = bulletin or ''
+        for vuln in vulns:
+            if 'fix_status' in vuln:
+                vuln.setdefault('security_bulletin', '')
+                vuln['link'] = vuln_link(vuln)
+
+    def get_security_bulletin(self, cve_id: str) -> Optional[str]:
+        """Red Hat security bulletin for a CVE (e.g. RHSB-2021-009), from its CVE page: the API
+        only flags that one exists (csaw). None if not found"""
+        try:
+            page = self.fetch_text(f"{CVE_PAGE_BASE}/{cve_id}", attempts=2, connect_timeout=5, max_time=20,
+                                   follow_redirects=True)
+        except FetchError:
+            return None
+        match = re.search(r'RHSB-\d{4}-\d+', page)
+        return match.group(0) if match else None
 
     def add_version_status(self, vulns: List[Dict], release: str):
         """For a full release (e.g. 4.21.17), set version_status on each vulnerability:
@@ -312,11 +358,11 @@ class VulnerabilityScanner:
         return lines
 
     def _fix_display(self, vuln: Dict) -> Tuple[str, str]:
-        """(Fixed In / Status, Advisory) cells for the table"""
+        """(Fixed In / Status, Advisory) cells for the table: the security bulletin when not fixed"""
         status = vuln.get('fix_status', '')
         if status == 'Fixed':
             return (vuln.get('fixed_in') or 'Fixed (see adv.)', vuln.get('fix_advisory', ''))
-        return (status, '')
+        return (status, vuln.get('security_bulletin', ''))
 
     def format_table(self, vulns: List[Dict], version: str, title: Optional[str] = None,
                      fixed_in_release: Optional[str] = None) -> str:
@@ -340,13 +386,15 @@ class VulnerabilityScanner:
         if fixed_in_release:
             release_header = f"{'First Fixed':<12} "
 
-        output.append(f"{'CVE ID':<16} {'Severity':<10} {release_header}{'Fixed In / Status':<20} {'Advisory':<16} {'Date':<11} {'Description'}")
-        output.append("-" * (161 if with_release else 153 if fixed_in_release else 140))
+        output.append(f"{'CVE ID':<16} {'Severity':<10} {'CVSS':<5} {'Published':<11} {release_header}"
+                      f"{'Fixed In / Status':<20} {'Advisory':<16} {'Link':<66} {'Description'}")
+        output.append("-" * (232 if with_release else 224 if fixed_in_release else 211))
 
         # Rows
         for vuln in vulns:
             cve = vuln.get('CVE', 'N/A')
             severity = (vuln.get('severity') or 'N/A').upper()
+            cvss = vuln.get('cvss3_score') or 'N/A'
             date = (vuln.get('public_date') or 'N/A')[:10]  # Truncate to just date
             description = (vuln.get('bugzilla_description') or '')[:60]
             fixed_in, advisory = self._fix_display(vuln)
@@ -354,7 +402,8 @@ class VulnerabilityScanner:
             if fixed_in_release:
                 release_cell = f"{vuln.get('first_fixed_in') or fixed_in_release:<12} "
 
-            output.append(f"{cve:<16} {severity:<10} {release_cell}{fixed_in:<20} {advisory:<16} {date:<11} {description}")
+            output.append(f"{cve:<16} {severity:<10} {cvss:<5} {date:<11} {release_cell}{fixed_in:<20} {advisory:<16} "
+                          f"{vuln.get('link', ''):<66} {description}".rstrip())
 
         output.append("")
         output.append(f"Total: {len(vulns)} vulnerabilities found")
@@ -391,15 +440,18 @@ class VulnerabilityScanner:
 
         with_release = any('version_status' in v for v in vulns)
         release_header = f"{'In ' + version:<20} " if with_release else ""
-        output.append(f"{'CVE ID':<16} {'Severity':<10} {release_header}{'Fixed In / Status':<20} {'Advisory':<16} {'Link'}")
-        output.append("-" * (128 if with_release else 107))
+        output.append(f"{'CVE ID':<16} {'Severity':<10} {'CVSS':<5} {'Published':<11} {release_header}"
+                      f"{'Fixed In / Status':<20} {'Advisory':<16} {'Link'}")
+        output.append("-" * (146 if with_release else 125))
 
         for vuln in vulns:
             severity = (vuln.get('severity') or 'N/A').upper()
+            cvss = vuln.get('cvss3_score') or 'N/A'
+            published = (vuln.get('public_date') or 'N/A')[:10]
             fixed_in, advisory = self._fix_display(vuln)
             release_cell = f"{vuln.get('version_status', ''):<20} " if with_release else ""
-            output.append(f"{vuln['CVE']:<16} {severity:<10} {release_cell}{fixed_in:<20} {advisory:<16} "
-                          f"{vuln.get('fix_advisory_url', '')}".rstrip())
+            output.append(f"{vuln['CVE']:<16} {severity:<10} {cvss:<5} {published:<11} {release_cell}"
+                          f"{fixed_in:<20} {advisory:<16} {vuln.get('link', '')}".rstrip())
 
         output.append("")
         output.append(f"Total: {len(vulns)} CVEs")
@@ -421,9 +473,10 @@ class VulnerabilityScanner:
         import io
 
         output = io.StringIO()
-        writer = csv.DictWriter(output, fieldnames=['CVE', 'severity', 'public_date', 'version_status', 'fix_status',
+        writer = csv.DictWriter(output, fieldnames=['CVE', 'severity', 'cvss3_score', 'public_date',
+                                                    'version_status', 'fix_status',
                                                     'fixed_in', 'fix_advisory', 'fix_advisory_url',
-                                                    'first_fixed_in', 'bugzilla',
+                                                    'security_bulletin', 'link', 'first_fixed_in', 'bugzilla',
                                                     'description', 'advisories'])
         writer.writeheader()
 
@@ -431,12 +484,15 @@ class VulnerabilityScanner:
             writer.writerow({
                 'CVE': vuln.get('CVE', ''),
                 'severity': (vuln.get('severity') or ''),
+                'cvss3_score': vuln.get('cvss3_score') or '',
                 'public_date': vuln.get('public_date', ''),
                 'version_status': vuln.get('version_status', ''),
                 'fix_status': vuln.get('fix_status', ''),
                 'fixed_in': vuln.get('fixed_in', ''),
                 'fix_advisory': vuln.get('fix_advisory', ''),
                 'fix_advisory_url': advisory_url(vuln.get('fix_advisory', '')),
+                'security_bulletin': vuln.get('security_bulletin', ''),
+                'link': vuln_link(vuln) if 'fix_status' in vuln else '',
                 'first_fixed_in': vuln.get('first_fixed_in', ''),
                 'bugzilla': vuln.get('bugzilla', ''),
                 'description': vuln.get('bugzilla_description', ''),
@@ -521,6 +577,12 @@ class VulnerabilityScanner:
             output.append(f"CVSS3 Score: {cvss3.get('cvss3_base_score')}")
         if cvss3.get('cvss3_scoring_vector'):
             output.append(f"CVSS3 Vector: {cvss3.get('cvss3_scoring_vector')}")
+        cve_id = cve_data.get('name', '')
+        bulletin = self.get_security_bulletin(cve_id) if cve_data.get('csaw') and cve_id else None
+        if bulletin:
+            output.append(f"Security Bulletin: {bulletin}  {BULLETIN_BASE}/{bulletin}")
+        if cve_id:
+            output.append(f"Red Hat CVE page: {CVE_PAGE_BASE}/{cve_id}")
         output.append("")
 
         # Affected releases (fixed in): OCP streams resolved to their z-stream release
@@ -541,7 +603,7 @@ class VulnerabilityScanner:
                 releases = dict(zip(pairs, pool.map(lambda sa: self.resolve_release(sa[1], sa[0]), pairs)))
             output.append("Fixed in OpenShift Container Platform:")
             output.append("-" * 80)
-            output.append(f"  {'Stream':<8} {'Fixed In':<12} {'Advisory'}")
+            output.append(f"  {'Stream':<8} {'Fixed In':<12} {'Advisory':<16} {'Link'}")
             for stream in sorted(stream_advisories, key=self._version_key):
                 advisories = sorted(stream_advisories[stream], key=self._advisory_key)
                 resolved = [(releases[(stream, a)], a) for a in advisories if releases[(stream, a)]]
@@ -549,7 +611,7 @@ class VulnerabilityScanner:
                     fixed_in, advisory = min(resolved, key=lambda ra: self._version_key(ra[0]))
                 else:
                     fixed_in, advisory = '-', advisories[0]
-                output.append(f"  {stream:<8} {fixed_in:<12} {advisory}")
+                output.append(f"  {stream:<8} {fixed_in:<12} {advisory:<16} {advisory_url(advisory)}")
             output.append("")
 
         if other_releases:
@@ -560,7 +622,7 @@ class VulnerabilityScanner:
                 advisory = release.get('advisory', 'N/A')
                 package = release.get('package', 'N/A')
                 output.append(f"  Product: {product}")
-                output.append(f"    Advisory: {advisory}")
+                output.append(f"    Advisory: {advisory}  {advisory_url(advisory) if release.get('advisory') else ''}".rstrip())
                 output.append(f"    Package: {package}")
                 output.append("")
 
@@ -604,8 +666,8 @@ Examples:
   %(prog)s 4.12 --format csv --no-fix    # Skip fix lookups (faster)
   %(prog)s 4.12 --include-unfixed        # Also list CVEs not fixed in 4.12 (slow)
   %(prog)s --cve CVE-2025-1234           # Show fix status for a specific CVE
-  %(prog)s 4.21 --cve-file cves.txt      # Fixing release and RHSA link of each CVE in the file
-  %(prog)s 4.21.17 --cve-file cves.txt   # Same, plus: is each CVE fixed in 4.21.17?
+  %(prog)s 4.22 --cve-file cves.txt      # CVSS, date, fixing release and RHSA (or RHSB) link of each CVE in the file
+  %(prog)s 4.22.18 --cve-file cves.txt   # Same, plus: is each CVE fixed in 4.22.18?
         '''
     )
 
@@ -617,8 +679,9 @@ Examples:
     parser.add_argument(
         '--cve-file',
         metavar='FILE',
-        help="Text file with a list of CVE IDs ('-' for stdin): for each one, the release of the given "
-             "version that fixes it and the advisory link"
+        help="Text file with a list of CVE IDs ('-' for stdin): for each one, its CVSS score, publication date, "
+             "the release of the given version (4.22 or 4.22.18) that fixes it and the advisory (RHSA) link, "
+             "or the security bulletin (RHSB) link when it is not fixed"
     )
     parser.add_argument(
         '--format', '-f',
@@ -766,7 +829,8 @@ Examples:
     vulns = [v for v in vulns if keep(v)]
 
     # Fixed-in release / fix status per CVE for the requested stream
-    if (args.format != 'stats' or args.include_unfixed or release) and not args.no_fix:
+    with_fix = (args.format != 'stats' or args.include_unfixed or release) and not args.no_fix
+    if with_fix:
         scanner.add_fix_info(vulns, stream)
 
     # Optionally add CVEs not fixed in this stream (Affected, Fix deferred, Will not fix, ...)
@@ -787,6 +851,10 @@ Examples:
     elif release and not args.no_fix:
         scanner.add_version_status(vulns, release)
         vulns.sort(key=lambda v: VERSION_STATUS_ORDER.index(v['version_status']))
+
+    # Link per CVE: advisory (RHSA) when fixed, security bulletin (RHSB) or CVE page when not
+    if with_fix and args.format != 'stats':
+        scanner.add_links(vulns)
 
     # Format output
     title = f"OpenShift {args.version} - CVEs fixed in this release" if args.fixed_in else None

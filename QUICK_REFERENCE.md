@@ -5,7 +5,7 @@
 You have **three** vulnerability scanning scripts:
 
 1. **get_vulnerabilities.sh** - Bash wrapper around the Python script (positional args)
-2. **get_vulnerabilities_advanced.sh** - Quick jq-based CVE list (no fix info)
+2. **get_vulnerabilities_advanced.sh** - Quick jq-based CVE list with CVSS and publication date (no fix info / links)
 3. **get_vulnerabilities.py** - Python script holding all the logic (fixed release, fix status, stats)
 
 ---
@@ -85,20 +85,21 @@ Check if a specific CVE is fixed in your OpenShift versions:
 ```
 
 Output shows:
-- CVE severity and publication date
-- The release that fixes it in each OpenShift version, with the advisory
+- CVE severity, CVSS score and publication date
+- The release that fixes it in each OpenShift version, with the advisory and its link
+- The Red Hat Security Bulletin (RHSB) link when Red Hat published one, and the Red Hat CVE page link
 - Other OpenShift products and per-package fix states
 - Full description
 
 ```
 Fixed in OpenShift Container Platform:
 --------------------------------------------------------------------------------
-  Stream   Fixed In     Advisory
-  4.12     4.12.96      RHSA-2026:54206
-  4.13     4.13.70      RHSA-2026:54188
+  Stream   Fixed In     Advisory         Link
+  4.12     4.12.91      RHSA-2026:21695  https://access.redhat.com/errata/RHSA-2026:21695
+  4.13     4.13.67      RHSA-2026:21690  https://access.redhat.com/errata/RHSA-2026:21690
   ...
-  4.21     4.21.29      RHSA-2026:54602
-  4.22     4.22.10      RHSA-2026:54770
+  4.20     4.20.24      RHSA-2026:21702  https://access.redhat.com/errata/RHSA-2026:21702
+  4.21     4.21.17      RHBA-2026:20032  https://access.redhat.com/errata/RHBA-2026:20032
 ```
 
 ### Fixed release & fix status per CVE
@@ -130,14 +131,13 @@ Give the full release instead of the stream to see which CVEs your cluster is st
 ```
 
 ```
-CVE ID           Severity   In 4.21.17           Fixed In / Status    Advisory         Date        Description
-CVE-2026-84394   IMPORTANT  VULNERABLE           4.21.34              RHSA-2026:68547  2026-09-02  fast-uri: fast-uri: Host confusion via unbalanced U
-CVE-2026-84292   IMPORTANT  VULNERABLE           4.21.34              RHSA-2026:68547  2026-09-02  fast-uri: fast-uri: Authority Injection via Unvalid
-CVE-2026-46300   IMPORTANT  Not vulnerable       4.21.17              RHBA-2026:20032  2026-05-13  kernel: "Fragnesia" is a variant of Dirty Frag vuln
-CVE-2026-41674   IMPORTANT  Not vulnerable       4.21.17              RHSA-2026:20034  2026-05-07  xmldom: xmldom: Arbitrary XML markup injection
+CVE ID           Severity   CVSS  Published   In 4.21.17           Fixed In / Status    Advisory         Link                                                               Description
+CVE-2026-114406  CRITICAL   6.8   2026-10-20  VULNERABLE           4.21.40              RHSA-2026:89232  https://access.redhat.com/errata/RHSA-2026:89232                   ca-certificates: Distrust eMudhra intermediate CA certificat
+CVE-2026-16242   CRITICAL   9.4   2026-07-17  VULNERABLE           4.21.27              RHSA-2026:48670  https://access.redhat.com/errata/RHSA-2026:48670                   hypershift: Konnectivity proxy-server accepts agent connecti
+CVE-2026-46300   IMPORTANT  7.8   2026-05-13  Not vulnerable       4.21.17              RHBA-2026:20032  https://access.redhat.com/errata/RHBA-2026:20032                   kernel: "Fragnesia" is a variant of Dirty Frag vulnerability
 ...
-In 4.21.17: VULNERABLE: 99, Not vulnerable: 19
-Upgrade to 4.21.34 or later to get all available fixes
+In 4.21.17: VULNERABLE: 163, Not vulnerable: 26
+Upgrade to 4.21.40 or later to get all available fixes
 ```
 
 The **In 4.21.17** column (`version_status` in CSV/JSON):
@@ -167,12 +167,12 @@ List only the CVEs whose fix shipped in exactly that release (release notes styl
 OpenShift 4.21.17 - CVEs fixed in this release
 ════════════════════════════════════════════════════════════════════════════════════════════════════
 
-CVE ID           Severity   First Fixed  Fixed In / Status    Advisory         Date        Description
----------------------------------------------------------------------------------------------------------------------------------------------------------
-CVE-2026-46300   IMPORTANT  4.21.17      4.21.17              RHBA-2026:20032  2026-05-13  kernel: "Fragnesia" is a variant of Dirty Frag vulnerability
-CVE-2026-41674   IMPORTANT  4.21.17      4.21.17              RHSA-2026:20034  2026-05-07  xmldom: xmldom: Arbitrary XML markup injection
-CVE-2026-35469   IMPORTANT  4.21.16      4.21.17              RHSA-2026:20034  2026-04-13  Kubelet: CRI-O: kube-apiserver: Kubelet, CRI-O, kube-apiserv
-CVE-2026-33186   IMPORTANT  4.21.10      4.21.17              RHSA-2026:20034  2026-03-20  google.golang.org/grpc/grpc-go: google.golang.org/grpc/authz
+CVE ID           Severity   CVSS  Published   First Fixed  Fixed In / Status    Advisory         Link                                                               Description
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CVE-2026-46300   IMPORTANT  7.8   2026-05-13  4.21.17      4.21.17              RHBA-2026:20032  https://access.redhat.com/errata/RHBA-2026:20032                   kernel: "Fragnesia" is a variant of Dirty Frag vulnerability
+CVE-2026-41674   IMPORTANT  7.5   2026-05-07  4.21.17      4.21.17              RHSA-2026:20034  https://access.redhat.com/errata/RHSA-2026:20034                   xmldom: xmldom: Arbitrary XML markup injection
+CVE-2026-35469   IMPORTANT  6.5   2026-04-13  4.21.16      4.21.17              RHSA-2026:20034  https://access.redhat.com/errata/RHSA-2026:20034                   Kubelet: CRI-O: kube-apiserver: Kubelet, CRI-O, kube-apiserv
+CVE-2026-33186   IMPORTANT  9.1   2026-03-20  4.21.10      4.21.17              RHSA-2026:20034  https://access.redhat.com/errata/RHSA-2026:20034                   google.golang.org/grpc/grpc-go: google.golang.org/grpc/authz
 ...
 Total: 7 vulnerabilities found
 Fix status: Fixed: 7
@@ -186,8 +186,9 @@ Advisories whose release cannot be determined (a few old ones) cannot be matched
 
 ### Fix release & advisory for a list of CVEs (`--cve-file`)
 
-Give a text file of CVE IDs and an OpenShift version: for each CVE, the release of that stream that fixes it
-and the link to the advisory (RHSA) that ships the fix.
+Give a text file of CVE IDs and an OpenShift version, either a stream (`4.22`) or a full release (`4.22.18`).
+For each CVE: its severity, CVSS v3 score, publication date, the release of that stream that fixes it
+and a link: the advisory (RHSA) that ships the fix, or the security bulletin (RHSB) when the CVE is not fixed.
 
 ```bash
 cat cves.txt
@@ -195,29 +196,34 @@ cat cves.txt
 CVE-2026-114406
 CVE-2026-16242, CVE-2026-43037
 CVE-2026-46300
+CVE-2021-44228
+CVE-2024-3094
 
-./get_vulnerabilities.sh --cve-file cves.txt 4.21             # table
-./get_vulnerabilities.sh --cve-file cves.txt 4.21.10 csv      # also: is each CVE fixed in 4.21.10?
-./get_vulnerabilities.py 4.21 --cve-file cves.txt --format json
-grep -o 'CVE-[0-9-]*' scan.log | ./get_vulnerabilities.py 4.21 --cve-file -   # read from stdin
+./get_vulnerabilities.sh --cve-file cves.txt 4.22             # stream: fixing release in 4.22
+./get_vulnerabilities.sh --cve-file cves.txt 4.22.18          # release: also, is each CVE fixed in 4.22.18?
+./get_vulnerabilities.sh --cve-file cves.txt 4.22.18 csv      # CSV export
+./get_vulnerabilities.py 4.22 --cve-file cves.txt --format json
+grep -o 'CVE-[0-9-]*' scan.log | ./get_vulnerabilities.py 4.22 --cve-file -   # read from stdin
 ```
 
 ```
 ════════════════════════════════════════════════════════════════════════════════════════════════════
-OpenShift 4.21.10 - Fix status of the CVEs in cves.txt
+OpenShift 4.22.18 - Fix status of the CVEs in cves.txt
 ════════════════════════════════════════════════════════════════════════════════════════════════════
 
-CVE ID           Severity   In 4.21.10           Fixed In / Status    Advisory         Link
---------------------------------------------------------------------------------------------------------------------------------
-CVE-2026-114406  CRITICAL   VULNERABLE           4.21.40              RHSA-2026:89232  https://access.redhat.com/errata/RHSA-2026:89232
-CVE-2026-16242   CRITICAL   VULNERABLE           4.21.27              RHSA-2026:48670  https://access.redhat.com/errata/RHSA-2026:48670
-CVE-2026-43037   CRITICAL   VULNERABLE           4.21.20              RHSA-2026:25186  https://access.redhat.com/errata/RHSA-2026:25186
-CVE-2026-46300   IMPORTANT  VULNERABLE           4.21.17              RHBA-2026:20032  https://access.redhat.com/errata/RHBA-2026:20032
+CVE ID           Severity   CVSS  Published   In 4.22.18           Fixed In / Status    Advisory         Link
+--------------------------------------------------------------------------------------------------------------------------------------------------
+CVE-2026-114406  CRITICAL   6.8   2026-10-20  VULNERABLE           4.22.20              RHSA-2026:89197  https://access.redhat.com/errata/RHSA-2026:89197
+CVE-2026-16242   CRITICAL   9.4   2026-07-17  Not vulnerable       4.22.8               RHSA-2026:48693  https://access.redhat.com/errata/RHSA-2026:48693
+CVE-2026-43037   CRITICAL   8.8   2026-05-01  Not vulnerable       4.22.7               RHSA-2026:44232  https://access.redhat.com/errata/RHSA-2026:44232
+CVE-2026-46300   IMPORTANT  7.8   2026-05-13  Unknown              No fix listed        RHSB-2026-003    https://access.redhat.com/security/vulnerabilities/RHSB-2026-003
+CVE-2021-44228   CRITICAL   9.8   2021-12-10  Unknown              No fix listed        RHSB-2021-009    https://access.redhat.com/security/vulnerabilities/RHSB-2021-009
+CVE-2024-3094    CRITICAL   10.0  2024-03-29  Unknown              No fix listed                         https://access.redhat.com/security/cve/CVE-2024-3094
 
-Total: 4 CVEs
-Fix status: Fixed: 4
-In 4.21.10: VULNERABLE: 4
-Upgrade to 4.21.40 or later to get all available fixes
+Total: 6 CVEs
+Fix status: Fixed: 3, No fix listed: 3
+In 4.22.18: VULNERABLE: 1, Unknown: 3, Not vulnerable: 2
+Upgrade to 4.22.20 or later to get all available fixes
 ```
 
 - The file can use any layout (one per line, comma-separated, comments, a scanner report): every `CVE-YYYY-NNNN`
@@ -225,9 +231,17 @@ Upgrade to 4.21.40 or later to get all available fixes
 - **Fixed In** is the earliest release of the stream with a fix; for CVEs not fixed in the stream it shows
   Red Hat's status instead (Affected, Will not fix, ...) or `No fix listed` when the stream is not concerned.
   Unknown CVE IDs show `Lookup failed` and are named on stderr.
-- The link is the advisory's errata page (`fix_advisory_url` in CSV/JSON). Some fixes ship in a bug fix
-  advisory (RHBA) rather than an RHSA.
-- With a full release (e.g. 4.21.10), the **In 4.21.10** column says whether that release already has the fix.
+- **Link** depends on whether the CVE is fixed in the stream (`link` in CSV/JSON):
+  - **Fixed**: the errata page of the advisory that ships the fix (also in `fix_advisory_url`). Some fixes
+    ship in a bug fix advisory (RHBA) rather than an RHSA.
+  - **Not fixed**: the Red Hat Security Bulletin (RHSB) when Red Hat published one, with its ID in the
+    **Advisory** column (`security_bulletin` in CSV/JSON). Bulletins exist only for high-profile CVEs
+    (e.g. Log4Shell, RHSB-2021-009); for the others the link is the Red Hat CVE page, which gives the
+    status per product.
+- **CVSS** is Red Hat's CVSS v3 base score (`cvss3_score` in CSV/JSON; JSON also has `cvss3_scoring_vector`),
+  **Published** the date the CVE was made public (`public_date`). `N/A` when Red Hat gives none.
+- With a full release (e.g. 4.22.18), the **In 4.22.18** column says whether that release already has the fix:
+  `VULNERABLE` (fixed in a later release: upgrade to **Fixed In**), `Not vulnerable`, or `Unknown`.
 - Works with `--severity` and every output format; not with `--fixed-in`, `--include-unfixed`, `--no-fix`
   or `--advisory-prefix`.
 
@@ -290,7 +304,7 @@ TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 | Script | Best For | Language | Speed | Features |
 |--------|----------|----------|-------|----------|
 | **get_vulnerabilities.sh** | General use | Bash → Python | ~15s | Same data as .py, positional args |
-| **get_vulnerabilities_advanced.sh** | Quick CVE list | Bash + jq | ~1s | No fixed release / status |
+| **get_vulnerabilities_advanced.sh** | Quick CVE list | Bash + jq | ~1s | CVSS + date only: no fixed release / status / links |
 | **get_vulnerabilities.py** | Everything | Python | ~15s | Fixed release, fix status, stats, `--include-unfixed` |
 
 ---
@@ -303,19 +317,31 @@ TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 OpenShift 4.12 - Vulnerabilities Report
 ════════════════════════════════════════════════════════════════════════════════════════════════════
 
-CVE ID           Severity   Fixed In / Status    Advisory         Date        Description
---------------------------------------------------------------------------------------------------------------------------------------------
-CVE-2026-43037   CRITICAL   4.12.92              RHSA-2026:26528  2026-05-01  kernel: ip6_tunnel: clear skb2->cb[] in ip4ip6_err()
-CVE-2023-49569   CRITICAL   4.12.50              RHSA-2024:0832   2024-01-09  go-git: Maliciously crafted Git server replies can lead to p
-CVE-2021-4235    MODERATE   4.12.0               RHSA-2022:7398   2022-12-27  go-yaml: Denial of Service in go-yaml
-CVE-2023-0229    MODERATE   Fixed (see adv.)     RHBA-2023:1037   2023-01-12  openshift/apiserver-library-go: Bypass of SCC seccomp profil
-CVE-2026-75887   IMPORTANT  Affected                              2026-09-23  openshift/console: openshift/console: Unauthenticated path t
-CVE-2026-89713   IMPORTANT  Fix deferred                          2026-09-11  kernel: NFSD: check truncate permission under inode lock
+CVE ID           Severity   CVSS  Published   Fixed In / Status    Advisory         Link                                                               Description
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CVE-2026-43037   CRITICAL   8.8   2026-05-01  4.12.92              RHSA-2026:26528  https://access.redhat.com/errata/RHSA-2026:26528                   kernel: ip6_tunnel: clear skb2->cb[] in ip4ip6_err()
+CVE-2023-49569   CRITICAL   8.1   2024-01-09  4.12.50              RHSA-2024:0832   https://access.redhat.com/errata/RHSA-2024:0832                    go-git: Maliciously crafted Git server replies can lead to p
+CVE-2021-4235    MODERATE   5.5   2022-12-27  4.12.0               RHSA-2022:7398   https://access.redhat.com/errata/RHSA-2022:7398                    go-yaml: Denial of Service in go-yaml
+CVE-2023-0229    MODERATE   6.3   2023-01-12  Fixed (see adv.)     RHBA-2023:1037   https://access.redhat.com/errata/RHBA-2023:1037                    openshift/apiserver-library-go: Bypass of SCC seccomp profil
+CVE-2026-46333   IMPORTANT  7.8   2026-05-15  Fix deferred         RHSB-2026-004    https://access.redhat.com/security/vulnerabilities/RHSB-2026-004   kernel: Read root-owned files as an unprivileged user
+CVE-2026-97631   CRITICAL   8.8   2026-10-22  Affected                              https://access.redhat.com/security/cve/CVE-2026-97631              edk2: Pre-boot RCE in EDK II PXE driver
 
-Total: 2479 vulnerabilities found
-Fix status: Fix deferred: 1121, Affected: 722, Will not fix: 307, Fixed: 253, Under investigation: 39, Out of support scope: 37
+Total: 3992 vulnerabilities found
+Fix status: Fix deferred: 2400, Affected: 918, Will not fix: 312, Fixed: 293, Out of support scope: 37, Under investigation: 32
 ```
-(excerpt of `./get_vulnerabilities.py 4.12 --include-unfixed`; without it only the 253 fixed CVEs are listed)
+(excerpt of `./get_vulnerabilities.py 4.12 --include-unfixed`; without it only the 293 fixed CVEs are listed)
+
+**CVSS** is Red Hat's CVSS v3 base score (`cvss3_score` in CSV/JSON), **Published** the date the CVE was made
+public (`public_date`). **Link** (`link` in CSV/JSON) is where to read about the fix:
+
+| CVE | Advisory column | Link |
+|-----|-----------------|------|
+| Fixed | The advisory that ships the fix (RHSA, sometimes RHBA) | Its errata page, e.g. `https://access.redhat.com/errata/RHSA-2026:26528` |
+| Not fixed, with a Red Hat Security Bulletin | The bulletin (`security_bulletin` in CSV/JSON), e.g. `RHSB-2026-004` | The bulletin page |
+| Not fixed, no bulletin (most CVEs) | empty | The Red Hat CVE page, which gives the status per product |
+
+Bulletins exist only for high-profile CVEs; the script finds them on the CVE page of the unfixed CVEs Red Hat flags
+as having one (a few extra requests). With `--no-fix` there is no fix information, so no link either.
 
 **Fixed In / Status**, per CVE, for the requested version:
 
@@ -336,8 +362,8 @@ advisory's CSAF document (or errata page) gives the release, e.g. `RHSA-2026:542
 
 ### CSV Format
 ```csv
-CVE,severity,public_date,version_status,fix_status,fixed_in,fix_advisory,fix_advisory_url,first_fixed_in,bugzilla,description,advisories
-CVE-2026-43037,critical,2026-05-01T00:00:00Z,Fixed,4.12.92,RHSA-2026:26528,2464351,kernel: ip6_tunnel: clear skb2->cb[] in ip4ip6_err(),RHSA-2026:28741;...
+CVE,severity,cvss3_score,public_date,version_status,fix_status,fixed_in,fix_advisory,fix_advisory_url,security_bulletin,link,first_fixed_in,bugzilla,description,advisories
+CVE-2026-114406,critical,6.8,2026-10-20T13:00:00Z,,Fixed,4.12.102,RHSA-2026:90272,https://access.redhat.com/errata/RHSA-2026:90272,,https://access.redhat.com/errata/RHSA-2026:90272,,2556046,ca-certificates: Distrust eMudhra intermediate CA certificates...,RHSA-2026:90969;...
 ```
 
 ### JSON Format
@@ -350,10 +376,16 @@ CVE-2026-43037,critical,2026-05-01T00:00:00Z,Fixed,4.12.92,RHSA-2026:26528,24643
       "CVE": "CVE-2026-46300",
       "severity": "important",
       "public_date": "2026-05-13T12:00:00Z",
+      "cvss3_score": "7.8",
       "advisories": ["RHSA-2026:21695", "..."],
       "bugzilla": "2477015",
       "bugzilla_description": "kernel: ...",
-      "resource_url": "https://access.redhat.com/hydra/rest/securitydata/cve/CVE-2026-46300.json"
+      "resource_url": "https://access.redhat.com/hydra/rest/securitydata/cve/CVE-2026-46300.json",
+      "fix_status": "Fixed",
+      "fixed_in": "4.21.17",
+      "fix_advisory": "RHBA-2026:20032",
+      "security_bulletin": "",
+      "link": "https://access.redhat.com/errata/RHBA-2026:20032"
     }
   ],
   "source": "Red Hat Security Advisory API"

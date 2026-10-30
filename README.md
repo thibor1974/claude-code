@@ -4,8 +4,8 @@ Command-line tools for checking OpenShift releases, operators and vulnerabilitie
 
 | I want to… | Tool | Documentation |
 |---|---|---|
-| List the CVEs affecting an OpenShift version, and the release that fixes each one | `get_vulnerabilities.py` / `.sh` | [Vulnerability Scanner](VULNERABILITIES_README.md) |
-| Get the fixing release and RHSA link for a list of CVEs in a file | `get_vulnerabilities.py` / `.sh` `--cve-file` | [Vulnerability Scanner](VULNERABILITIES_README.md#fix-release--advisory-for-a-list-of-cves---cve-file) |
+| List the CVEs affecting an OpenShift version, with CVSS score, publication date, the release that fixes each one and its RHSA link (RHSB when not fixed) | `get_vulnerabilities.py` / `.sh` | [Vulnerability Scanner](VULNERABILITIES_README.md) |
+| Get the CVSS score, publication date, fixing release and RHSA link (RHSB when not fixed) for a list of CVEs in a file (e.g. for 4.22 or 4.22.18) | `get_vulnerabilities.py` / `.sh` `--cve-file` | [Vulnerability Scanner](VULNERABILITIES_README.md#fix-release--advisory-for-a-list-of-cves---cve-file) |
 | List the operators available for an OpenShift version, with the latest version per channel | `list_operators.py` | [Operator Versions](OPERATORS_README.md) |
 | See an operator's upgrade graph and the path OLM follows from the installed version | `operator_upgrade_path.py` | [Operator Upgrade Path](OPERATOR_UPGRADE_PATH_README.md) |
 | List the OpenShift releases in a stream and their update channels | `list_versions.py` | `./list_versions.py --help` |

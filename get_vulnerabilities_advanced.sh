@@ -101,8 +101,8 @@ if command -v jq &> /dev/null; then
             jq_run "[ $JQ_FILTER ]"
             ;;
         csv)
-            echo "CVE,Severity,Date,Bugzilla,Description"
-            jq_run -r "$JQ_FILTER | [.CVE, .severity, .public_date, .bugzilla, .bugzilla_description] | @csv"
+            echo "CVE,Severity,CVSS,Published,Bugzilla,Description"
+            jq_run -r "$JQ_FILTER | [.CVE, .severity, .cvss3_score, .public_date, .bugzilla, .bugzilla_description] | @csv"
             ;;
         table|*)
             echo ""
@@ -114,11 +114,11 @@ if command -v jq &> /dev/null; then
             if [ "$COUNT" -eq 0 ]; then
                 echo "No vulnerabilities found."
             else
-                printf '%-16s %-10s %s\n' "CVE ID" "Severity" "Date"
+                printf '%-16s %-10s %-5s %s\n' "CVE ID" "Severity" "CVSS" "Published"
                 echo "─────────────────────────────────────────────────────────────────────────────"
-                jq_run -r "$JQ_FILTER | [.CVE, .severity, (.public_date // \"\")[0:10]] | @tsv" |
-                    while IFS=$'\t' read -r cve sev date; do
-                        printf '%-16s %-10s %s\n' "$cve" "$sev" "$date"
+                jq_run -r "$JQ_FILTER | [.CVE, .severity, (.cvss3_score // \"N/A\"), (.public_date // \"\")[0:10]] | @tsv" |
+                    while IFS=$'\t' read -r cve sev cvss date; do
+                        printf '%-16s %-10s %-5s %s\n' "$cve" "$sev" "$cvss" "$date"
                     done
             fi
 
@@ -159,9 +159,10 @@ format_type = os.environ['FORMAT']
 
 if format_type == "csv":
     writer = csv.writer(sys.stdout)
-    writer.writerow(["CVE", "Severity", "Date", "Bugzilla", "Description"])
+    writer.writerow(["CVE", "Severity", "CVSS", "Published", "Bugzilla", "Description"])
     for item in data:
-        writer.writerow([item.get('CVE', ''), item.get('severity', ''), item.get('public_date', ''),
+        writer.writerow([item.get('CVE', ''), item.get('severity', ''), item.get('cvss3_score') or '',
+                         item.get('public_date', ''),
                          item.get('bugzilla', ''), item.get('bugzilla_description', '')])
 elif format_type == "json":
     print(json.dumps(data, indent=2))
@@ -175,13 +176,14 @@ else:  # table
     if not data:
         print("No vulnerabilities found.")
     else:
-        print(f"{'CVE ID':<16} {'Severity':<10} {'Date'}")
+        print(f"{'CVE ID':<16} {'Severity':<10} {'CVSS':<5} {'Published'}")
         print("-" * 80)
         for item in data:
             cve = item.get('CVE', 'N/A')
             severity = item.get('severity', 'N/A')
+            cvss = item.get('cvss3_score') or 'N/A'
             date = (item.get('public_date') or 'N/A')[:10]
-            print(f"{cve:<16} {severity:<10} {date}")
+            print(f"{cve:<16} {severity:<10} {cvss:<5} {date}")
 
     print()
     print(f"Total: {len(data)} vulnerabilities found")
