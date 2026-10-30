@@ -33,6 +33,11 @@ class FetchError(Exception):
     """Raised when the Red Hat API cannot be reached or returns invalid data"""
 
 
+def advisory_url(advisory: str) -> str:
+    """Errata page of an advisory (e.g. RHSA-2026:54206), '' if none"""
+    return f"{ERRATA_BASE}/{advisory}" if advisory else ''
+
+
 class VulnerabilityScanner:
     """Vulnerability scanner using Red Hat Security API"""
 
@@ -227,6 +232,37 @@ class VulnerabilityScanner:
         for vuln, info in zip(vulns, infos):
             vuln.update(info)
 
+    def read_cve_file(self, path: str) -> List[str]:
+        """CVE IDs from a text file ('-' for stdin), in order, without duplicates. Any layout works
+        (one per line, comma-separated, mixed with other text): every CVE-YYYY-NNNN is picked up."""
+        try:
+            if path == '-':
+                text = sys.stdin.read()
+            else:
+                with open(path, encoding='utf-8', errors='replace') as f:
+                    text = f.read()
+        except OSError as e:
+            raise FetchError(f"cannot read {path}: {e.strerror}")
+        return list(dict.fromkeys(m.upper() for m in re.findall(r'CVE-\d{4}-\d{4,}', text, re.IGNORECASE)))
+
+    def lookup_cves(self, cve_ids: List[str], version: str, workers: int = 8) -> List[Dict]:
+        """One entry per CVE (same fields as the version listing) with its fix info for the stream"""
+        print(f"[*] Fetching fix status for {len(cve_ids)} CVEs in OpenShift {version}...", file=sys.stderr)
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            infos = list(pool.map(lambda cve: self.get_fix_info(cve, version), cve_ids))
+        vulns = []
+        for cve_id, info in zip(cve_ids, infos):
+            cve_data = self.cve_cache.get(cve_id) or {}
+            vulns.append({
+                'CVE': cve_id,
+                'severity': (cve_data.get('threat_severity') or '').lower(),
+                'public_date': cve_data.get('public_date', ''),
+                'bugzilla_description': (cve_data.get('bugzilla') or {}).get('description', ''),
+                **info,
+                'fix_advisory_url': advisory_url(info['fix_advisory']),
+            })
+        return vulns
+
     def add_version_status(self, vulns: List[Dict], release: str):
         """For a full release (e.g. 4.21.17), set version_status on each vulnerability:
           'Not vulnerable'      - fixed in this release or an earlier one
@@ -339,6 +375,46 @@ class VulnerabilityScanner:
 
         return "\n".join(output)
 
+    def format_cve_list_table(self, vulns: List[Dict], version: str, source: str) -> str:
+        """Table for --cve-file: fixing release and advisory link of each listed CVE"""
+        output = []
+        output.append("")
+        output.append("═" * 100)
+        output.append(f"OpenShift {version} - Fix status of the CVEs in {source}")
+        output.append("═" * 100)
+        output.append("")
+
+        if not vulns:
+            output.append("No CVE IDs found in the file.")
+            output.append("")
+            return "\n".join(output)
+
+        with_release = any('version_status' in v for v in vulns)
+        release_header = f"{'In ' + version:<20} " if with_release else ""
+        output.append(f"{'CVE ID':<16} {'Severity':<10} {release_header}{'Fixed In / Status':<20} {'Advisory':<16} {'Link'}")
+        output.append("-" * (128 if with_release else 107))
+
+        for vuln in vulns:
+            severity = (vuln.get('severity') or 'N/A').upper()
+            fixed_in, advisory = self._fix_display(vuln)
+            release_cell = f"{vuln.get('version_status', ''):<20} " if with_release else ""
+            output.append(f"{vuln['CVE']:<16} {severity:<10} {release_cell}{fixed_in:<20} {advisory:<16} "
+                          f"{vuln.get('fix_advisory_url', '')}".rstrip())
+
+        output.append("")
+        output.append(f"Total: {len(vulns)} CVEs")
+        counts = {}
+        for vuln in vulns:
+            counts[vuln['fix_status']] = counts.get(vuln['fix_status'], 0) + 1
+        output.append("Fix status: " + ", ".join(f"{s}: {n}" for s, n in sorted(counts.items(), key=lambda x: -x[1])))
+        if with_release:
+            summary = self._version_summary(vulns)
+            output.append(f"In {version}: {summary[0]}")
+            output.extend(summary[1:])
+        output.append("")
+
+        return "\n".join(output)
+
     def format_csv(self, vulns: List[Dict]) -> str:
         """Format as CSV"""
         import csv
@@ -346,7 +422,8 @@ class VulnerabilityScanner:
 
         output = io.StringIO()
         writer = csv.DictWriter(output, fieldnames=['CVE', 'severity', 'public_date', 'version_status', 'fix_status',
-                                                    'fixed_in', 'fix_advisory', 'first_fixed_in', 'bugzilla',
+                                                    'fixed_in', 'fix_advisory', 'fix_advisory_url',
+                                                    'first_fixed_in', 'bugzilla',
                                                     'description', 'advisories'])
         writer.writeheader()
 
@@ -359,6 +436,7 @@ class VulnerabilityScanner:
                 'fix_status': vuln.get('fix_status', ''),
                 'fixed_in': vuln.get('fixed_in', ''),
                 'fix_advisory': vuln.get('fix_advisory', ''),
+                'fix_advisory_url': advisory_url(vuln.get('fix_advisory', '')),
                 'first_fixed_in': vuln.get('first_fixed_in', ''),
                 'bugzilla': vuln.get('bugzilla', ''),
                 'description': vuln.get('bugzilla_description', ''),
@@ -526,6 +604,8 @@ Examples:
   %(prog)s 4.12 --format csv --no-fix    # Skip fix lookups (faster)
   %(prog)s 4.12 --include-unfixed        # Also list CVEs not fixed in 4.12 (slow)
   %(prog)s --cve CVE-2025-1234           # Show fix status for a specific CVE
+  %(prog)s 4.21 --cve-file cves.txt      # Fixing release and RHSA link of each CVE in the file
+  %(prog)s 4.21.17 --cve-file cves.txt   # Same, plus: is each CVE fixed in 4.21.17?
         '''
     )
 
@@ -533,6 +613,12 @@ Examples:
     parser.add_argument(
         '--cve',
         help='Lookup details for a specific CVE (e.g., CVE-2025-1234)'
+    )
+    parser.add_argument(
+        '--cve-file',
+        metavar='FILE',
+        help="Text file with a list of CVE IDs ('-' for stdin): for each one, the release of the given "
+             "version that fixes it and the advisory link"
     )
     parser.add_argument(
         '--format', '-f',
@@ -584,6 +670,46 @@ Examples:
             sys.exit(1)
         args.output.write(scanner.format_cve_details(cve_data))
         print(f"[*] CVE lookup complete", file=sys.stderr)
+        sys.exit(0)
+
+    # --cve-file: fix info of a given list of CVEs instead of every CVE of the version
+    if args.cve_file:
+        if args.fixed_in or args.include_unfixed or args.no_fix or args.advisory_prefix:
+            print("Error: --cve-file cannot be combined with --fixed-in, --include-unfixed, --no-fix "
+                  "or --advisory-prefix", file=sys.stderr)
+            sys.exit(1)
+        scanner = VulnerabilityScanner()
+        if not args.version or not scanner.validate_version(args.version):
+            print("Error: --cve-file needs an OpenShift version like 4.21 or 4.21.17", file=sys.stderr)
+            sys.exit(1)
+        try:
+            cve_ids = scanner.read_cve_file(args.cve_file)
+        except FetchError as e:
+            print(f"Error: {e}", file=sys.stderr)
+            sys.exit(1)
+        if not cve_ids:
+            print(f"[!] Warning: no CVE IDs found in {args.cve_file}", file=sys.stderr)
+
+        stream = '.'.join(args.version.split('.')[:2])
+        vulns = scanner.lookup_cves(cve_ids, stream)
+        failed = [v['CVE'] for v in vulns if v['fix_status'] == 'Lookup failed']
+        if failed:
+            print(f"[!] Warning: lookup failed (unknown CVE or API error) for: {', '.join(failed)}", file=sys.stderr)
+        if args.severity:
+            vulns = [v for v in vulns if v['severity'] == args.severity]
+        if args.version != stream:
+            scanner.add_version_status(vulns, args.version)
+
+        source = 'stdin' if args.cve_file == '-' else os.path.basename(args.cve_file)
+        if args.format == 'csv':
+            output = scanner.format_csv(vulns)
+        elif args.format == 'json':
+            output = scanner.format_json(vulns, args.version) + "\n"
+        elif args.format == 'stats':
+            output = scanner.format_stats(vulns, args.version, title=f"OpenShift {args.version} - CVEs in {source}")
+        else:  # table
+            output = scanner.format_cve_list_table(vulns, args.version, source)
+        args.output.write(output)
         sys.exit(0)
 
     # --fixed-in RELEASE: the release is also the version to query

@@ -25,6 +25,7 @@ vulns/
 ./get_vulnerabilities.sh 4.21
 ./get_vulnerabilities.sh 4.21 csv > report.csv
 ./get_vulnerabilities.sh --cve CVE-2026-46300    # Check if a CVE is fixed
+./get_vulnerabilities.sh --cve-file cves.txt 4.21  # Fix release + RHSA link per CVE in the file
 ```
 
 ### Option 2: Python (Rich CLI)
@@ -33,6 +34,7 @@ vulns/
 ./get_vulnerabilities.py 4.21 --severity important --format table
 ./get_vulnerabilities.py 4.21 --format stats
 ./get_vulnerabilities.py --cve CVE-2026-46300    # Check if a CVE is fixed
+./get_vulnerabilities.py 4.21 --cve-file cves.txt  # Fix release + RHSA link per CVE in the file
 ```
 
 ### Option 3: Advanced Bash (jq-based, fastest)
@@ -156,6 +158,53 @@ Advisories whose release cannot be determined (a few old ones) cannot be matched
 
 ---
 
+### Fix release & advisory for a list of CVEs (`--cve-file`)
+
+Give a text file of CVE IDs and an OpenShift version: for each CVE, the release of that stream that fixes it
+and the link to the advisory (RHSA) that ships the fix.
+
+```bash
+cat cves.txt
+# CVEs reported by the scanner
+CVE-2026-114406
+CVE-2026-16242, CVE-2026-43037
+CVE-2026-46300
+
+./get_vulnerabilities.sh --cve-file cves.txt 4.21             # table
+./get_vulnerabilities.sh --cve-file cves.txt 4.21.10 csv      # also: is each CVE fixed in 4.21.10?
+./get_vulnerabilities.py 4.21 --cve-file cves.txt --format json
+grep -o 'CVE-[0-9-]*' scan.log | ./get_vulnerabilities.py 4.21 --cve-file -   # read from stdin
+```
+
+```
+════════════════════════════════════════════════════════════════════════════════════════════════════
+OpenShift 4.21.10 - Fix status of the CVEs in cves.txt
+════════════════════════════════════════════════════════════════════════════════════════════════════
+
+CVE ID           Severity   In 4.21.10           Fixed In / Status    Advisory         Link
+--------------------------------------------------------------------------------------------------------------------------------
+CVE-2026-114406  CRITICAL   VULNERABLE           4.21.40              RHSA-2026:89232  https://access.redhat.com/errata/RHSA-2026:89232
+CVE-2026-16242   CRITICAL   VULNERABLE           4.21.27              RHSA-2026:48670  https://access.redhat.com/errata/RHSA-2026:48670
+CVE-2026-43037   CRITICAL   VULNERABLE           4.21.20              RHSA-2026:25186  https://access.redhat.com/errata/RHSA-2026:25186
+CVE-2026-46300   IMPORTANT  VULNERABLE           4.21.17              RHBA-2026:20032  https://access.redhat.com/errata/RHBA-2026:20032
+
+Total: 4 CVEs
+Fix status: Fixed: 4
+In 4.21.10: VULNERABLE: 4
+Upgrade to 4.21.40 or later to get all available fixes
+```
+
+- The file can use any layout (one per line, comma-separated, comments, a scanner report): every `CVE-YYYY-NNNN`
+  is picked up, case-insensitively, and duplicates are dropped. CVEs are listed in file order.
+- **Fixed In** is the earliest release of the stream with a fix; for CVEs not fixed in the stream it shows
+  Red Hat's status instead (Affected, Will not fix, ...) or `No fix listed` when the stream is not concerned.
+  Unknown CVE IDs show `Lookup failed` and are named on stderr.
+- The link is the advisory's errata page (`fix_advisory_url` in CSV/JSON). Some fixes ship in a bug fix
+  advisory (RHBA) rather than an RHSA.
+- With a full release (e.g. 4.21.10), the **In 4.21.10** column says whether that release already has the fix.
+- Works with `--severity` and every output format; not with `--fixed-in`, `--include-unfixed`, `--no-fix`
+  or `--advisory-prefix`.
+
 ## 📊 Data Source
 
 ✅ **Real Red Hat Security API** - Actual vulnerability data for OpenShift versions
@@ -260,7 +309,7 @@ advisory's CSAF document (or errata page) gives the release, e.g. `RHSA-2026:542
 
 ### CSV Format
 ```csv
-CVE,severity,public_date,fix_status,fixed_in,fix_advisory,bugzilla,description,advisories
+CVE,severity,public_date,version_status,fix_status,fixed_in,fix_advisory,fix_advisory_url,first_fixed_in,bugzilla,description,advisories
 CVE-2026-43037,critical,2026-05-01T00:00:00Z,Fixed,4.12.92,RHSA-2026:26528,2464351,kernel: ip6_tunnel: clear skb2->cb[] in ip4ip6_err(),RHSA-2026:28741;...
 ```
 

@@ -5,6 +5,7 @@ Command-line tools for checking OpenShift releases, operators and vulnerabilitie
 | I want to… | Tool | Documentation |
 |---|---|---|
 | List the CVEs affecting an OpenShift version, and the release that fixes each one | `get_vulnerabilities.py` / `.sh` | [Vulnerability Scanner](VULNERABILITIES_README.md) |
+| Get the fixing release and RHSA link for a list of CVEs in a file | `get_vulnerabilities.py` / `.sh` `--cve-file` | [Vulnerability Scanner](VULNERABILITIES_README.md#fix-release--advisory-for-a-list-of-cves---cve-file) |
 | List the operators available for an OpenShift version, with the latest version per channel | `list_operators.py` | [Operator Versions](OPERATORS_README.md) |
 | See an operator's upgrade graph and the path OLM follows from the installed version | `operator_upgrade_path.py` | [Operator Upgrade Path](OPERATOR_UPGRADE_PATH_README.md) |
 | List the OpenShift releases in a stream and their update channels | `list_versions.py` | `./list_versions.py --help` |
@@ -45,6 +46,9 @@ Command-line tools for checking OpenShift releases, operators and vulnerabilitie
 ```bash
 # CVEs affecting OpenShift 4.21
 ./get_vulnerabilities.py 4.21
+
+# Fixing release and RHSA link for each CVE in a file
+./get_vulnerabilities.sh --cve-file cves.txt 4.21
 
 # Operators available for OpenShift 4.21
 ./list_operators.py 4.21

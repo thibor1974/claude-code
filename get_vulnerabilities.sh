@@ -6,6 +6,7 @@
 #          OpenShift release that fixes each one (or its fix status)
 # Usage: ./get_vulnerabilities.sh [options] <version> [format] [severity]
 #        ./get_vulnerabilities.sh --cve CVE-XXXX-XXXX
+#        ./get_vulnerabilities.sh --cve-file FILE <version> [format] [severity]
 #
 # Thin wrapper around get_vulnerabilities.py (which holds all the logic),
 # keeping the positional-argument interface.
@@ -18,6 +19,7 @@
 #
 # Options:
 #   --cve CVE-ID              Fix status of one CVE for every OpenShift version
+#   --cve-file FILE           Only the CVEs listed in FILE: release fixing each one and advisory link
 #   --advisory-prefix LIST    Only CVEs with advisories starting with LIST (e.g. RHSA,RHBA)
 #   --include-unfixed         Also list CVEs not fixed in this version (slow: a few minutes)
 #   --fixed-in                Only the CVEs fixed in this exact release (version must be like 4.21.17)
@@ -31,6 +33,7 @@
 #   ./get_vulnerabilities.sh 4.12 table critical
 #   ./get_vulnerabilities.sh --include-unfixed 4.12 csv important
 #   ./get_vulnerabilities.sh --cve CVE-2026-46300
+#   ./get_vulnerabilities.sh --cve-file cves.txt 4.21.17
 ###############################################################################
 
 set -euo pipefail
@@ -43,6 +46,7 @@ PY_SCRIPT="${SCRIPT_DIR}/get_vulnerabilities.py"
 usage() {
     echo "Usage: $0 [options] <version> [format] [severity]"
     echo "   or: $0 --cve CVE-ID"
+    echo "   or: $0 --cve-file FILE <version> [format] [severity]"
     echo ""
     echo "Arguments:"
     echo "  version   - OpenShift stream (e.g., 4.21) or full release (e.g., 4.21.17)"
@@ -51,6 +55,7 @@ usage() {
     echo ""
     echo "Options:"
     echo "  --cve CVE-ID              Fix status of one CVE for every OpenShift version"
+    echo "  --cve-file FILE           Only the CVEs listed in FILE: release fixing each one and advisory link"
     echo "  --advisory-prefix LIST    Only CVEs with advisories starting with LIST (e.g. RHSA,RHBA)"
     echo "  --include-unfixed         Also list CVEs not fixed in this version (slow: a few minutes)"
     echo "  --fixed-in                Only the CVEs fixed in this exact release (version like 4.21.17)"
@@ -64,6 +69,7 @@ usage() {
     echo "  $0 4.12 table critical"
     echo "  $0 --include-unfixed 4.12 csv important"
     echo "  $0 --cve CVE-2026-46300"
+    echo "  $0 --cve-file cves.txt 4.21.17"
     exit 1
 }
 
@@ -75,12 +81,19 @@ error() {
 OPTS=()
 POSITIONAL=()
 FIXED_IN=false
+CVE_FILE=
 while [ "$#" -gt 0 ]; do
     case "$1" in
         --cve)
             [ "$#" -ge 2 ] || error "--cve requires a CVE ID"
             [[ $2 =~ ^CVE-[0-9]{4}-[0-9]+$ ]] || error "Invalid CVE ID '$2'. Use format like CVE-2026-46300"
             exec python3 "$PY_SCRIPT" --cve "$2"
+            ;;
+        --cve-file)
+            [ "$#" -ge 2 ] || error "--cve-file requires a file"
+            [ -r "$2" ] || error "Cannot read CVE file '$2'"
+            CVE_FILE="$2"
+            shift 2
             ;;
         --advisory-prefix)
             [ "$#" -ge 2 ] || error "--advisory-prefix requires a value (comma-separated prefixes)"
@@ -127,6 +140,11 @@ esac
 if $FIXED_IN; then
     [[ $version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || error "--fixed-in needs a full release like 4.21.17"
     OPTS+=(--fixed-in "$version")
+fi
+
+if [ -n "$CVE_FILE" ]; then
+    $FIXED_IN && error "--cve-file cannot be combined with --fixed-in"
+    OPTS+=(--cve-file "$CVE_FILE")
 fi
 
 # ${OPTS[@]+...} keeps bash 3.2 (macOS) happy with an empty array under set -u
