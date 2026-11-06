@@ -429,7 +429,7 @@ fi
 
 ### Scheduled report in git (GitHub Actions)
 
-The workflow [`.github/workflows/cve-report.yml`](.github/workflows/cve-report.yml) runs every day at 22:00 Belgian time (CET / CEST, summer time handled),
+The workflow [`.github/workflows/cve-report.yml`](.github/workflows/cve-report.yml) runs once a day at the time set by its `cron:` line (in UTC, edit it freely) or on demand (Actions → CVE report → Run workflow),
 generates a Markdown report per release and commits it to [`reports/`](reports/), e.g.
 [`reports/cve-4.22.18.md`](reports/cve-4.22.18.md). GitHub renders it as a page with clickable CVE and RHSA/RHSB links,
 and the file's history (or `git log -p reports/cve-4.22.18.md`) shows what changed from one day to the next:
