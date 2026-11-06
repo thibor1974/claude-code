@@ -403,6 +403,30 @@ fi
 
 ## 🔌 Integration Examples
 
+### Scheduled report in git (GitHub Actions)
+
+The workflow [`.github/workflows/cve-report.yml`](.github/workflows/cve-report.yml) runs every day at 06:00 UTC,
+generates a Markdown report per release and commits it to [`reports/`](reports/), e.g.
+[`reports/cve-4.22.18.md`](reports/cve-4.22.18.md). GitHub renders it as a page with clickable CVE and RHSA/RHSB links,
+and the file's history (or `git log -p reports/cve-4.22.18.md`) shows what changed from one day to the next:
+a CVE that appears, a new fixing release, a status that goes from Affected to Fixed...
+
+- **Releases followed:** edit `RELEASES` in the workflow (space-separated, e.g. `'4.22.18 4.21.17'`). Use your
+  clusters' current release, and update it after each upgrade (the report for the old release stays in git).
+- **Run it now:** Actions tab → *CVE report* → *Run workflow*; the `releases` field overrides the list for that run.
+- **No noise:** the page has no timestamp, so a commit is only made when the data changes. A failed run (API outage)
+  leaves the previous report untouched.
+- **Requirements:** the repository must allow workflows to push (Settings → Actions → General → Workflow permissions:
+  *Read and write*). GitHub pauses scheduled workflows after 60 days without activity in the repository.
+
+The page is produced by the `markdown` output format, which also works by hand:
+
+```bash
+./get_vulnerabilities.py 4.22.18 --format markdown --output reports/cve-4.22.18.md
+./get_vulnerabilities.sh 4.22.18 markdown > report.md
+./get_vulnerabilities.py 4.22 --cve-file cves.txt --format markdown > my-cves.md
+```
+
 ### Jenkins Pipeline
 ```groovy
 stage('Scan Vulnerabilities') {

@@ -8,6 +8,7 @@ Command-line tools for checking OpenShift releases, operators and vulnerabilitie
 | Get the CVSS score, publication date, fixing release and RHSA link (RHSB when not fixed) for a list of CVEs in a file (e.g. for 4.22 or 4.22.18) | `get_vulnerabilities.py` / `.sh` `--cve-file` | [Vulnerability Scanner](VULNERABILITIES_README.md#fix-release--advisory-for-a-list-of-cves---cve-file) |
 | List the operators available for an OpenShift version, with the latest version per channel | `list_operators.py` | [Operator Versions](OPERATORS_README.md) |
 | See an operator's upgrade graph and the path OLM follows from the installed version | `operator_upgrade_path.py` | [Operator Upgrade Path](OPERATOR_UPGRADE_PATH_README.md) |
+| Follow a release's CVEs day by day in a git-tracked Markdown page | `.github/workflows/cve-report.yml` | [Scheduled report](VULNERABILITIES_README.md#scheduled-report-in-git-github-actions) · [reports/](reports/) |
 | List the OpenShift releases in a stream and their update channels | `list_versions.py` | `./list_versions.py --help` |
 
 ## Documentation
@@ -33,6 +34,7 @@ Command-line tools for checking OpenShift releases, operators and vulnerabilitie
 | [list_operators.py](list_operators.py) | Operators and channel heads per OpenShift version | Red Hat Ecosystem Catalog (Pyxis) |
 | [operator_upgrade_path.py](operator_upgrade_path.py) | OLM upgrade graph and upgrade path | Operator index image (`oc image extract`) |
 | [list_versions.py](list_versions.py) | Releases per stream, update channels and release dates | OpenShift update graph (Cincinnati) |
+| [.github/workflows/cve-report.yml](.github/workflows/cve-report.yml) | Daily run of `get_vulnerabilities.py`, commits [reports/](reports/)`cve-<release>.md` when it changes | GitHub Actions |
 
 ## Requirements
 

@@ -5,7 +5,8 @@ A comprehensive bash/Python solution to query **real vulnerabilities** affecting
 ## Features
 
 ✅ **Real-time Data** - Fetches from official Red Hat Security Advisory API  
-✅ **Multiple Output Formats** - Table, CSV, JSON, and Statistics  
+✅ **Multiple Output Formats** - Table, CSV, JSON, Statistics and Markdown  
+✅ **Daily Report in Git** - A GitHub Actions workflow commits a Markdown report every day, so updates show as diffs  
 ✅ **Fixed Release per CVE** - The OpenShift release (e.g. 4.12.92) and advisory that fix each CVE  
 ✅ **Fix Status** - Affected / Fix deferred / Will not fix... for CVEs not fixed yet (`--include-unfixed`)  
 ✅ **Severity Filtering** - Filter by critical, important, moderate, low  
@@ -361,6 +362,24 @@ By Severity:
   LOW: 0
 ```
 
+### Markdown Format
+
+A page with a summary (totals, fix status, minimum upgrade) and a table whose CVE IDs link to the Red Hat CVE page
+and advisories to the RHSA / RHSB. Made for reports kept in git: see
+[Scheduled report in git](#scheduled-report-in-git-github-actions).
+
+```markdown
+# OpenShift 4.22.18 - Vulnerabilities Report
+
+- **Total:** 239 CVEs
+- **In 4.22.18:** VULNERABLE: 67, Not vulnerable: 172
+- **Upgrade to 4.22.20 or later to get all available fixes**
+
+| CVE | Severity | CVSS | Published | In 4.22.18 | Fixed In / Status | Advisory | Description |
+|---|---|---|---|---|---|---|---|
+| [CVE-2026-114406](https://access.redhat.com/security/cve/CVE-2026-114406) | CRITICAL | 6.8 | 2026-10-20 | **VULNERABLE** | 4.22.20 | [RHSA-2026:89197](https://access.redhat.com/errata/RHSA-2026:89197) | ca-certificates: ... |
+```
+
 ## Data Sources
 
 The scripts fetch data from:
@@ -438,6 +457,30 @@ echo "Critical vulnerabilities: $CRITICAL"
 ```
 
 ## Production Usage
+
+### Scheduled report in git (GitHub Actions)
+
+The workflow [`.github/workflows/cve-report.yml`](.github/workflows/cve-report.yml) runs every day at 06:00 UTC,
+generates a Markdown report per release and commits it to [`reports/`](reports/), e.g.
+[`reports/cve-4.22.18.md`](reports/cve-4.22.18.md). GitHub renders it as a page with clickable CVE and RHSA/RHSB links,
+and the file's history (or `git log -p reports/cve-4.22.18.md`) shows what changed from one day to the next:
+a CVE that appears, a new fixing release, a status that goes from Affected to Fixed...
+
+- **Releases followed:** edit `RELEASES` in the workflow (space-separated, e.g. `'4.22.18 4.21.17'`). Use your
+  clusters' current release, and update it after each upgrade (the report for the old release stays in git).
+- **Run it now:** Actions tab → *CVE report* → *Run workflow*; the `releases` field overrides the list for that run.
+- **No noise:** the page has no timestamp, so a commit is only made when the data changes. A failed run (API outage)
+  leaves the previous report untouched.
+- **Requirements:** the repository must allow workflows to push (Settings → Actions → General → Workflow permissions:
+  *Read and write*). GitHub pauses scheduled workflows after 60 days without activity in the repository.
+
+The page is produced by the `markdown` output format, which also works by hand:
+
+```bash
+./get_vulnerabilities.py 4.22.18 --format markdown --output reports/cve-4.22.18.md
+./get_vulnerabilities.sh 4.22.18 markdown > report.md
+./get_vulnerabilities.py 4.22 --cve-file cves.txt --format markdown > my-cves.md
+```
 
 ### Scheduling daily scans
 ```bash

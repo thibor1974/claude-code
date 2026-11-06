@@ -14,7 +14,7 @@
 # Arguments:
 #   version   - OpenShift stream (e.g., 4.21) or full release (e.g., 4.21.17) - REQUIRED.
 #               With a full release, each CVE is also checked against it (fixed / VULNERABLE)
-#   format    - Output format: json, csv, table (default: table)
+#   format    - Output format: table, csv, json, markdown (default: table)
 #   severity  - Filter by severity: critical, important, moderate, low (optional)
 #
 # Options:
@@ -54,7 +54,7 @@ usage() {
     echo ""
     echo "Arguments:"
     echo "  version   - OpenShift stream (e.g., 4.21) or full release (e.g., 4.21.17)"
-    echo "  format    - Output format: json, csv, table (default: table)"
+    echo "  format    - Output format: table, csv, json, markdown (default: table)"
     echo "  severity  - Filter by severity: critical, important, moderate, low"
     echo ""
     echo "Options:"
@@ -135,8 +135,8 @@ severity_filter="${POSITIONAL[2]:-}"
 
 [[ $version =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?$ ]] || error "Invalid version format. Use format like 4.21 or 4.21.17"
 case "$output_format" in
-    table|csv|json) ;;
-    *) error "Invalid format '${output_format}'. Use table, csv or json" ;;
+    table|csv|json|markdown) ;;
+    *) error "Invalid format '${output_format}'. Use table, csv, json or markdown" ;;
 esac
 case "$severity_filter" in
     '') ;;
