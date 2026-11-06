@@ -289,10 +289,16 @@ Upgrade to 4.22.20 or later to get all available fixes
 
 ## Output Formats
 
+Every report starts with its date and time of generation (local time and time zone, e.g.
+`Generated on 2026-11-06 21:45:14 CET`): under the title in the table, stats, `--cve` and `--cve-file` outputs and
+the Markdown page, and as the first `generated` field in JSON. CSV has no such line, so that it stays a plain table
+for spreadsheets and CSV tools.
+
 ### Table Format (Default - with fixed release / fix status)
 ```
 ════════════════════════════════════════════════════════════════════════════════════════════════════
 OpenShift 4.12 - Vulnerabilities Report
+Generated on 2026-11-06 21:45:14 CET
 ════════════════════════════════════════════════════════════════════════════════════════════════════
 
 CVE ID           Severity   CVSS  Published   Fixed In / Status    Advisory         Link                                                               Description
@@ -348,6 +354,7 @@ CVE-2026-114406,critical,6.8,2026-10-20T13:00:00Z,,Fixed,4.12.102,RHSA-2026:9027
 ### JSON Format
 ```json
 {
+  "generated": "2026-11-06 21:45:17 CET",
   "version": "4.21",
   "count": 27,
   "vulnerabilities": [
@@ -394,6 +401,8 @@ and advisories to the RHSA / RHSB. Made for reports kept in git: see
 
 ```markdown
 # OpenShift 4.22.18 - Vulnerabilities Report
+
+Generated on 2026-11-06 06:00:42 UTC by `get_vulnerabilities.py` from the Red Hat Security Data API.
 
 - **Total:** 67 CVEs
 - **In 4.22.18:** VULNERABLE: 67, Not vulnerable: 172 (not listed)
@@ -514,7 +523,8 @@ a CVE that appears, a new fixing release, a status that goes from Affected to Fi
 - **Releases followed:** edit `RELEASES` in the workflow (space-separated, e.g. `'4.22.18 4.21.17'`). Use your
   clusters' current release, and update it after each upgrade (the report for the old release stays in git).
 - **Run it now:** Actions tab → *CVE report* → *Run workflow*; the `releases` field overrides the list for that run.
-- **No noise:** the page has no timestamp, so a commit is only made when the data changes. A failed run (API outage)
+- **No noise:** a commit is only made when the data changes: a new "Generated on" date alone is ignored, so the
+  date at the top of the page is when the data last changed. A failed run (API outage)
   leaves the previous report untouched.
 - **Requirements:** the repository must allow workflows to push (Settings → Actions → General → Workflow permissions:
   *Read and write*). GitHub pauses scheduled workflows after 60 days without activity in the repository.
