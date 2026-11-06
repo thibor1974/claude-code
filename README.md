@@ -29,7 +29,7 @@ Command-line tools for checking OpenShift releases, operators and vulnerabilitie
 | Script | Purpose | Data source |
 |---|---|---|
 | [get_vulnerabilities.py](get_vulnerabilities.py) | Vulnerability scanner (holds all the logic) | Red Hat Security Data API |
-| [get_vulnerabilities.sh](get_vulnerabilities.sh) | Bash wrapper around the Python scanner, with positional arguments | Red Hat Security Data API |
+| [get_vulnerabilities.sh](get_vulnerabilities.sh) | Bash wrapper around the Python scanner: same options, plus positional `<version> [format] [severity]` shortcuts | Red Hat Security Data API |
 | [get_vulnerabilities_advanced.sh](get_vulnerabilities_advanced.sh) | jq-based scanner, for speed | Red Hat Security Data API |
 | [list_operators.py](list_operators.py) | Operators and channel heads per OpenShift version | Red Hat Ecosystem Catalog (Pyxis) |
 | [operator_upgrade_path.py](operator_upgrade_path.py) | OLM upgrade graph and upgrade path | Operator index image (`oc image extract`) |

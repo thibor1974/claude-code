@@ -27,6 +27,7 @@ FIX_STATE_PRIORITY = ['Affected', 'Fix deferred', 'Under investigation', 'Will n
                       'Out of support scope', 'Not affected']
 # Unfixed states that mean the stream ships the vulnerable code
 UNFIXED_STATES = {'Affected', 'Fix deferred', 'Will not fix', 'Out of support scope'}
+SEVERITIES = ['critical', 'important', 'moderate', 'low']  # most severe first
 # version_status values (full release given, e.g. 4.21.17), most urgent first
 VERSION_STATUS_ORDER = ['VULNERABLE', 'Vulnerable (no fix)', 'Unknown', 'Not vulnerable']
 
@@ -62,6 +63,7 @@ class VulnerabilityScanner:
         self.cve_cache = {}  # Cache CVE details to avoid duplicate API calls
         self.release_cache = {}  # (advisory, stream) -> OCP release (e.g. 4.12.96) or None
         self.per_page = 1000
+        self.hidden_fixed = 0  # full release: CVEs already fixed in it, left out of the report (--show-fixed)
 
     def validate_version(self, version: str) -> bool:
         """Validate version format: stream (e.g. 4.21) or full release (e.g. 4.21.17)"""
@@ -348,14 +350,28 @@ class VulnerabilityScanner:
 
     def _version_summary(self, vulns: List[Dict]) -> List[str]:
         """Summary lines for version_status: counts and the minimum upgrade fixing all fixable CVEs"""
-        counts = {}
+        counts = {'Not vulnerable': self.hidden_fixed} if self.hidden_fixed else {}
         for vuln in vulns:
             counts[vuln['version_status']] = counts.get(vuln['version_status'], 0) + 1
-        lines = [", ".join(f"{s}: {counts[s]}" for s in VERSION_STATUS_ORDER if s in counts)]
+        lines = [", ".join(f"{s}: {counts[s]}" + (" (not listed)" if s == 'Not vulnerable' and self.hidden_fixed else "")
+                           for s in VERSION_STATUS_ORDER if s in counts)]
         targets = [v['fixed_in'] for v in vulns if v['version_status'] == 'VULNERABLE']
         if targets:
             lines.append(f"Upgrade to {max(targets, key=self._version_key)} or later to get all available fixes")
         return lines
+
+    def hide_fixed(self, vulns: List[Dict]) -> List[Dict]:
+        """Full release: leave out the CVEs already fixed in it or earlier (counted in hidden_fixed)"""
+        kept = [v for v in vulns if v.get('version_status') != 'Not vulnerable']
+        self.hidden_fixed = len(vulns) - len(kept)
+        return kept
+
+    def _hidden_note(self) -> List[str]:
+        """Summary line about the CVEs hide_fixed left out"""
+        if not self.hidden_fixed:
+            return []
+        return [f"Not listed: {self.hidden_fixed} CVEs already fixed in this release or an earlier one "
+                "(--show-fixed to list them)"]
 
     def _fix_display(self, vuln: Dict) -> Tuple[str, str]:
         """(Fixed In / Status, Advisory) cells for the table: the security bulletin when not fixed"""
@@ -376,6 +392,7 @@ class VulnerabilityScanner:
 
         if not vulns:
             output.append("No vulnerabilities found for the specified criteria.")
+            output.extend(self._hidden_note())
             output.append("")
             return "\n".join(output)
 
@@ -420,6 +437,7 @@ class VulnerabilityScanner:
             summary = self._version_summary(vulns)
             output.append(f"In {version}: {summary[0]}")
             output.extend(summary[1:])
+        output.extend(self._hidden_note())
         output.append("")
 
         return "\n".join(output)
@@ -463,6 +481,7 @@ class VulnerabilityScanner:
             summary = self._version_summary(vulns)
             output.append(f"In {version}: {summary[0]}")
             output.extend(summary[1:])
+        output.extend(self._hidden_note())
         output.append("")
 
         return "\n".join(output)
@@ -479,6 +498,7 @@ class VulnerabilityScanner:
         output.append("")
         if not vulns:
             output.append("No vulnerabilities found for the specified criteria.")
+            output.extend(f"\n{line}" for line in self._hidden_note())
             return "\n".join(output) + "\n"
 
         output.append(f"- **Total:** {len(vulns)} CVEs")
@@ -493,6 +513,7 @@ class VulnerabilityScanner:
             summary = self._version_summary(vulns)
             output.append(f"- **In {version}:** {summary[0]}")
             output.extend(f"- **{line}**" for line in summary[1:])
+        output.extend(f"- {line}" for line in self._hidden_note())
         if fixed_in_release:
             earlier = sum(1 for v in vulns if v.get('first_fixed_in'))
             output.append(f"- **First fixed in {fixed_in_release}:** {len(vulns) - earlier}, "
@@ -560,6 +581,7 @@ class VulnerabilityScanner:
             "stream": '.'.join(version.split('.')[:2]),
             **({"fixed_in_release": fixed_in} if fixed_in else {}),
             "count": len(vulns),
+            **({"not_listed_fixed": self.hidden_fixed} if self.hidden_fixed else {}),
             "vulnerabilities": vulns,
             "generated": datetime.now().isoformat(),
             "source": "Red Hat Security Advisory API"
@@ -603,6 +625,7 @@ class VulnerabilityScanner:
                 output.append(f"In {version}:")
                 output.extend(f"  {part}" for part in summary[0].split(", "))
                 output.extend(summary[1:])
+        output.extend(self._hidden_note())
 
         output.append("")
         return "\n".join(output)
@@ -709,9 +732,12 @@ def main():
         epilog='''
 Examples:
   %(prog)s 4.21                          # List all vulnerabilities
-  %(prog)s 4.21.17                       # Same, plus: is each CVE fixed in 4.21.17?
+  %(prog)s 4.21.17                       # CVEs 4.21.17 is still exposed to (fixed later, or not fixed)
+  %(prog)s 4.21.17 --skip-unfixed        # Same, without the CVEs not fixed yet (fast)
+  %(prog)s 4.21.17 --show-fixed          # Same, plus the CVEs already fixed in 4.21.17 or earlier
   %(prog)s --fixed-in 4.21.17            # CVEs fixed by the 4.21.17 release
   %(prog)s 4.12 --severity critical      # List critical vulnerabilities only
+  %(prog)s 4.12 --min-severity important # Critical and important vulnerabilities
   %(prog)s 4.12 --format csv             # Export as CSV
   %(prog)s 4.12 --format json            # Export as JSON
   %(prog)s 4.12 --format stats           # Show statistics
@@ -748,6 +774,11 @@ Examples:
         help='Filter by severity level'
     )
     parser.add_argument(
+        '--min-severity',
+        choices=SEVERITIES,
+        help='Keep this severity level and the more severe ones (e.g. important = critical + important)'
+    )
+    parser.add_argument(
         '--output', '-o',
         type=argparse.FileType('w'),
         default=sys.stdout,
@@ -763,10 +794,22 @@ Examples:
         help='Skip the per-CVE fix lookups (faster; fix columns stay empty)'
     )
     parser.add_argument(
+        '--show-fixed',
+        action='store_true',
+        help='With a full release (e.g. 4.21.17): also list the CVEs already fixed in it or an earlier '
+             'release (by default they are only counted)'
+    )
+    parser.add_argument(
         '--include-unfixed',
         action='store_true',
         help='Also list CVEs NOT fixed in this version (Affected, Fix deferred, Will not fix, ...). '
-             'Checks ~4000 OpenShift 4 CVEs, takes a few minutes'
+             'Checks the ~6500 OpenShift 4 CVEs, takes a few minutes. Default with a full release (e.g. 4.21.17)'
+    )
+    parser.add_argument(
+        '--skip-unfixed',
+        action='store_true',
+        help='With a full release: do not look for the CVEs with no fix yet (fast, but only the CVEs '
+             'fixed in a later release are listed)'
     )
     parser.add_argument(
         '--fixed-in',
@@ -775,6 +818,17 @@ Examples:
     )
 
     args = parser.parse_args()
+    if args.severity and args.min_severity:
+        parser.error("--severity and --min-severity are mutually exclusive")
+
+    def severity_ok(v: Dict) -> bool:
+        """--severity (exact level) / --min-severity (that level or more severe)"""
+        severity = (v.get('severity') or '').lower()
+        if args.severity:
+            return severity == args.severity
+        if args.min_severity:
+            return severity in SEVERITIES[:SEVERITIES.index(args.min_severity) + 1]
+        return True
 
     # Handle CVE detail lookup mode
     if args.cve:
@@ -811,8 +865,7 @@ Examples:
         failed = [v['CVE'] for v in vulns if v['fix_status'] == 'Lookup failed']
         if failed:
             print(f"[!] Warning: lookup failed (unknown CVE or API error) for: {', '.join(failed)}", file=sys.stderr)
-        if args.severity:
-            vulns = [v for v in vulns if v['severity'] == args.severity]
+        vulns = [v for v in vulns if severity_ok(v)]
         if args.version != stream:
             scanner.add_version_status(vulns, args.version)
 
@@ -843,6 +896,10 @@ Examples:
             sys.exit(1)
         args.version = args.fixed_in
 
+    if args.include_unfixed and args.skip_unfixed:
+        print("Error: --include-unfixed and --skip-unfixed are mutually exclusive", file=sys.stderr)
+        sys.exit(1)
+
     # Handle version-based vulnerability listing mode
     if not args.version:
         parser.print_help()
@@ -858,9 +915,17 @@ Examples:
     # A full release (4.21.17) queries its stream (4.21), then checks each CVE against the release
     stream = '.'.join(args.version.split('.')[:2])
     release = args.version if args.version != stream else None
+    if args.show_fixed and not release:
+        print(f"[!] Warning: --show-fixed only applies to a full release like {stream}.17; "
+              f"for the {stream} stream every CVE is listed anyway", file=sys.stderr)
     if release and args.no_fix:
         print(f"[!] Warning: --no-fix skips the fix lookups, so CVEs cannot be checked against {release}",
               file=sys.stderr)
+    # A full release is also exposed to the CVEs with no fix yet: look for them unless told not to
+    if release and not (args.fixed_in or args.no_fix or args.skip_unfixed or args.include_unfixed):
+        args.include_unfixed = True
+        print(f"[*] Also looking for CVEs with no fix yet that affect {release} "
+              "(a few minutes; --skip-unfixed to skip)", file=sys.stderr)
 
     # Fetch vulnerabilities
     try:
@@ -876,7 +941,7 @@ Examples:
     prefixes = tuple(p.strip().upper() for p in (args.advisory_prefix or '').split(',') if p.strip())
 
     def keep(v: Dict) -> bool:
-        if args.severity and (v.get('severity') or '').lower() != args.severity:
+        if not severity_ok(v):
             return False
         return not prefixes or any(a.upper().startswith(prefixes) for a in (v.get('advisories') or []))
 
@@ -905,6 +970,11 @@ Examples:
     # Full release given: is each CVE fixed in it? Most urgent first (sort is stable, severity kept within)
     elif release and not args.no_fix:
         scanner.add_version_status(vulns, release)
+        if not args.show_fixed:
+            vulns = scanner.hide_fixed(vulns)
+            if scanner.hidden_fixed:
+                print(f"[*] {scanner.hidden_fixed} CVEs already fixed in {release} or earlier are not listed "
+                      "(--show-fixed to list them)", file=sys.stderr)
         vulns.sort(key=lambda v: VERSION_STATUS_ORDER.index(v['version_status']))
 
     # Link per CVE: advisory (RHSA) when fixed, security bulletin (RHSB) or CVE page when not
