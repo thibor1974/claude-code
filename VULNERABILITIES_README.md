@@ -402,7 +402,7 @@ and advisories to the RHSA / RHSB. Made for reports kept in git: see
 ```markdown
 # OpenShift 4.22.18 - Vulnerabilities Report
 
-Generated on 2026-11-06 06:00:42 UTC by `get_vulnerabilities.py` from the Red Hat Security Data API.
+Generated on 2026-11-06 22:00:42 CET by `get_vulnerabilities.py` from the Red Hat Security Data API.
 
 - **Total:** 67 CVEs
 - **In 4.22.18:** VULNERABLE: 67, Not vulnerable: 172 (not listed)
@@ -511,7 +511,7 @@ echo "Critical vulnerabilities: $CRITICAL"
 
 ### Scheduled report in git (GitHub Actions)
 
-The workflow [`.github/workflows/cve-report.yml`](.github/workflows/cve-report.yml) runs every day at 06:00 UTC,
+The workflow [`.github/workflows/cve-report.yml`](.github/workflows/cve-report.yml) runs every day at 22:00 Belgian time (CET / CEST, summer time handled),
 generates a Markdown report per release and commits it to [`reports/`](reports/), e.g.
 [`reports/cve-4.22.18.md`](reports/cve-4.22.18.md). GitHub renders it as a page with clickable CVE and RHSA/RHSB links,
 and the file's history (or `git log -p reports/cve-4.22.18.md`) shows what changed from one day to the next:
