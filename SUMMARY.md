@@ -80,7 +80,7 @@ Fixed in OpenShift Container Platform:
 # Every CVE fixed in 4.12, with the 4.12.z release that fixes it
 ./get_vulnerabilities.sh 4.12 csv > fixed_4.12.csv
 
-# Also include CVEs NOT fixed in 4.12 (Affected, Fix deferred, Will not fix...) - about 6 minutes
+# Also include CVEs NOT fixed in 4.12 (Affected, Fix deferred, Will not fix...) - takes 2-3 minutes
 ./get_vulnerabilities.py 4.12 --include-unfixed --format csv > status_4.12.csv
 ./get_vulnerabilities.sh --include-unfixed 4.12 table important
 
@@ -93,41 +93,29 @@ Fixed in OpenShift Container Platform:
 
 ### Check a specific release (e.g. 4.21.17)
 
-Give the full release instead of the stream to see which CVEs your cluster is still exposed to:
-
-- **Fixed in a later release** (`VULNERABLE`): **Fixed In** is the release to upgrade to.
-- **Not fixed yet** (`Vulnerable (no fix)`: Affected, Fix deferred, Will not fix...): these are looked up
-  by default for a full release. Red Hat files them against "OpenShift Container Platform 4", so the script
-  checks all ~7000 OpenShift 4 CVEs: about 6 minutes, or about 1 minute with `--min-severity important`.
-  `--skip-unfixed` skips them (~15 seconds, but the report then misses the CVEs with no fix).
-- **Already fixed** in that release or an earlier one (e.g. fixed in 4.21.10 when you run 4.21.17): left out
-  and only counted in the summary. Add `--show-fixed` to list them too.
+Give the full release instead of the stream to see which CVEs your cluster is still exposed to. Only those are
+listed: the CVEs already fixed in that release or an earlier one (e.g. fixed in 4.21.10 when you run 4.21.17) are
+left out and only counted in the summary. Add `--show-fixed` to list them too.
 
 ```bash
-./get_vulnerabilities.sh 4.21.17                          # table, most urgent first (~6 min)
-./get_vulnerabilities.sh 4.21.17 --min-severity important # critical + important only (~1 min)
+./get_vulnerabilities.sh 4.21.17                      # table, most urgent first
 ./get_vulnerabilities.sh 4.21.17 csv important > exposure_4.21.17.csv
-./get_vulnerabilities.py 4.21.17 --format stats           # counts + minimum upgrade
-./get_vulnerabilities.py 4.21.17 --skip-unfixed           # fast: only the CVEs fixed in a later release
-./get_vulnerabilities.sh 4.21.17 --show-fixed             # also the CVEs already fixed in 4.21.17 or earlier
+./get_vulnerabilities.py 4.21.17 --format stats       # counts + minimum upgrade
+./get_vulnerabilities.py 4.21.17 --include-unfixed    # also CVEs with no fix yet (slow)
+./get_vulnerabilities.sh 4.21.17 --show-fixed         # also the CVEs already fixed in 4.21.17 or earlier
 ```
 
 ```
-$ ./get_vulnerabilities.sh 4.22.18 --min-severity important
-CVE ID           Severity   CVSS  Published   In 4.22.18           Fixed In / Status    Advisory         Link                                                               Description
-CVE-2026-114406  CRITICAL   6.8   2026-10-20  VULNERABLE           4.22.20              RHSA-2026:89197  https://access.redhat.com/errata/RHSA-2026:89197                   ca-certificates: Distrust eMudhra intermediate CA certificat
-CVE-2026-111943  IMPORTANT  6.8   2026-10-20  VULNERABLE           4.22.20              RHSA-2026:89196  https://access.redhat.com/errata/RHSA-2026:89196                   crypto/x509: golang: crypto/x509: Man-in-the-middle attacks
+CVE ID           Severity   CVSS  Published   In 4.21.17           Fixed In / Status    Advisory         Link                                                               Description
+CVE-2026-114406  CRITICAL   6.8   2026-10-20  VULNERABLE           4.21.40              RHSA-2026:89232  https://access.redhat.com/errata/RHSA-2026:89232                   ca-certificates: Distrust eMudhra intermediate CA certificat
+CVE-2026-16242   CRITICAL   9.4   2026-07-17  VULNERABLE           4.21.27              RHSA-2026:48670  https://access.redhat.com/errata/RHSA-2026:48670                   hypershift: Konnectivity proxy-server accepts agent connecti
+CVE-2026-43037   CRITICAL   8.8   2026-05-01  VULNERABLE           4.21.20              RHSA-2026:25186  https://access.redhat.com/errata/RHSA-2026:25186                   kernel: ip6_tunnel: clear skb2->cb[] in ip4ip6_err()
 ...
-CVE-2026-98432   CRITICAL   9.8   2026-10-15  Vulnerable (no fix)  Affected             RHSB-2026-016    https://access.redhat.com/security/vulnerabilities/RHSB-2026-016   kernel: ipv4: free inet_opt and ireq_opt after an RCU grace
-CVE-2026-97631   CRITICAL   8.8   2026-10-22  Vulnerable (no fix)  Affected                              https://access.redhat.com/security/cve/CVE-2026-97631              edk2: Pre-boot RCE in EDK II PXE driver
-...
-CVE-2026-77299   IMPORTANT  7.5   2026-11-06  Unknown              Under investigation                   https://access.redhat.com/security/cve/CVE-2026-77299              github.com/dlclark/regexp2: regexp2: Denial of Service via u
-...
-Total: 515 vulnerabilities found
-Fix status: Affected: 355, Will not fix: 84, Fixed: 47, Fix deferred: 14, Under investigation: 11, Out of support scope: 4
-In 4.22.18: VULNERABLE: 47, Vulnerable (no fix): 457, Unknown: 11, Not vulnerable: 146 (not listed)
-Upgrade to 4.22.20 or later to get all available fixes
-Not listed: 146 CVEs already fixed in this release or an earlier one (--show-fixed to list them)
+Total: 164 vulnerabilities found
+Fix status: Fixed: 164
+In 4.21.17: VULNERABLE: 164, Not vulnerable: 27 (not listed)
+Upgrade to 4.21.41 or later to get all available fixes
+Not listed: 27 CVEs already fixed in this release or an earlier one (--show-fixed to list them)
 ```
 
 The **In 4.21.17** column (`version_status` in CSV/JSON):
@@ -136,15 +124,11 @@ The **In 4.21.17** column (`version_status` in CSV/JSON):
 |-------|---------|
 | `VULNERABLE` | Fixed in a later release; **Fixed In** is the release to upgrade to |
 | `Not vulnerable` | The fix shipped in this release or an earlier one. Not listed, only counted (`not_listed_fixed` in JSON), unless `--show-fixed` |
-| `Vulnerable (no fix)` | No fix in this stream yet (Affected / Fix deferred / Will not fix / Out of support scope); looked up by default, not with `--skip-unfixed` |
-| `Unknown` | The fixing release could not be determined (e.g. `Fixed (see adv.)`), or Red Hat is still investigating |
+| `Vulnerable (no fix)` | No fix in this stream yet (Affected / Fix deferred / Will not fix; with `--include-unfixed`) |
+| `Unknown` | The fixing release could not be determined (e.g. `Fixed (see adv.)`), or under investigation |
 
 The data is still fetched for the whole stream (4.21). "VULNERABLE" means the fix came after your release;
 Red Hat does not publish whether an individual earlier release actually shipped the vulnerable code.
-For the CVEs with no fix, Red Hat gives one status per package for "OpenShift 4" as a whole, not per release, and
-the script keeps the most serious one (e.g. Affected for the RHEL 9 CoreOS even if the RHEL 8 one is not affected).
-Most are RHEL CoreOS (kernel, system packages) CVEs that Red Hat defers; check the CVE page (**Link**) for the
-packages concerned.
 
 ### CVEs fixed in a specific release (`--fixed-in`)
 
@@ -239,7 +223,7 @@ Upgrade to 4.22.20 or later to get all available fixes
 - With a full release (e.g. 4.22.18), the **In 4.22.18** column says whether that release already has the fix:
   `VULNERABLE` (fixed in a later release: upgrade to **Fixed In**), `Not vulnerable`, or `Unknown`. Unlike the
   release check above, every CVE of the file is listed, including the ones already fixed.
-- Works with `--severity`, `--min-severity` and every output format; not with `--fixed-in`, `--include-unfixed`, `--no-fix`
+- Works with `--severity` and every output format; not with `--fixed-in`, `--include-unfixed`, `--no-fix`
   or `--advisory-prefix`.
 
 ## 📊 Data Source
@@ -352,10 +336,9 @@ How it is computed: the CVE's `affected_release` entries for this stream give th
 advisory's CSAF document (or errata page) gives the release, e.g. `RHSA-2026:54206` → `4.12.96`.
 
 > **Important:** the product query for a version (e.g. 4.12) only returns CVEs Red Hat has **already fixed** in it.
-> To also see CVEs that are **not fixed**, add `--include-unfixed` (the default with a full release like 4.12.96): it
-> checks the ~7000 CVEs filed against the generic "OpenShift Container Platform 4" product (about 6 minutes, about 1
-> minute with `--min-severity important`). Red Hat publishes that status for "OCP 4" as a whole, not per minor version,
-> so some of those rows concern components the version you asked for may not ship.
+> To also see CVEs that are **not fixed**, add `--include-unfixed`: it checks the ~4000 CVEs filed against the generic
+> "OpenShift Container Platform 4" product (takes 2-3 minutes). Red Hat publishes that status for "OCP 4" as a whole,
+> not per minor version, so some of those rows concern components the version you asked for may not ship.
 
 ### CSV Format
 ```csv
@@ -435,9 +418,6 @@ generates a Markdown report per release and commits it to [`reports/`](reports/)
 and the file's history (or `git log -p reports/cve-4.22.18.md`) shows what changed from one day to the next:
 a CVE that appears, a new fixing release, a status that goes from Affected to Fixed...
 
-- **Severity:** `MIN_SEVERITY: 'important'` keeps critical and important CVEs. Each release also has ~3000
-  moderate/low CVEs with no fix yet; with every severity the page grows past 1 MB and GitHub no longer renders it.
-  Set it to `''` for everything (fine for CSV/JSON, too big for a Markdown page).
 - **Releases followed:** edit `RELEASES` in the workflow (space-separated, e.g. `'4.22.18 4.21.17'`). Use your
   clusters' current release, and update it after each upgrade (the report for the old release stays in git).
 - **Run it now:** Actions tab → *CVE report* → *Run workflow*; the `releases` field overrides the list for that run.
@@ -510,7 +490,7 @@ spec:
 ✓ Multiple output formats (table, CSV, JSON, stats)  
 ✓ Severity filtering (critical, important, moderate, low)  
 ✓ Exits with code 1 (never an empty report) when the API is unreachable  
-✓ Table/CSV/JSON ~15 seconds (fix lookups run in parallel); stats and `--no-fix` ~1-2 seconds; `--include-unfixed` (default with a full release) ~6 minutes, ~1 minute with `--min-severity important`  
+✓ Table/CSV/JSON ~15 seconds (fix lookups run in parallel); stats and `--no-fix` ~1-2 seconds; `--include-unfixed` 2-3 minutes  
 ✓ Works on macOS and Linux  
 
 ---

@@ -27,7 +27,6 @@ FIX_STATE_PRIORITY = ['Affected', 'Fix deferred', 'Under investigation', 'Will n
                       'Out of support scope', 'Not affected']
 # Unfixed states that mean the stream ships the vulnerable code
 UNFIXED_STATES = {'Affected', 'Fix deferred', 'Will not fix', 'Out of support scope'}
-SEVERITIES = ['critical', 'important', 'moderate', 'low']  # most severe first
 # version_status values (full release given, e.g. 4.21.17), most urgent first
 VERSION_STATUS_ORDER = ['VULNERABLE', 'Vulnerable (no fix)', 'Unknown', 'Not vulnerable']
 
@@ -733,11 +732,9 @@ def main():
 Examples:
   %(prog)s 4.21                          # List all vulnerabilities
   %(prog)s 4.21.17                       # CVEs 4.21.17 is still exposed to (fixed later, or not fixed)
-  %(prog)s 4.21.17 --skip-unfixed        # Same, without the CVEs not fixed yet (fast)
   %(prog)s 4.21.17 --show-fixed          # Same, plus the CVEs already fixed in 4.21.17 or earlier
   %(prog)s --fixed-in 4.21.17            # CVEs fixed by the 4.21.17 release
   %(prog)s 4.12 --severity critical      # List critical vulnerabilities only
-  %(prog)s 4.12 --min-severity important # Critical and important vulnerabilities
   %(prog)s 4.12 --format csv             # Export as CSV
   %(prog)s 4.12 --format json            # Export as JSON
   %(prog)s 4.12 --format stats           # Show statistics
@@ -774,11 +771,6 @@ Examples:
         help='Filter by severity level'
     )
     parser.add_argument(
-        '--min-severity',
-        choices=SEVERITIES,
-        help='Keep this severity level and the more severe ones (e.g. important = critical + important)'
-    )
-    parser.add_argument(
         '--output', '-o',
         type=argparse.FileType('w'),
         default=sys.stdout,
@@ -803,13 +795,7 @@ Examples:
         '--include-unfixed',
         action='store_true',
         help='Also list CVEs NOT fixed in this version (Affected, Fix deferred, Will not fix, ...). '
-             'Checks the ~6500 OpenShift 4 CVEs, takes a few minutes. Default with a full release (e.g. 4.21.17)'
-    )
-    parser.add_argument(
-        '--skip-unfixed',
-        action='store_true',
-        help='With a full release: do not look for the CVEs with no fix yet (fast, but only the CVEs '
-             'fixed in a later release are listed)'
+             'Checks ~4000 OpenShift 4 CVEs, takes a few minutes'
     )
     parser.add_argument(
         '--fixed-in',
@@ -818,17 +804,6 @@ Examples:
     )
 
     args = parser.parse_args()
-    if args.severity and args.min_severity:
-        parser.error("--severity and --min-severity are mutually exclusive")
-
-    def severity_ok(v: Dict) -> bool:
-        """--severity (exact level) / --min-severity (that level or more severe)"""
-        severity = (v.get('severity') or '').lower()
-        if args.severity:
-            return severity == args.severity
-        if args.min_severity:
-            return severity in SEVERITIES[:SEVERITIES.index(args.min_severity) + 1]
-        return True
 
     # Handle CVE detail lookup mode
     if args.cve:
@@ -865,7 +840,8 @@ Examples:
         failed = [v['CVE'] for v in vulns if v['fix_status'] == 'Lookup failed']
         if failed:
             print(f"[!] Warning: lookup failed (unknown CVE or API error) for: {', '.join(failed)}", file=sys.stderr)
-        vulns = [v for v in vulns if severity_ok(v)]
+        if args.severity:
+            vulns = [v for v in vulns if v['severity'] == args.severity]
         if args.version != stream:
             scanner.add_version_status(vulns, args.version)
 
@@ -896,10 +872,6 @@ Examples:
             sys.exit(1)
         args.version = args.fixed_in
 
-    if args.include_unfixed and args.skip_unfixed:
-        print("Error: --include-unfixed and --skip-unfixed are mutually exclusive", file=sys.stderr)
-        sys.exit(1)
-
     # Handle version-based vulnerability listing mode
     if not args.version:
         parser.print_help()
@@ -921,11 +893,6 @@ Examples:
     if release and args.no_fix:
         print(f"[!] Warning: --no-fix skips the fix lookups, so CVEs cannot be checked against {release}",
               file=sys.stderr)
-    # A full release is also exposed to the CVEs with no fix yet: look for them unless told not to
-    if release and not (args.fixed_in or args.no_fix or args.skip_unfixed or args.include_unfixed):
-        args.include_unfixed = True
-        print(f"[*] Also looking for CVEs with no fix yet that affect {release} "
-              "(a few minutes; --skip-unfixed to skip)", file=sys.stderr)
 
     # Fetch vulnerabilities
     try:
@@ -941,7 +908,7 @@ Examples:
     prefixes = tuple(p.strip().upper() for p in (args.advisory_prefix or '').split(',') if p.strip())
 
     def keep(v: Dict) -> bool:
-        if not severity_ok(v):
+        if args.severity and (v.get('severity') or '').lower() != args.severity:
             return False
         return not prefixes or any(a.upper().startswith(prefixes) for a in (v.get('advisories') or []))
 

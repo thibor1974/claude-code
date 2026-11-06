@@ -14,8 +14,7 @@
 # Arguments:
 #   version   - OpenShift stream (e.g., 4.21) or full release (e.g., 4.21.17) - REQUIRED
 #               (except with --cve). With a full release, only the CVEs it is still
-#               exposed to are listed: fixed in a later release, or not fixed yet
-#               (see --show-fixed, --skip-unfixed)
+#               exposed to are listed (see --show-fixed)
 #   format    - Output format: table, csv, json, stats, markdown (default: table)
 #   severity  - Filter by severity: critical, important, moderate, low (optional)
 #
@@ -27,12 +26,9 @@
 #                             also whether that release is still vulnerable
 #   -f, --format FORMAT       Same as the format argument
 #   -s, --severity LEVEL      Same as the severity argument
-#   --min-severity LEVEL      Keep LEVEL and the more severe ones (e.g. important = critical + important)
 #   -o, --output FILE         Write the report to FILE (default: stdout)
 #   --advisory-prefix LIST    Only CVEs with advisories starting with LIST (e.g. RHSA,RHBA)
-#   --include-unfixed         Also list CVEs not fixed in this version (slow: a few minutes);
-#                             default with a full release
-#   --skip-unfixed            With a full release: skip the CVEs not fixed yet (fast)
+#   --include-unfixed         Also list CVEs not fixed in this version (slow: a few minutes)
 #   --fixed-in [RELEASE]      Only the CVEs fixed in this exact release (like 4.21.17); the
 #                             release can follow the option or be the version argument
 #   --no-fix                  Skip the fix lookups (faster)
@@ -47,7 +43,6 @@
 #   ./get_vulnerabilities.sh 4.12 csv
 #   ./get_vulnerabilities.sh 4.12 stats
 #   ./get_vulnerabilities.sh 4.12 table critical
-#   ./get_vulnerabilities.sh 4.22.18 --min-severity important
 #   ./get_vulnerabilities.sh --include-unfixed 4.12 csv important
 #   ./get_vulnerabilities.sh 4.22.18 markdown -o reports/cve-4.22.18.md
 #   ./get_vulnerabilities.sh --cve CVE-2026-46300
@@ -79,12 +74,9 @@ usage() {
     echo "                            version: 4.22, or 4.22.18 to also check that release"
     echo "  -f, --format FORMAT       Same as the format argument"
     echo "  -s, --severity LEVEL      Same as the severity argument"
-    echo "  --min-severity LEVEL      Keep LEVEL and the more severe ones (important = critical + important)"
     echo "  -o, --output FILE         Write the report to FILE (default: stdout)"
     echo "  --advisory-prefix LIST    Only CVEs with advisories starting with LIST (e.g. RHSA,RHBA)"
-    echo "  --include-unfixed         Also list CVEs not fixed in this version (slow: a few minutes);"
-    echo "                            default with a full release"
-    echo "  --skip-unfixed            With a full release: skip the CVEs not fixed yet (fast)"
+    echo "  --include-unfixed         Also list CVEs not fixed in this version (slow: a few minutes)"
     echo "  --fixed-in [RELEASE]      Only the CVEs fixed in this exact release (like 4.21.17)"
     echo "  --no-fix                  Skip the fix lookups (faster)"
     echo "  --show-fixed              With a full release: also list the CVEs already fixed in it or earlier"
@@ -97,7 +89,6 @@ usage() {
     echo "  $0 4.12 csv"
     echo "  $0 4.12 stats"
     echo "  $0 4.12 table critical"
-    echo "  $0 4.22.18 --min-severity important"
     echo "  $0 --include-unfixed 4.12 csv important"
     echo "  $0 4.22.18 markdown -o reports/cve-4.22.18.md"
     echo "  $0 --cve CVE-2026-46300"
@@ -147,14 +138,6 @@ while [ "$#" -gt 0 ]; do
             severity_filter="$2"
             shift 2
             ;;
-        --min-severity)
-            need_value "$@"
-            case "$2" in
-                critical|important|moderate|low) OPTS+=(--min-severity "$2") ;;
-                *) error "Invalid severity '$2'. Use critical, important, moderate or low" ;;
-            esac
-            shift 2
-            ;;
         -o|--output)
             need_value "$@"
             OPTS+=(--output "$2")
@@ -169,7 +152,7 @@ while [ "$#" -gt 0 ]; do
             FIXED_IN=true
             shift
             ;;
-        --include-unfixed|--skip-unfixed|--no-fix|--show-fixed)
+        --include-unfixed|--no-fix|--show-fixed)
             OPTS+=("$1")
             shift
             ;;
