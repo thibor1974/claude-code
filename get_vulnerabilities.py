@@ -27,6 +27,7 @@ FIX_STATE_PRIORITY = ['Affected', 'Fix deferred', 'Under investigation', 'Will n
                       'Out of support scope', 'Not affected']
 # Unfixed states that mean the stream ships the vulnerable code
 UNFIXED_STATES = {'Affected', 'Fix deferred', 'Will not fix', 'Out of support scope'}
+SEVERITIES = ['critical', 'important', 'moderate', 'low']  # most severe first
 # version_status values (full release given, e.g. 4.21.17), most urgent first
 VERSION_STATUS_ORDER = ['VULNERABLE', 'Vulnerable (no fix)', 'Unknown', 'Not vulnerable']
 
@@ -132,7 +133,7 @@ class VulnerabilityScanner:
         candidates = [v for v in self.fetch_vulnerabilities(major) if v.get('CVE') not in exclude and keep(v)]
         print(f"[*] Checking {len(candidates)} other OpenShift {major} CVEs for unfixed status "
               "(this can take a few minutes)...", file=sys.stderr)
-        self.add_fix_info(candidates, version)
+        self.add_fix_info(candidates, version, workers=16)  # thousands of lookups: more parallel requests
         failed = sum(1 for v in candidates if v['fix_status'] == 'Lookup failed')
         if failed:
             print(f"[!] Warning: fix status lookup failed for {failed} CVEs; they are not listed", file=sys.stderr)
@@ -147,9 +148,13 @@ class VulnerabilityScanner:
         """Fetch CVE details with caching to avoid duplicate API calls"""
         if cve_id not in self.cve_cache:
             try:
-                self.cve_cache[cve_id] = self.fetch_json(
+                data = self.fetch_json(
                     f"{self.cve_detail_base}/{cve_id}.json", attempts=2, connect_timeout=5, max_time=15)
-            except FetchError:
+                # The API returns some CVEs as JSON encoded twice (a string holding the JSON document)
+                if isinstance(data, str):
+                    data = json.loads(data)
+                self.cve_cache[cve_id] = data if isinstance(data, dict) else None
+            except (FetchError, json.JSONDecodeError):
                 self.cve_cache[cve_id] = None
         return self.cve_cache[cve_id]
 
@@ -632,7 +637,16 @@ class VulnerabilityScanner:
     def fetch_cve_details(self, cve_id: str) -> Dict:
         """Fetch details for a specific CVE from Red Hat API"""
         print(f"[*] Fetching details for {cve_id}...", file=sys.stderr)
-        return self.fetch_json(f"{self.cve_detail_base}/{cve_id}.json")
+        url = f"{self.cve_detail_base}/{cve_id}.json"
+        data = self.fetch_json(url)
+        if isinstance(data, str):  # JSON encoded twice (see get_cve_details_cached)
+            try:
+                data = json.loads(data)
+            except json.JSONDecodeError as e:
+                raise FetchError(f"{url}: invalid JSON response: {e}")
+        if not isinstance(data, dict):
+            raise FetchError(f"{url}: unexpected response type {type(data).__name__}")
+        return data
 
     def format_cve_details(self, cve_data: Dict) -> str:
         """Format CVE details showing fix status for OpenShift"""
@@ -732,9 +746,11 @@ def main():
 Examples:
   %(prog)s 4.21                          # List all vulnerabilities
   %(prog)s 4.21.17                       # CVEs 4.21.17 is still exposed to (fixed later, or not fixed)
+  %(prog)s 4.21.17 --skip-unfixed        # Same, without the CVEs not fixed yet (fast)
   %(prog)s 4.21.17 --show-fixed          # Same, plus the CVEs already fixed in 4.21.17 or earlier
   %(prog)s --fixed-in 4.21.17            # CVEs fixed by the 4.21.17 release
   %(prog)s 4.12 --severity critical      # List critical vulnerabilities only
+  %(prog)s 4.12 --min-severity important # Critical and important vulnerabilities
   %(prog)s 4.12 --format csv             # Export as CSV
   %(prog)s 4.12 --format json            # Export as JSON
   %(prog)s 4.12 --format stats           # Show statistics
@@ -771,6 +787,11 @@ Examples:
         help='Filter by severity level'
     )
     parser.add_argument(
+        '--min-severity',
+        choices=SEVERITIES,
+        help='Keep this severity level and the more severe ones (e.g. important = critical + important)'
+    )
+    parser.add_argument(
         '--output', '-o',
         type=argparse.FileType('w'),
         default=sys.stdout,
@@ -795,7 +816,13 @@ Examples:
         '--include-unfixed',
         action='store_true',
         help='Also list CVEs NOT fixed in this version (Affected, Fix deferred, Will not fix, ...). '
-             'Checks ~4000 OpenShift 4 CVEs, takes a few minutes'
+             'Checks the ~6500 OpenShift 4 CVEs, takes a few minutes. Default with a full release (e.g. 4.21.17)'
+    )
+    parser.add_argument(
+        '--skip-unfixed',
+        action='store_true',
+        help='With a full release: do not look for the CVEs with no fix yet (fast, but only the CVEs '
+             'fixed in a later release are listed)'
     )
     parser.add_argument(
         '--fixed-in',
@@ -804,6 +831,17 @@ Examples:
     )
 
     args = parser.parse_args()
+    if args.severity and args.min_severity:
+        parser.error("--severity and --min-severity are mutually exclusive")
+
+    def severity_ok(v: Dict) -> bool:
+        """--severity (exact level) / --min-severity (that level or more severe)"""
+        severity = (v.get('severity') or '').lower()
+        if args.severity:
+            return severity == args.severity
+        if args.min_severity:
+            return severity in SEVERITIES[:SEVERITIES.index(args.min_severity) + 1]
+        return True
 
     # Handle CVE detail lookup mode
     if args.cve:
@@ -840,8 +878,7 @@ Examples:
         failed = [v['CVE'] for v in vulns if v['fix_status'] == 'Lookup failed']
         if failed:
             print(f"[!] Warning: lookup failed (unknown CVE or API error) for: {', '.join(failed)}", file=sys.stderr)
-        if args.severity:
-            vulns = [v for v in vulns if v['severity'] == args.severity]
+        vulns = [v for v in vulns if severity_ok(v)]
         if args.version != stream:
             scanner.add_version_status(vulns, args.version)
 
@@ -872,6 +909,10 @@ Examples:
             sys.exit(1)
         args.version = args.fixed_in
 
+    if args.include_unfixed and args.skip_unfixed:
+        print("Error: --include-unfixed and --skip-unfixed are mutually exclusive", file=sys.stderr)
+        sys.exit(1)
+
     # Handle version-based vulnerability listing mode
     if not args.version:
         parser.print_help()
@@ -893,6 +934,11 @@ Examples:
     if release and args.no_fix:
         print(f"[!] Warning: --no-fix skips the fix lookups, so CVEs cannot be checked against {release}",
               file=sys.stderr)
+    # A full release is also exposed to the CVEs with no fix yet: look for them unless told not to
+    if release and not (args.fixed_in or args.no_fix or args.skip_unfixed or args.include_unfixed):
+        args.include_unfixed = True
+        print(f"[*] Also looking for CVEs with no fix yet that affect {release} "
+              "(a few minutes; --skip-unfixed to skip)", file=sys.stderr)
 
     # Fetch vulnerabilities
     try:
@@ -908,7 +954,7 @@ Examples:
     prefixes = tuple(p.strip().upper() for p in (args.advisory_prefix or '').split(',') if p.strip())
 
     def keep(v: Dict) -> bool:
-        if args.severity and (v.get('severity') or '').lower() != args.severity:
+        if not severity_ok(v):
             return False
         return not prefixes or any(a.upper().startswith(prefixes) for a in (v.get('advisories') or []))
 
