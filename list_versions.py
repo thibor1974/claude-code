@@ -15,6 +15,7 @@ import subprocess
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
 from typing import Dict, List, Optional
 
 GRAPH_API = "https://api.openshift.com/api/upgrades_info/v1/graph"
@@ -126,6 +127,30 @@ def format_table(versions: Dict[str, Dict], stream: str, arch: str, channels: Li
     return "\n".join(lines)
 
 
+def format_markdown(versions: Dict[str, Dict], stream: str, arch: str, channels: List[str]) -> str:
+    """Markdown page: latest release per channel, then one row per release with its errata link"""
+    with_dates = any('date' in e for e in versions.values())
+    generated = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M:%S %Z')
+    lines = [f"# OpenShift {stream} releases ({arch})", "",
+             f"Generated on {generated} by `list_versions.py` from the OpenShift update graph (Cincinnati).", "",
+             f"- **Releases:** {len(versions)}"]
+    for channel in channels:
+        latest = [v for v, e in versions.items() if channel in e['channels']]
+        released = f" (released {versions[latest[-1]]['date']})" if latest and versions[latest[-1]].get('date') else ""
+        lines.append(f"- **Latest in {channel}-{stream}:** {latest[-1] if latest else '(none)'}{released}")
+    lines += ["", "| Version | " + ("Released | " if with_dates else "") + " | ".join(channels) + " | Errata |",
+              "|" + "---|" * (len(channels) + (3 if with_dates else 2))]
+    # Newest first: that's what changes from one run to the next
+    for version, entry in reversed(list(versions.items())):
+        date = f"{entry.get('date') or '-'} | " if with_dates else ""
+        marks = " | ".join('✓' if c in entry['channels'] else '' for c in channels)
+        errata = f"[{entry['url'].rstrip('/').split('/')[-1]}]({entry['url']})" if entry['url'] else ''
+        lines.append(f"| {version} | {date}{marks} | {errata} |")
+    if any(e.get('date', '').endswith('*') for e in versions.values()):
+        lines += ["", "\\* pre-release: build date (no errata)"]
+    return "\n".join(lines)
+
+
 def format_csv(versions: Dict[str, Dict], channels: List[str]) -> str:
     with_dates = any('date' in e for e in versions.values())
     lines = ["version," + ("release_date," if with_dates else "") + ",".join(channels) + ",errata"]
@@ -144,6 +169,7 @@ def main():
                "  %(prog)s 4.21 --channel stable\n"
                "  %(prog)s 4.20 --format csv > 4.20.csv\n"
                "  %(prog)s 4.21 --arch arm64 --format json\n"
+               "  %(prog)s 4.22 --format markdown --output reports/versions-4.22.md\n"
                "  %(prog)s 4.21 --no-dates          # faster: skip the release date lookups",
         formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('stream', help="OpenShift stream, e.g. 4.21")
@@ -151,8 +177,11 @@ def main():
                         help="Only query this channel (repeatable). Default: all channels")
     parser.add_argument('--arch', '-a', default='amd64', choices=['amd64', 'arm64', 'ppc64le', 's390x', 'multi'],
                         help="Architecture (default: amd64)")
-    parser.add_argument('--format', '-f', default='table', choices=['table', 'csv', 'json', 'list'],
-                        help="Output format (default: table); 'list' prints one version per line")
+    parser.add_argument('--format', '-f', default='table', choices=['table', 'csv', 'json', 'list', 'markdown'],
+                        help="Output format (default: table); 'list' prints one version per line, "
+                             "'markdown' a page for a git-tracked report")
+    parser.add_argument('--output', '-o', type=argparse.FileType('w', encoding='utf-8'), default=sys.stdout,
+                        help="Write the output to this file (default: stdout)")
     parser.add_argument('--no-dates', action='store_true',
                         help="Don't look up release dates (one request per release)")
     args = parser.parse_args()
@@ -175,13 +204,16 @@ def main():
         add_dates(versions, args.arch)
 
     if args.format == 'json':
-        print(json.dumps({'stream': args.stream, 'arch': args.arch, 'versions': versions}, indent=2))
+        text = json.dumps({'stream': args.stream, 'arch': args.arch, 'versions': versions}, indent=2)
     elif args.format == 'csv':
-        print(format_csv(versions, channels))
+        text = format_csv(versions, channels)
     elif args.format == 'list':
-        print("\n".join(versions))
+        text = "\n".join(versions)
+    elif args.format == 'markdown':
+        text = format_markdown(versions, args.stream, args.arch, channels)
     else:
-        print(format_table(versions, args.stream, args.arch, channels))
+        text = format_table(versions, args.stream, args.arch, channels)
+    print(text, file=args.output)
 
 
 if __name__ == '__main__':
