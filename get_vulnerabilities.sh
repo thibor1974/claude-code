@@ -11,6 +11,11 @@
 # Thin wrapper around get_vulnerabilities.py (which holds all the logic): same
 # features and options, plus the positional [format] [severity] shortcuts.
 #
+# Report layout: CVEs are ordered by severity (critical, important, moderate,
+# low), then by status in the release when a full release is given, then by
+# CVSS score. The table and markdown reports start with the number of CVEs per
+# severity (json: "by_severity"; stats: "By Severity").
+#
 # Arguments:
 #   version   - OpenShift stream (e.g., 4.21) or full release (e.g., 4.21.17) - REQUIRED
 #               (except with --cve). With a full release, only the CVEs it is still
@@ -71,6 +76,8 @@ usage() {
     echo "  version   - OpenShift stream (e.g., 4.21) or full release (e.g., 4.21.17)"
     echo "  format    - Output format: table, csv, json, stats, markdown (default: table)"
     echo "  severity  - Filter by severity: critical, important, moderate, low"
+    echo ""
+    echo "Reports list CVEs by severity (most severe first) and start with the number of CVEs per severity."
     echo ""
     echo "Options:"
     echo "  --cve CVE-ID              Fix status of one CVE for every OpenShift version"

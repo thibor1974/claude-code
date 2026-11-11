@@ -134,7 +134,7 @@ Give the full release instead of the stream to see which CVEs your cluster is st
   and only counted in the summary. Add `--show-fixed` to list them too.
 
 ```bash
-./get_vulnerabilities.sh 4.21.17                          # table, most urgent first (~3-4 min)
+./get_vulnerabilities.sh 4.21.17                          # table, most severe first (~3-4 min)
 ./get_vulnerabilities.sh 4.21.17 --min-severity important # critical + important only (~1 min)
 ./get_vulnerabilities.sh 4.21.17 csv important > exposure_4.21.17.csv
 ./get_vulnerabilities.py 4.21.17 --format stats           # counts + minimum upgrade
@@ -251,7 +251,7 @@ Upgrade to 4.22.20 or later to get all available fixes
 ```
 
 - The file can use any layout (one per line, comma-separated, comments, a scanner report): every `CVE-YYYY-NNNN`
-  is picked up, case-insensitively, and duplicates are dropped. CVEs are listed in file order.
+  is picked up, case-insensitively, and duplicates are dropped. CVEs are listed by severity, most severe first.
 - **Fixed In** is the earliest release of the stream with a fix; for CVEs not fixed in the stream it shows
   Red Hat's status instead (Affected, Will not fix, ...) or `No fix listed` when the stream is not concerned.
   Unknown CVE IDs show `Lookup failed` and are named on stderr.

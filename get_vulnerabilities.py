@@ -145,9 +145,32 @@ class VulnerabilityScanner:
         return [v for v in candidates if v['fix_status'] not in ('Not affected', 'No fix listed', 'Lookup failed')]
 
     def sort_vulnerabilities(self, vulns: List[Dict]) -> List[Dict]:
-        """Sort vulnerabilities by severity"""
-        severity_order = {'critical': 0, 'important': 1, 'moderate': 2, 'low': 3}
-        return sorted(vulns, key=lambda x: severity_order.get((x.get('severity') or 'low').lower(), 4))
+        """Sort by severity (most severe first), then, within a severity, by status in the release
+        when one was given (most urgent first), then by CVSS score (highest first)"""
+        def key(v: Dict):
+            severity = (v.get('severity') or '').lower()
+            status = v.get('version_status')
+            try:
+                cvss = -float(v.get('cvss3_score') or 0)
+            except ValueError:
+                cvss = 0.0
+            return (SEVERITIES.index(severity) if severity in SEVERITIES else len(SEVERITIES),
+                    VERSION_STATUS_ORDER.index(status) if status in VERSION_STATUS_ORDER else 0,
+                    cvss)
+        return sorted(vulns, key=key)
+
+    def severity_counts(self, vulns: List[Dict]) -> Dict[str, int]:
+        """Number of CVEs per severity, most severe first (UNKNOWN only when some have none)"""
+        counts = {s.upper(): 0 for s in SEVERITIES}
+        for vuln in vulns:
+            severity = (vuln.get('severity') or '').lower()
+            label = severity.upper() if severity in SEVERITIES else 'UNKNOWN'
+            counts[label] = counts.get(label, 0) + 1
+        return counts
+
+    def _severity_summary(self, vulns: List[Dict]) -> str:
+        """One line like 'CRITICAL: 2, IMPORTANT: 40, MODERATE: 300, LOW: 169'"""
+        return ", ".join(f"{s}: {n}" for s, n in self.severity_counts(vulns).items())
 
     def get_cve_details_cached(self, cve_id: str) -> Optional[Dict]:
         """Fetch CVE details with caching to avoid duplicate API calls"""
@@ -413,6 +436,8 @@ class VulnerabilityScanner:
         if fixed_in_release:
             release_header = f"{'First Fixed':<12} "
 
+        output.append(f"By severity: {self._severity_summary(vulns)}  (total: {len(vulns)})")
+        output.append("")
         output.append(f"{'CVE ID':<16} {'Severity':<10} {'CVSS':<5} {'Published':<11} {release_header}"
                       f"{'Fixed In / Status':<20} {'Advisory':<16} {'Link':<66} {'Description'}")
         output.append("-" * (232 if with_release else 224 if fixed_in_release else 211))
@@ -469,6 +494,8 @@ class VulnerabilityScanner:
 
         with_release = any('version_status' in v for v in vulns)
         release_header = f"{'In ' + version:<20} " if with_release else ""
+        output.append(f"By severity: {self._severity_summary(vulns)}  (total: {len(vulns)})")
+        output.append("")
         output.append(f"{'CVE ID':<16} {'Severity':<10} {'CVSS':<5} {'Published':<11} {release_header}"
                       f"{'Fixed In / Status':<20} {'Advisory':<16} {'Link'}")
         output.append("-" * (146 if with_release else 125))
@@ -512,7 +539,12 @@ class VulnerabilityScanner:
             output.extend(f"\n{line}" for line in self._hidden_note())
             return "\n".join(output) + "\n"
 
-        output.append(f"- **Total:** {len(vulns)} CVEs")
+        output.append("| Severity | CVEs |")
+        output.append("|---|---:|")
+        for severity, count in self.severity_counts(vulns).items():
+            output.append(f"| {severity} | {count} |")
+        output.append(f"| **Total** | **{len(vulns)}** |")
+        output.append("")
         if any('fix_status' in v for v in vulns):
             counts = {}
             for vuln in vulns:
@@ -593,6 +625,7 @@ class VulnerabilityScanner:
             "stream": '.'.join(version.split('.')[:2]),
             **({"fixed_in_release": fixed_in} if fixed_in else {}),
             "count": len(vulns),
+            "by_severity": {s.lower(): n for s, n in self.severity_counts(vulns).items()},
             **({"not_listed_fixed": self.hidden_fixed} if self.hidden_fixed else {}),
             "vulnerabilities": vulns,
             "source": "Red Hat Security Advisory API"
@@ -611,15 +644,9 @@ class VulnerabilityScanner:
         output.append(f"Total Vulnerabilities: {len(vulns)}\n")
 
         if vulns:
-            severity_counts = {}
-            for vuln in vulns:
-                severity = (vuln.get('severity') or 'unknown').lower()
-                severity_counts[severity] = severity_counts.get(severity, 0) + 1
-
             output.append("By Severity:")
-            for severity in ['critical', 'important', 'moderate', 'low']:
-                count = severity_counts.get(severity, 0)
-                output.append(f"  {severity.upper()}: {count}")
+            for severity, count in self.severity_counts(vulns).items():
+                output.append(f"  {severity}: {count}")
 
             if any('fix_status' in v for v in vulns):
                 status_counts = {}
@@ -890,6 +917,7 @@ Examples:
         vulns = [v for v in vulns if severity_ok(v)]
         if args.version != stream:
             scanner.add_version_status(vulns, args.version)
+        vulns = scanner.sort_vulnerabilities(vulns)
 
         source = 'stdin' if args.cve_file == '-' else os.path.basename(args.cve_file)
         if args.format == 'csv':
@@ -989,7 +1017,7 @@ Examples:
     if args.fixed_in:
         vulns = scanner.filter_fixed_in(vulns, release)
 
-    # Full release given: is each CVE fixed in it? Most urgent first (sort is stable, severity kept within)
+    # Full release given: is each CVE fixed in it? Severity first, most urgent first within a severity
     elif release and not args.no_fix:
         scanner.add_version_status(vulns, release)
         if not args.show_fixed:
@@ -997,7 +1025,7 @@ Examples:
             if scanner.hidden_fixed:
                 print(f"[*] {scanner.hidden_fixed} CVEs already fixed in {release} or earlier are not listed "
                       "(--show-fixed to list them)", file=sys.stderr)
-        vulns.sort(key=lambda v: VERSION_STATUS_ORDER.index(v['version_status']))
+        vulns = scanner.sort_vulnerabilities(vulns)
 
     # Link per CVE: advisory (RHSA) when fixed, security bulletin (RHSB) or CVE page when not
     if with_fix and args.format != 'stats':
