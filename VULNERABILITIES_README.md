@@ -249,6 +249,33 @@ Upgrade to 4.22.20 or later to get all available fixes
 - Works with `--severity`, `--min-severity` and every output format; not with `--fixed-in`, `--include-unfixed`, `--no-fix`
   or `--advisory-prefix`.
 
+### CVEs to list first (`--priority`, `--priority-file`)
+
+```bash
+# These CVEs first, then the others
+./get_vulnerabilities.sh 4.22.18 --priority CVE-2026-98432,CVE-2026-19630
+
+# Same, from a file with a P1/P2 tag per CVE
+./get_vulnerabilities.sh 4.22.18 markdown --priority-file reports/watched.csv -o reports/cve-4.22.18.md
+```
+
+The priority file can tag each CVE with `P1`, `P2`, ... in either layout (they can be mixed; untagged CVEs are kept):
+
+```
+cve,priority          P1
+CVE-2022-1292,P1      CVE-2022-1292
+CVE-2004-2320,P2      P2
+                      CVE-2004-2320
+```
+
+- The priority CVEs come first, in their own section: P1, then P2, then untagged; by severity within a tag.
+  The other CVEs follow, by severity.
+- The markdown report shows the tag in a **Tag** column of the priority table (CSV: `priority` column;
+  JSON: `priority_tag` per CVE).
+- The summary gives the count per tag and names the priority CVEs not in the report (they do not affect the
+  version, or a severity filter left them out). With a full release, priority CVEs already fixed in it are
+  listed anyway (`Not vulnerable`).
+
 ### Filter by Severity
 
 ```bash

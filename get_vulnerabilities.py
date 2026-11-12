@@ -70,6 +70,7 @@ class VulnerabilityScanner:
         self.per_page = 1000
         self.hidden_fixed = 0  # full release: CVEs already fixed in it, left out of the report (--show-fixed)
         self.priority = []  # CVE IDs listed first in the report (--priority, --priority-file)
+        self.priority_tags = {}  # CVE ID -> tag from the priority file (e.g. P1, P2)
 
     def validate_version(self, version: str) -> bool:
         """Validate version format: stream (e.g. 4.21) or full release (e.g. 4.21.17)"""
@@ -148,11 +149,14 @@ class VulnerabilityScanner:
     def sort_vulnerabilities(self, vulns: List[Dict]) -> List[Dict]:
         """Sort the priority CVEs (--priority) first, then by severity (most severe first), then,
         within a severity, by status in the release when one was given (most urgent first), then by
-        CVSS score (highest first). Marks the priority CVEs with 'priority': True"""
+        CVSS score (highest first). Priority CVEs are ordered by tag first (P1, then P2, then untagged).
+        Marks the priority CVEs with 'priority': True and their tag in 'priority_tag'"""
         priority = set(self.priority)
         for v in vulns:
             if v.get('CVE') in priority:
                 v['priority'] = True
+                if v['CVE'] in self.priority_tags:
+                    v['priority_tag'] = self.priority_tags[v['CVE']]
 
         def key(v: Dict):
             severity = (v.get('severity') or '').lower()
@@ -162,6 +166,7 @@ class VulnerabilityScanner:
             except ValueError:
                 cvss = 0.0
             return (0 if v.get('priority') else 1,
+                    self._tag_rank(v.get('priority_tag')),
                     SEVERITIES.index(severity) if severity in SEVERITIES else len(SEVERITIES),
                     VERSION_STATUS_ORDER.index(status) if status in VERSION_STATUS_ORDER else 0,
                     cvss)
@@ -180,6 +185,41 @@ class VulnerabilityScanner:
         """One line like 'CRITICAL: 2, IMPORTANT: 40, MODERATE: 300, LOW: 169'"""
         return ", ".join(f"{s}: {n}" for s, n in self.severity_counts(vulns).items())
 
+    @staticmethod
+    def _tag_rank(tag: Optional[str]) -> int:
+        """Sort rank of a priority tag: P1 before P2, untagged last"""
+        return int(tag[1:]) if tag else 10 ** 6
+
+    def read_priority_file(self, path: str) -> Tuple[List[str], Dict[str, str]]:
+        """CVE IDs and their tag (P1, P2, ...) from a priority file ('-' for stdin), in order, without
+        duplicates. Two layouts, which can be mixed:
+          - CSV / one per line with the tag on the same line: CVE-2026-1234,P1
+          - a line holding only a tag starts a section: P1, then the CVE IDs it applies to
+        CVE IDs without a tag are kept, untagged."""
+        try:
+            if path == '-':
+                text = sys.stdin.read()
+            else:
+                with open(path, encoding='utf-8', errors='replace') as f:
+                    text = f.read()
+        except OSError as e:
+            raise FetchError(f"cannot read {path}: {e.strerror}")
+        cves, tags, section = [], {}, None
+        for line in text.splitlines():
+            ids = [m.upper() for m in re.findall(r'CVE-\d{4}-\d{4,}', line, re.IGNORECASE)]
+            line_tags = re.findall(r'(?<![\w-])P(\d+)(?![\w-])', line, re.IGNORECASE)
+            if not ids:
+                if line_tags:
+                    section = f"P{int(line_tags[0])}"
+                continue
+            tag = f"P{int(line_tags[0])}" if line_tags else section
+            for cve in ids:
+                if cve not in cves:
+                    cves.append(cve)
+                    if tag:
+                        tags[cve] = tag
+        return cves, tags
+
     def priority_missing(self, vulns: List[Dict]) -> List[str]:
         """Priority CVEs that are not in the report"""
         listed = {v.get('CVE') for v in vulns}
@@ -189,12 +229,21 @@ class VulnerabilityScanner:
         """Summary lines about the priority CVEs (none when --priority was not used)"""
         if not self.priority:
             return []
-        found = sum(1 for v in vulns if v.get('priority'))
-        lines = [f"Priority CVEs: {found} of {len(self.priority)} listed first"]
+        found = [v for v in vulns if v.get('priority')]
+        line = f"Priority CVEs: {len(found)} of {len(self.priority)} listed first"
+        tag_counts = {}
+        for v in found:
+            if v.get('priority_tag'):
+                tag_counts[v['priority_tag']] = tag_counts.get(v['priority_tag'], 0) + 1
+        if tag_counts:
+            line += " (" + ", ".join(f"{t}: {n}" for t, n in sorted(tag_counts.items(),
+                                                                    key=lambda x: self._tag_rank(x[0]))) + ")"
+        lines = [line]
         missing = self.priority_missing(vulns)
         if missing:
             lines.append(f"Priority CVEs not in this report (do not affect this version, or filtered out): "
-                         f"{', '.join(missing)}")
+                         + ", ".join(f"{c} ({self.priority_tags[c]})" if c in self.priority_tags else c
+                                     for c in missing))
         return lines
 
     def _section_title(self, vulns: List[Dict], index: int) -> Optional[str]:
@@ -616,13 +665,20 @@ class VulnerabilityScanner:
         release_header = f"In {version} | " if with_release else "First Fixed | " if fixed_in_release else ""
         table_header = [f"| CVE | Severity | CVSS | Published | {release_header}Fixed In / Status | Advisory | Description |",
                         "|" + "---|" * (8 if release_header else 7)]
+        # Tag column (P1, P2, ... from the priority file) in the priority CVEs table
+        tagged = any(v.get('priority_tag') for v in vulns)
         if not any(v.get('priority') for v in vulns):
             output.append("")
             output.extend(table_header)
         for i, vuln in enumerate(vulns):
             section = self._section_title(vulns, i)
             if section:  # one table per section
-                output.extend(["", f"## {section}", ""] + table_header)
+                header = (["| Tag " + table_header[0], "|---" + table_header[1]]
+                          if tagged and vuln.get('priority') else table_header)
+                output.extend(["", f"## {section}", ""] + header)
+            tag_cell = ""
+            if tagged and vuln.get('priority'):
+                tag_cell = f"| **{vuln['priority_tag']}** " if vuln.get('priority_tag') else "| "
             cve = vuln.get('CVE', '')
             fixed_in, advisory = self._fix_display(vuln)
             link = vuln.get('link', '')
@@ -633,7 +689,7 @@ class VulnerabilityScanner:
             elif fixed_in_release:
                 release_cell = f"{vuln.get('first_fixed_in') or fixed_in_release} | "
             output.append(
-                f"| [{cve}]({CVE_PAGE_BASE}/{cve}) | {(vuln.get('severity') or 'N/A').upper()} "
+                f"{tag_cell}| [{cve}]({CVE_PAGE_BASE}/{cve}) | {(vuln.get('severity') or 'N/A').upper()} "
                 f"| {vuln.get('cvss3_score') or 'N/A'} | {(vuln.get('public_date') or 'N/A')[:10]} | {release_cell}"
                 f"{cell(fixed_in)} | {f'[{advisory}]({link})' if advisory and link else cell(advisory)} "
                 f"| {cell(vuln.get('bugzilla_description'))} |")
@@ -669,7 +725,7 @@ class VulnerabilityScanner:
                 'bugzilla': vuln.get('bugzilla', ''),
                 'description': vuln.get('bugzilla_description', ''),
                 'advisories': ';'.join(vuln.get('advisories') or []),
-                'priority': 'yes' if vuln.get('priority') else ''
+                'priority': (vuln.get('priority_tag') or 'yes') if vuln.get('priority') else ''
             })
 
         return output.getvalue()
@@ -684,6 +740,7 @@ class VulnerabilityScanner:
             "count": len(vulns),
             "by_severity": {s.lower(): n for s, n in self.severity_counts(vulns).items()},
             **({"priority_cves": self.priority,
+                "priority_tags": self.priority_tags,
                 "priority_not_in_report": self.priority_missing(vulns)} if self.priority else {}),
             **({"not_listed_fixed": self.hidden_fixed} if self.hidden_fixed else {}),
             "vulnerabilities": vulns,
@@ -859,7 +916,7 @@ Examples:
   %(prog)s 4.22 --cve-file cves.txt      # CVSS, date, fixing release and RHSA (or RHSB) link of each CVE in the file
   %(prog)s 4.22.18 --cve-file cves.txt   # Same, plus: is each CVE fixed in 4.22.18?
   %(prog)s 4.22.18 --priority CVE-2026-98432,CVE-2026-19630   # These CVEs first, then the others
-  %(prog)s 4.22.18 --priority-file watched.txt                # Same, CVE IDs read from a file
+  %(prog)s 4.22.18 --priority-file watched.csv -f markdown    # Same, from a file with P1/P2 tags
         '''
     )
 
@@ -885,7 +942,9 @@ Examples:
     parser.add_argument(
         '--priority-file',
         metavar='FILE',
-        help="Text file with CVE IDs to list first ('-' for stdin), same layout as --cve-file"
+        help="File with CVE IDs to list first ('-' for stdin). A tag (P1, P2, ...) can be given per CVE, "
+             "either as a CSV 'cve,priority' (CVE-2026-1234,P1) or as a line 'P1' before its CVEs; "
+             "P1 CVEs come before P2 and the markdown report shows the tag"
     )
     parser.add_argument(
         '--format', '-f',
@@ -945,7 +1004,7 @@ Examples:
     args = parser.parse_args()
 
     # --priority / --priority-file: CVE IDs listed first, in order, without duplicates
-    priority = []
+    priority, priority_tags = [], {}
     for value in args.priority or []:
         for item in re.split(r'[\s,;]+', value.strip()):
             if not item:
@@ -959,7 +1018,8 @@ Examples:
             print("Error: --priority-file and --cve-file cannot both read stdin", file=sys.stderr)
             sys.exit(1)
         try:
-            priority += VulnerabilityScanner().read_cve_file(args.priority_file)
+            file_cves, priority_tags = VulnerabilityScanner().read_priority_file(args.priority_file)
+            priority += file_cves
         except FetchError as e:
             print(f"Error: {e}", file=sys.stderr)
             sys.exit(1)
@@ -1000,6 +1060,7 @@ Examples:
             sys.exit(1)
         scanner = VulnerabilityScanner()
         scanner.priority = priority
+        scanner.priority_tags = priority_tags
         if not args.version or not scanner.validate_version(args.version):
             print("Error: --cve-file needs an OpenShift version like 4.21 or 4.21.17", file=sys.stderr)
             sys.exit(1)
@@ -1060,6 +1121,7 @@ Examples:
     # Validate version
     scanner = VulnerabilityScanner()
     scanner.priority = priority
+    scanner.priority_tags = priority_tags
     if not scanner.validate_version(args.version):
         print(f"Error: Invalid version format '{args.version}'", file=sys.stderr)
         print("Use format like: 4.21 or 4.21.17", file=sys.stderr)

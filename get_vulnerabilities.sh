@@ -33,7 +33,9 @@
 #                             also whether that release is still vulnerable
 #   --priority CVES           CVE IDs to list first, comma-separated (e.g. CVE-2026-1234,CVE-2026-5678);
 #                             can be repeated. Always listed, even when already fixed in the release
-#   --priority-file FILE      Same, CVE IDs read from FILE ('-' for stdin), same layout as --cve-file
+#   --priority-file FILE      Same, CVE IDs read from FILE ('-' for stdin). A tag (P1, P2, ...) can be
+#                             given per CVE: CSV 'cve,priority' (CVE-2026-1234,P1), or a line 'P1'
+#                             before its CVEs. P1 comes before P2; markdown shows the tag
 #   -f, --format FORMAT       Same as the format argument
 #   -s, --severity LEVEL      Same as the severity argument
 #   --min-severity LEVEL      Keep LEVEL and the more severe ones (e.g. important = critical + important)
@@ -63,7 +65,7 @@
 #   ./get_vulnerabilities.sh --cve-file cves.txt 4.22
 #   ./get_vulnerabilities.sh --cve-file cves.txt 4.22.18 csv
 #   ./get_vulnerabilities.sh 4.22.18 --priority CVE-2026-98432,CVE-2026-19630
-#   ./get_vulnerabilities.sh 4.22.18 markdown --priority-file watched.txt
+#   ./get_vulnerabilities.sh 4.22.18 markdown --priority-file reports/watched.csv
 ###############################################################################
 
 set -euo pipefail
@@ -93,7 +95,9 @@ usage() {
     echo "                            version: 4.22, or 4.22.18 to also check that release"
     echo "  --priority CVES           CVE IDs to list first, comma-separated; can be repeated"
     echo "                            (always listed, even when already fixed in the release)"
-    echo "  --priority-file FILE      Same, CVE IDs read from FILE ('-' for stdin)"
+    echo "  --priority-file FILE      Same, CVE IDs read from FILE ('-' for stdin), with an optional"
+    echo "                            P1/P2 tag per CVE: CSV 'cve,priority' or a 'P1' line before its CVEs"
+    echo "                            (P1 listed before P2, tag shown in the markdown report)"
     echo "  -f, --format FORMAT       Same as the format argument"
     echo "  -s, --severity LEVEL      Same as the severity argument"
     echo "  --min-severity LEVEL      Keep LEVEL and the more severe ones (important = critical + important)"
@@ -121,7 +125,7 @@ usage() {
     echo "  $0 --cve-file cves.txt 4.22"
     echo "  $0 --cve-file cves.txt 4.22.18 csv"
     echo "  $0 4.22.18 --priority CVE-2026-98432,CVE-2026-19630"
-    echo "  $0 4.22.18 markdown --priority-file watched.txt"
+    echo "  $0 4.22.18 markdown --priority-file reports/watched.csv"
     exit 1
 }
 
