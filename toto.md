@@ -1,22 +1,22 @@
 # OpenShift 4.22.18 - Vulnerabilities Report
 
-Generated on 2026-11-12 13:06:45 CET by `get_vulnerabilities.py` from the Red Hat Security Data API.
+Generated on 2026-11-12 13:38:33 CET by `get_vulnerabilities.py` from the Red Hat Security Data API.
 
 | Severity | CVEs |
 |---|---:|
 | CRITICAL | 4 |
-| IMPORTANT | 509 |
+| IMPORTANT | 508 |
 | MODERATE | 2606 |
 | LOW | 802 |
 | UNKNOWN | 2 |
-| **Total** | **3923** |
+| **Total** | **3922** |
 
-- **Fix status:** Fix deferred: 2564, Affected: 860, Will not fix: 322, Fixed: 101, Out of support scope: 38, Under investigation: 38
-- **In 4.22.18:** VULNERABLE: 101, Vulnerable (no fix): 3784, Unknown: 38, Not vulnerable: 172 (not listed)
+- **Fix status:** Fix deferred: 2564, Affected: 859, Will not fix: 322, Fixed: 101, Out of support scope: 38, Under investigation: 38
+- **In 4.22.18:** VULNERABLE: 101, Vulnerable (no fix): 3783, Unknown: 38, Not vulnerable: 172 (not listed)
 - **Upgrade to 4.22.22 or later to get all available fixes**
 - Not listed: 172 CVEs already fixed in this release or an earlier one (--show-fixed to list them)
 - **Priority CVEs:** 6 of 37 listed first (P1: 2, P2: 4)
-- **Priority CVEs not in this report (do not affect this version, or filtered out):** CVE-2022-1292 (P1), CVE-2004-2320 (P2), CVE-2004-2763 (P2), CVE-2005-3398 (P2), CVE-2006-4683 (P2), CVE-2007-3008 (P2), CVE-2008-7253 (P2), CVE-2009-2823 (P2), CVE-2010-0386 (P2), CVE-2022-22721 (P2), CVE-2022-23943 (P2), CVE-2022-28615 (P2), CVE-2022-31813 (P2), CVE-2023-38545 (P2), CVE-2026-113234 (P2), CVE-2026-113273 (P2), CVE-2026-113315 (P2), CVE-2026-114148 (P2), CVE-2026-118322 (P2), CVE-2026-28780 (P2), CVE-2026-29167 (P2), CVE-2026-56154 (P2), CVE-2026-57941 (P2), CVE-2026-59797 (P2), CVE-2026-81642 (P2), CVE-2026-87500 (P2), CVE-2026-87512 (P2), CVE-2026-87621 (P2), CVE-2026-87654 (P2), CVE-2026-91503 (P2), CVE-2026-91738 (P2)
+- **Priority CVEs not in this report:** 31 (see the table below)
 
 ## Priority CVEs (6)
 
@@ -29,7 +29,43 @@ Generated on 2026-11-12 13:06:45 CET by `get_vulnerabilities.py` from the Red Ha
 | **P2** | [CVE-2016-2183](https://access.redhat.com/security/cve/CVE-2016-2183) | MODERATE | 7.5 | 2016-08-24 | Vulnerable (no fix) | Affected |  | SSL/TLS: Birthday attack against 64-bit block ciphers (SWEET32) |
 | **P2** | [CVE-2026-68363](https://access.redhat.com/security/cve/CVE-2026-68363) | MODERATE | 7.0 | 2026-08-10 | Vulnerable (no fix) | Will not fix |  | kernel: Linux kernel: ath9k Wi-Fi driver use-after-free vulnerability leading to system crash |
 
-## Other CVEs (3917)
+## Priority CVEs not in this report (31)
+
+| Tag | CVE | Comment |
+|---|---|---|
+| **P1** | [CVE-2022-1292](https://access.redhat.com/security/cve/CVE-2022-1292) | not affecting OpenShift |
+| **P2** | [CVE-2004-2320](https://access.redhat.com/security/cve/CVE-2004-2320) | not affecting OpenShift |
+| **P2** | [CVE-2004-2763](https://access.redhat.com/security/cve/CVE-2004-2763) | not affecting OpenShift (no Red Hat record of this CVE) |
+| **P2** | [CVE-2005-3398](https://access.redhat.com/security/cve/CVE-2005-3398) | not affecting OpenShift (no Red Hat record of this CVE) |
+| **P2** | [CVE-2006-4683](https://access.redhat.com/security/cve/CVE-2006-4683) | not affecting OpenShift (no Red Hat record of this CVE) |
+| **P2** | [CVE-2007-3008](https://access.redhat.com/security/cve/CVE-2007-3008) | not affecting OpenShift |
+| **P2** | [CVE-2008-7253](https://access.redhat.com/security/cve/CVE-2008-7253) | not affecting OpenShift (no Red Hat record of this CVE) |
+| **P2** | [CVE-2009-2823](https://access.redhat.com/security/cve/CVE-2009-2823) | not affecting OpenShift (no Red Hat record of this CVE) |
+| **P2** | [CVE-2010-0386](https://access.redhat.com/security/cve/CVE-2010-0386) | not affecting OpenShift (no Red Hat record of this CVE) |
+| **P2** | [CVE-2022-22721](https://access.redhat.com/security/cve/CVE-2022-22721) | not affecting OpenShift |
+| **P2** | [CVE-2022-23943](https://access.redhat.com/security/cve/CVE-2022-23943) | not affecting OpenShift |
+| **P2** | [CVE-2022-28615](https://access.redhat.com/security/cve/CVE-2022-28615) | not affecting OpenShift |
+| **P2** | [CVE-2022-31813](https://access.redhat.com/security/cve/CVE-2022-31813) | not affecting OpenShift |
+| **P2** | [CVE-2023-38545](https://access.redhat.com/security/cve/CVE-2023-38545) | not affecting OpenShift |
+| **P2** | [CVE-2026-113234](https://access.redhat.com/security/cve/CVE-2026-113234) | not affecting OpenShift |
+| **P2** | [CVE-2026-113273](https://access.redhat.com/security/cve/CVE-2026-113273) | not affecting OpenShift |
+| **P2** | [CVE-2026-113315](https://access.redhat.com/security/cve/CVE-2026-113315) | not affecting OpenShift |
+| **P2** | [CVE-2026-114148](https://access.redhat.com/security/cve/CVE-2026-114148) | not affecting OpenShift |
+| **P2** | [CVE-2026-118322](https://access.redhat.com/security/cve/CVE-2026-118322) | not affecting OpenShift |
+| **P2** | [CVE-2026-28780](https://access.redhat.com/security/cve/CVE-2026-28780) | not affecting OpenShift |
+| **P2** | [CVE-2026-29167](https://access.redhat.com/security/cve/CVE-2026-29167) | not affecting OpenShift |
+| **P2** | [CVE-2026-56154](https://access.redhat.com/security/cve/CVE-2026-56154) | not affecting OpenShift |
+| **P2** | [CVE-2026-57941](https://access.redhat.com/security/cve/CVE-2026-57941) | not affecting OpenShift |
+| **P2** | [CVE-2026-59797](https://access.redhat.com/security/cve/CVE-2026-59797) | not affecting OpenShift |
+| **P2** | [CVE-2026-81642](https://access.redhat.com/security/cve/CVE-2026-81642) | not affecting OpenShift |
+| **P2** | [CVE-2026-87500](https://access.redhat.com/security/cve/CVE-2026-87500) | not affecting OpenShift |
+| **P2** | [CVE-2026-87512](https://access.redhat.com/security/cve/CVE-2026-87512) | not affecting OpenShift |
+| **P2** | [CVE-2026-87621](https://access.redhat.com/security/cve/CVE-2026-87621) | not affecting OpenShift |
+| **P2** | [CVE-2026-87654](https://access.redhat.com/security/cve/CVE-2026-87654) | not affecting OpenShift |
+| **P2** | [CVE-2026-91503](https://access.redhat.com/security/cve/CVE-2026-91503) | not affecting OpenShift (no Red Hat record of this CVE) |
+| **P2** | [CVE-2026-91738](https://access.redhat.com/security/cve/CVE-2026-91738) | not affecting OpenShift |
+
+## Other CVEs (3916)
 
 | CVE | Severity | CVSS | Published | In 4.22.18 | Fixed In / Status | Advisory | Description |
 |---|---|---|---|---|---|---|---|
@@ -175,7 +211,6 @@ Generated on 2026-11-12 13:06:45 CET by `get_vulnerabilities.py` from the Red Ha
 | [CVE-2026-19706](https://access.redhat.com/security/cve/CVE-2026-19706) | IMPORTANT | 8.3 | 2026-11-09 | Vulnerable (no fix) | Affected |  | openshift/installer: OpenShift Installer: Unconditional CSR approval during Agent-Based Installation (ABI) bootstrap |
 | [CVE-2026-54100](https://access.redhat.com/security/cve/CVE-2026-54100) | IMPORTANT | 8.3 | 2026-06-10 | Vulnerable (no fix) | Affected |  | windows-machine-config-operator: windows-machine-config-operator: SSH host key not verified enables credential theft |
 | [CVE-2025-6032](https://access.redhat.com/security/cve/CVE-2025-6032) | IMPORTANT | 8.3 | 2025-06-24 | Vulnerable (no fix) | Will not fix |  | podman: podman missing TLS verification |
-| [CVE-2026-55451](https://access.redhat.com/security/cve/CVE-2026-55451) | IMPORTANT | 8.2 | 2026-09-14 | Vulnerable (no fix) | Affected |  | gettext-converter: gettext-converter: Denial of Service via Prototype Pollution |
 | [CVE-2026-81627](https://access.redhat.com/security/cve/CVE-2026-81627) | IMPORTANT | 8.2 | 2026-08-26 | Vulnerable (no fix) | Affected |  | qemu-kvm: VAPIC writable ROM alias can escape the option-ROM window and expose locked SMRAM |
 | [CVE-2026-49825](https://access.redhat.com/security/cve/CVE-2026-49825) | IMPORTANT | 8.2 | 2026-08-20 | Vulnerable (no fix) | Affected |  | lxml: lxml-html-clean: lxml: URL bypass vulnerability in Cleaner via missing xlink:href |
 | [CVE-2026-53492](https://access.redhat.com/security/cve/CVE-2026-53492) | IMPORTANT | 8.2 | 2026-07-01 | Vulnerable (no fix) | Affected |  | github.com/containerd/containerd: containerd: Security bypass via Container Device Interface (CDI) annotation smuggling during checkpoint restoration. |

@@ -35,7 +35,9 @@
 #                             can be repeated. Always listed, even when already fixed in the release
 #   --priority-file FILE      Same, CVE IDs read from FILE ('-' for stdin). A tag (P1, P2, ...) can be
 #                             given per CVE: CSV 'cve,priority' (CVE-2026-1234,P1), or a line 'P1'
-#                             before its CVEs. P1 comes before P2; markdown shows the tag
+#                             before its CVEs. P1 comes before P2; markdown shows the tag.
+#                             Priority CVEs not in the report are listed with why, e.g.
+#                             "not affecting OpenShift"
 #   -f, --format FORMAT       Same as the format argument
 #   -s, --severity LEVEL      Same as the severity argument
 #   --min-severity LEVEL      Keep LEVEL and the more severe ones (e.g. important = critical + important)
@@ -97,7 +99,8 @@ usage() {
     echo "                            (always listed, even when already fixed in the release)"
     echo "  --priority-file FILE      Same, CVE IDs read from FILE ('-' for stdin), with an optional"
     echo "                            P1/P2 tag per CVE: CSV 'cve,priority' or a 'P1' line before its CVEs"
-    echo "                            (P1 listed before P2, tag shown in the markdown report)"
+    echo "                            (P1 listed before P2, tag shown in the markdown report)."
+    echo "                            Priority CVEs not in the report get a comment, e.g. 'not affecting OpenShift'"
     echo "  -f, --format FORMAT       Same as the format argument"
     echo "  -s, --severity LEVEL      Same as the severity argument"
     echo "  --min-severity LEVEL      Keep LEVEL and the more severe ones (important = critical + important)"

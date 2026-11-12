@@ -272,9 +272,15 @@ CVE-2004-2320,P2      P2
   The other CVEs follow, by severity.
 - The markdown report shows the tag in a **Tag** column of the priority table (CSV: `priority` column;
   JSON: `priority_tag` per CVE).
-- The summary gives the count per tag and names the priority CVEs not in the report (they do not affect the
-  version, or a severity filter left them out). With a full release, priority CVEs already fixed in it are
-  listed anyway (`Not vulnerable`).
+- The summary gives the count per tag. The priority CVEs not in the report are listed with their tag and a
+  comment saying why (markdown: a **Priority CVEs not in this report** table after the priority CVEs; JSON:
+  `priority_not_in_report`):
+  - `not affecting OpenShift`: no OpenShift product is affected (or Red Hat has no record of the CVE)
+  - `not affecting OpenShift 4.22`: OpenShift is affected, but not this stream
+  - `no fix in OpenShift 4.22 yet (Affected): --include-unfixed to list it`: stream query without the unfixed CVEs
+  - `filtered out: severity MODERATE`: left out by `--severity` / `--min-severity`
+  - `lookup failed: Red Hat API error, try again`
+- With a full release, priority CVEs already fixed in it are listed anyway (`Not vulnerable`).
 
 ### Filter by Severity
 

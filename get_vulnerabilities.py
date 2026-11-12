@@ -66,11 +66,13 @@ class VulnerabilityScanner:
         self.api_base = "https://access.redhat.com/hydra/rest/securitydata/cve.json"
         self.cve_detail_base = "https://access.redhat.com/hydra/rest/securitydata/cve"
         self.cve_cache = {}  # Cache CVE details to avoid duplicate API calls
+        self.cve_not_found = set()  # CVE IDs the API has no record of (HTTP 404)
         self.release_cache = {}  # (advisory, stream) -> OCP release (e.g. 4.12.96) or None
         self.per_page = 1000
         self.hidden_fixed = 0  # full release: CVEs already fixed in it, left out of the report (--show-fixed)
         self.priority = []  # CVE IDs listed first in the report (--priority, --priority-file)
         self.priority_tags = {}  # CVE ID -> tag from the priority file (e.g. P1, P2)
+        self.priority_comments = {}  # priority CVE ID not in the report -> why (explain_priority_missing)
 
     def validate_version(self, version: str) -> bool:
         """Validate version format: stream (e.g. 4.21) or full release (e.g. 4.21.17)"""
@@ -225,6 +227,58 @@ class VulnerabilityScanner:
         listed = {v.get('CVE') for v in vulns}
         return [c for c in self.priority if c not in listed]
 
+    def _missing_comment(self, cve_id: str, stream: str, severity_ok, include_unfixed: bool,
+                         fixed_in_release: Optional[str], cve_file: Optional[Tuple[str, set]]) -> str:
+        """Why a priority CVE is not in the report, from its Red Hat security data"""
+        data = self.get_cve_details_cached(cve_id)
+        if data is None:
+            if cve_id in self.cve_not_found:
+                return "not affecting OpenShift (no Red Hat record of this CVE)"
+            return "lookup failed: Red Hat API error, try again"
+        ocp_releases = [r for r in data.get('affected_release') or [] if OCP_PRODUCT in (r.get('product_name') or '')]
+        ocp_states = [p for p in data.get('package_state') or [] if OCP_PRODUCT in (p.get('product_name') or '')]
+        if not ocp_releases and all(p.get('fix_state') == 'Not affected' for p in ocp_states):
+            return "not affecting OpenShift"
+        if cve_file and cve_id not in cve_file[1]:
+            return f"not in {cve_file[0]}"
+        info = self.get_fix_info(cve_id, stream)
+        if info['fix_status'] in ('No fix listed', 'Not affected'):
+            return f"not affecting OpenShift {stream}"
+        if info['fix_status'] == 'Lookup failed':
+            return "lookup failed"
+        severity = (data.get('threat_severity') or '').lower()
+        if not severity_ok({'severity': severity}):
+            return f"filtered out: severity {(severity or 'unknown').upper()}"
+        if fixed_in_release:
+            if info['fix_status'] != 'Fixed':
+                return f"not fixed in OpenShift {stream} yet ({info['fix_status']})"
+            return f"not fixed in {fixed_in_release} (fixed in {info['fixed_in'] or 'another release'})"
+        if info['fix_status'] != 'Fixed' and not include_unfixed:
+            return f"no fix in OpenShift {stream} yet ({info['fix_status']}): --include-unfixed to list it"
+        return "left out by the filters (e.g. --advisory-prefix)"
+
+    def explain_priority_missing(self, vulns: List[Dict], stream: str, severity_ok, include_unfixed: bool = False,
+                                 fixed_in_release: Optional[str] = None,
+                                 cve_file: Optional[Tuple[str, set]] = None, workers: int = 8):
+        """Fill priority_comments: for each priority CVE not in the report, why it is not
+        (e.g. 'not affecting OpenShift'). cve_file: (file name, CVE IDs) with --cve-file"""
+        missing = self.priority_missing(vulns)
+        if not missing:
+            return
+        print(f"[*] Checking why {len(missing)} priority CVEs are not in the report...", file=sys.stderr)
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            comments = list(pool.map(lambda c: self._missing_comment(c, stream, severity_ok, include_unfixed,
+                                                                     fixed_in_release, cve_file), missing))
+        self.priority_comments = dict(zip(missing, comments))
+
+    def priority_missing_rows(self, vulns: List[Dict]) -> List[Dict]:
+        """Priority CVEs not in the report as {cve, tag, comment}, by tag (P1 first), in file order within"""
+        missing = self.priority_missing(vulns)
+        order = {c: i for i, c in enumerate(missing)}
+        rows = [{'cve': c, 'tag': self.priority_tags.get(c, ''),
+                 'comment': self.priority_comments.get(c, 'not in this report')} for c in missing]
+        return sorted(rows, key=lambda r: (self._tag_rank(r['tag'] or None), order[r['cve']]))
+
     def _priority_note(self, vulns: List[Dict]) -> List[str]:
         """Summary lines about the priority CVEs (none when --priority was not used)"""
         if not self.priority:
@@ -239,11 +293,10 @@ class VulnerabilityScanner:
             line += " (" + ", ".join(f"{t}: {n}" for t, n in sorted(tag_counts.items(),
                                                                     key=lambda x: self._tag_rank(x[0]))) + ")"
         lines = [line]
-        missing = self.priority_missing(vulns)
+        missing = self.priority_missing_rows(vulns)
         if missing:
-            lines.append(f"Priority CVEs not in this report (do not affect this version, or filtered out): "
-                         + ", ".join(f"{c} ({self.priority_tags[c]})" if c in self.priority_tags else c
-                                     for c in missing))
+            lines.append(f"Priority CVEs not in this report: {len(missing)}")
+            lines.extend(f"  {r['tag']:<4}{r['cve']:<18}{r['comment']}" for r in missing)
         return lines
 
     def _section_title(self, vulns: List[Dict], index: int) -> Optional[str]:
@@ -268,7 +321,9 @@ class VulnerabilityScanner:
                 if isinstance(data, str):
                     data = json.loads(data)
                 self.cve_cache[cve_id] = data if isinstance(data, dict) else None
-            except (FetchError, json.JSONDecodeError):
+            except (FetchError, json.JSONDecodeError) as e:
+                if 'error: 404' in str(e):
+                    self.cve_not_found.add(cve_id)
                 self.cve_cache[cve_id] = None
         return self.cve_cache[cve_id]
 
@@ -656,7 +711,17 @@ class VulnerabilityScanner:
             output.append(f"- **In {version}:** {summary[0]}")
             output.extend(f"- **{line}**" for line in summary[1:])
         output.extend(f"- {line}" for line in self._hidden_note())
-        output.extend(f"- **{line.split(': ', 1)[0]}:** {line.split(': ', 1)[1]}" for line in self._priority_note(vulns))
+        priority_lines = self._priority_note(vulns)
+        if priority_lines:
+            label, value = priority_lines[0].split(': ', 1)
+            output.append(f"- **{label}:** {value}")
+        missing_rows = self.priority_missing_rows(vulns) if self.priority else []
+        if missing_rows:
+            output.append(f"- **Priority CVEs not in this report:** {len(missing_rows)} (see the table below)")
+        missing_section = ["", f"## Priority CVEs not in this report ({len(missing_rows)})", "",
+                           "| Tag | CVE | Comment |", "|---|---|---|"] + [
+            f"| {'**' + r['tag'] + '**' if r['tag'] else ''} | [{r['cve']}]({CVE_PAGE_BASE}/{r['cve']}) "
+            f"| {cell(r['comment'])} |" for r in missing_rows] if missing_rows else []
         if fixed_in_release:
             earlier = sum(1 for v in vulns if v.get('first_fixed_in'))
             output.append(f"- **First fixed in {fixed_in_release}:** {len(vulns) - earlier}, "
@@ -667,11 +732,17 @@ class VulnerabilityScanner:
                         "|" + "---|" * (8 if release_header else 7)]
         # Tag column (P1, P2, ... from the priority file) in the priority CVEs table
         tagged = any(v.get('priority_tag') for v in vulns)
+        # Priority CVEs not in the report: after the priority CVEs table, or first when none is listed
         if not any(v.get('priority') for v in vulns):
+            output.extend(missing_section)
+            if missing_section:
+                output.extend(["", "## CVEs"])
             output.append("")
             output.extend(table_header)
         for i, vuln in enumerate(vulns):
             section = self._section_title(vulns, i)
+            if section and not vuln.get('priority'):
+                output.extend(missing_section)
             if section:  # one table per section
                 header = (["| Tag " + table_header[0], "|---" + table_header[1]]
                           if tagged and vuln.get('priority') else table_header)
@@ -693,6 +764,8 @@ class VulnerabilityScanner:
                 f"| {vuln.get('cvss3_score') or 'N/A'} | {(vuln.get('public_date') or 'N/A')[:10]} | {release_cell}"
                 f"{cell(fixed_in)} | {f'[{advisory}]({link})' if advisory and link else cell(advisory)} "
                 f"| {cell(vuln.get('bugzilla_description'))} |")
+        if vulns and all(v.get('priority') for v in vulns):
+            output.extend(missing_section)
         return "\n".join(output) + "\n"
 
     def format_csv(self, vulns: List[Dict]) -> str:
@@ -741,7 +814,7 @@ class VulnerabilityScanner:
             "by_severity": {s.lower(): n for s, n in self.severity_counts(vulns).items()},
             **({"priority_cves": self.priority,
                 "priority_tags": self.priority_tags,
-                "priority_not_in_report": self.priority_missing(vulns)} if self.priority else {}),
+                "priority_not_in_report": self.priority_missing_rows(vulns)} if self.priority else {}),
             **({"not_listed_fixed": self.hidden_fixed} if self.hidden_fixed else {}),
             "vulnerabilities": vulns,
             "source": "Red Hat Security Advisory API"
@@ -1083,6 +1156,7 @@ Examples:
         vulns = scanner.sort_vulnerabilities(vulns)
 
         source = 'stdin' if args.cve_file == '-' else os.path.basename(args.cve_file)
+        scanner.explain_priority_missing(vulns, stream, severity_ok, cve_file=(source, set(cve_ids)))
         if args.format == 'csv':
             output = scanner.format_csv(vulns)
         elif args.format == 'json':
@@ -1195,6 +1269,10 @@ Examples:
     # Link per CVE: advisory (RHSA) when fixed, security bulletin (RHSB) or CVE page when not
     if with_fix and args.format != 'stats':
         scanner.add_links(vulns)
+
+    # Priority CVEs not in the report: why (not affecting OpenShift, filtered out, ...)
+    scanner.explain_priority_missing(vulns, stream, severity_ok, include_unfixed=args.include_unfixed,
+                                     fixed_in_release=args.fixed_in)
 
     # Format output
     title = f"OpenShift {args.version} - CVEs fixed in this release" if args.fixed_in else None
