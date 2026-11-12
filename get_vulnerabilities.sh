@@ -14,7 +14,8 @@
 # Report layout: CVEs are ordered by severity (critical, important, moderate,
 # low), then by status in the release when a full release is given, then by
 # CVSS score. The table and markdown reports start with the number of CVEs per
-# severity (json: "by_severity"; stats: "By Severity").
+# severity (json: "by_severity"; stats: "By Severity"). With --priority or
+# --priority-file, the listed CVEs come first, in their own section.
 #
 # Arguments:
 #   version   - OpenShift stream (e.g., 4.21) or full release (e.g., 4.21.17) - REQUIRED
@@ -30,6 +31,9 @@
 #                             date, release fixing each one and advisory (RHSA) link, or security
 #                             bulletin (RHSB) link when not fixed. With a full release (4.22.18),
 #                             also whether that release is still vulnerable
+#   --priority CVES           CVE IDs to list first, comma-separated (e.g. CVE-2026-1234,CVE-2026-5678);
+#                             can be repeated. Always listed, even when already fixed in the release
+#   --priority-file FILE      Same, CVE IDs read from FILE ('-' for stdin), same layout as --cve-file
 #   -f, --format FORMAT       Same as the format argument
 #   -s, --severity LEVEL      Same as the severity argument
 #   --min-severity LEVEL      Keep LEVEL and the more severe ones (e.g. important = critical + important)
@@ -58,6 +62,8 @@
 #   ./get_vulnerabilities.sh --cve CVE-2026-46300
 #   ./get_vulnerabilities.sh --cve-file cves.txt 4.22
 #   ./get_vulnerabilities.sh --cve-file cves.txt 4.22.18 csv
+#   ./get_vulnerabilities.sh 4.22.18 --priority CVE-2026-98432,CVE-2026-19630
+#   ./get_vulnerabilities.sh 4.22.18 markdown --priority-file watched.txt
 ###############################################################################
 
 set -euo pipefail
@@ -78,12 +84,16 @@ usage() {
     echo "  severity  - Filter by severity: critical, important, moderate, low"
     echo ""
     echo "Reports list CVEs by severity (most severe first) and start with the number of CVEs per severity."
+    echo "With --priority / --priority-file, the listed CVEs come first, in their own section."
     echo ""
     echo "Options:"
     echo "  --cve CVE-ID              Fix status of one CVE for every OpenShift version"
     echo "  --cve-file FILE           Only the CVEs listed in FILE ('-' for stdin): CVSS score, publication"
     echo "                            date, release fixing each one and RHSA link (RHSB when not fixed)"
     echo "                            version: 4.22, or 4.22.18 to also check that release"
+    echo "  --priority CVES           CVE IDs to list first, comma-separated; can be repeated"
+    echo "                            (always listed, even when already fixed in the release)"
+    echo "  --priority-file FILE      Same, CVE IDs read from FILE ('-' for stdin)"
     echo "  -f, --format FORMAT       Same as the format argument"
     echo "  -s, --severity LEVEL      Same as the severity argument"
     echo "  --min-severity LEVEL      Keep LEVEL and the more severe ones (important = critical + important)"
@@ -110,6 +120,8 @@ usage() {
     echo "  $0 --cve CVE-2026-46300"
     echo "  $0 --cve-file cves.txt 4.22"
     echo "  $0 --cve-file cves.txt 4.22.18 csv"
+    echo "  $0 4.22.18 --priority CVE-2026-98432,CVE-2026-19630"
+    echo "  $0 4.22.18 markdown --priority-file watched.txt"
     exit 1
 }
 
@@ -170,6 +182,17 @@ while [ "$#" -gt 0 ]; do
         --advisory-prefix)
             need_value "$@"
             OPTS+=(--advisory-prefix "$2")
+            shift 2
+            ;;
+        --priority)
+            need_value "$@"
+            OPTS+=(--priority "$2")
+            shift 2
+            ;;
+        --priority-file)
+            need_value "$@"
+            [ "$2" = "-" ] || [ -r "$2" ] || error "Cannot read priority file '$2'"
+            OPTS+=(--priority-file "$2")
             shift 2
             ;;
         --fixed-in)
