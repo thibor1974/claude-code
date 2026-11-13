@@ -1,0 +1,75 @@
+# Daily OpenShift releases report: runs list_versions.py for each stream below and commits the result
+# as reports/versions-<stream>.md: every release of the stream, its release date, its update channels
+# (candidate / fast / stable / eus) and its errata link (~10 seconds per stream).
+# A commit only happens when the data changes (a new "Generated on" date alone is ignored), so the
+# git history of the page shows when each release appeared or moved to another channel.
+name: Versions report
+
+on:
+  # When to run: 'minute hour * * *' in UTC time (Belgian time minus 1 hour in winter, minus 2 in summer).
+  # Change it to any time you like, add more lines to run several times a day.
+  # GitHub often starts scheduled runs 5-30 minutes late.
+  # To run it right now: Actions tab -> Versions report -> Run workflow.
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      streams:
+        description: 'OpenShift streams to report on, space-separated (e.g. "4.22 4.21"); empty = default list'
+        required: false
+        default: ''
+
+env:
+  # Streams checked by the scheduled run: edit this list to follow your clusters
+  STREAMS: '5.0'
+
+permissions:
+  contents: write
+
+# Same group as the CVE report: the two workflows never push at the same time
+concurrency:
+  group: reports
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Generate reports
+        env:
+          INPUT_STREAMS: ${{ inputs.streams }}
+          TZ: Europe/Brussels   # "Generated on" in Belgian time (CET / CEST)
+        run: |
+          mkdir -p reports
+          for stream in ${INPUT_STREAMS:-$STREAMS}; do
+            echo "::group::OpenShift $stream"
+            # Write to a temp file first: a failed run (API outage) leaves the previous report untouched
+            python3 list_versions.py "$stream" --format markdown --output "reports/versions-$stream.md.tmp"
+            mv "reports/versions-$stream.md.tmp" "reports/versions-$stream.md"
+            echo "::endgroup::"
+          done
+
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          # Drop the reports whose only change is the "Generated on" line: no daily commit for a new date alone
+          for f in reports/versions-*.md; do
+            if git cat-file -e "HEAD:$f" 2>/dev/null &&
+               cmp -s <(git show "HEAD:$f" | grep -v '^Generated on ') <(grep -v '^Generated on ' "$f"); then
+              git checkout -- "$f"
+            fi
+          done
+          git add reports/versions-*.md
+          if git diff --cached --quiet; then
+            # ::notice:: shows on the run's summary page, no need to open the logs
+            echo "::notice::No change in the reports since the last commit: nothing to commit"
+            exit 0
+          fi
+          git diff --cached --stat
+          git commit -m "Versions report update $(date -u +%Y-%m-%d)"
+          git pull --rebase --quiet   # in case something else was pushed during the run
+          git push
