@@ -1,6 +1,6 @@
 # OpenShift 4.22 releases (amd64)
 
-Generated on 2026-11-16 15:46:41 CET by `list_versions.py` from the OpenShift update graph (Cincinnati).
+Generated on 2026-11-17 16:29:12 CET by `list_versions.py` from the OpenShift update graph (Cincinnati).
 
 - **Releases:** 36
 - **Latest in candidate-4.22:** 4.22.23 (released 2026-11-13*)
@@ -16,17 +16,17 @@ Generated on 2026-11-16 15:46:41 CET by `list_versions.py` from the OpenShift up
 | 4.22.20 | 2026-10-27 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:89198](https://access.redhat.com/errata/RHSA-2026:89198) |
 | 4.22.19 | 2026-10-16* | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:83541](https://access.redhat.com/errata/RHSA-2026:83541) |
 | 4.22.18 | 2026-10-19 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:79154](https://access.redhat.com/errata/RHSA-2026:79154) |
-| 4.22.17 | 2026-10-06 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:74429](https://access.redhat.com/errata/RHSA-2026:74429) |
+| 4.22.17 | 2026-10-01* | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:74429](https://access.redhat.com/errata/RHSA-2026:74429) |
 | 4.22.16 | 2026-09-29 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:71454](https://access.redhat.com/errata/RHSA-2026:71454) |
 | 4.22.15 | 2026-09-22 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:68552](https://access.redhat.com/errata/RHSA-2026:68552) |
-| 4.22.14 | 2026-09-10* | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:66358](https://access.redhat.com/errata/RHSA-2026:66358) |
+| 4.22.14 | 2026-09-15 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:66358](https://access.redhat.com/errata/RHSA-2026:66358) |
 | 4.22.13 | 2026-09-08 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:63096](https://access.redhat.com/errata/RHSA-2026:63096) |
 | 4.22.12 | 2026-09-01 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:60441](https://access.redhat.com/errata/RHSA-2026:60441) |
 | 4.22.11 | 2026-08-25 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:57365](https://access.redhat.com/errata/RHSA-2026:57365) |
 | 4.22.10 | 2026-08-18 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:54770](https://access.redhat.com/errata/RHSA-2026:54770) |
 | 4.22.9 | 2026-08-11 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:51038](https://access.redhat.com/errata/RHSA-2026:51038) |
 | 4.22.8 | 2026-08-04 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:48693](https://access.redhat.com/errata/RHSA-2026:48693) |
-| 4.22.7 | 2026-07-28 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:44237](https://access.redhat.com/errata/RHSA-2026:44237) |
+| 4.22.7 | 2026-07-23* | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:44237](https://access.redhat.com/errata/RHSA-2026:44237) |
 | 4.22.6 | 2026-07-21 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:40768](https://access.redhat.com/errata/RHSA-2026:40768) |
 | 4.22.5 | 2026-07-14 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:37585](https://access.redhat.com/errata/RHSA-2026:37585) |
 | 4.22.4 | 2026-07-07 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:34794](https://access.redhat.com/errata/RHSA-2026:34794) |
