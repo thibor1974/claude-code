@@ -1,0 +1,99 @@
+# Daily operators report: runs list_operators.py for each stream and catalog below and commits the result
+# as reports/operators-<stream>-<catalog>.md: every operator of the catalog, its channels (default channel
+# marked) and the latest version of each channel, what OperatorHub installs (~10 seconds per catalog).
+# A commit only happens when the data changes (a new "Generated on" date alone is ignored), so the
+# git history of each page shows when an operator, a channel or a new version appeared.
+name: Operators report
+
+on:
+  # When to run: 'minute hour * * *' in UTC time (Belgian time minus 1 hour in winter, minus 2 in summer).
+  # Change it to any time you like, add more lines to run several times a day.
+  # GitHub often starts scheduled runs 5-30 minutes late.
+  # To run it right now: Actions tab -> Operators report -> Run workflow.
+  schedule:
+    - cron: '30 6 * * *'
+  workflow_dispatch:
+    inputs:
+      streams:
+        description: 'OpenShift streams to report on, space-separated (e.g. "4.22 4.21"); empty = default list'
+        required: false
+        default: ''
+      catalogs:
+        description: 'Catalogs, space-separated (redhat-operators certified-operators community-operators redhat-marketplace); empty = default list'
+        required: false
+        default: ''
+
+env:
+  # Streams checked by the scheduled run: edit this list to follow your clusters
+  STREAMS: '4.22'
+  # One report per catalog. A catalog with no operator for a stream (e.g. redhat-marketplace) is skipped
+  CATALOGS: 'redhat-operators certified-operators community-operators redhat-marketplace'
+
+permissions:
+  contents: write
+
+# Same group as the CVE and versions reports: the workflows never push at the same time
+concurrency:
+  group: reports
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Generate reports
+        env:
+          INPUT_STREAMS: ${{ inputs.streams }}
+          INPUT_CATALOGS: ${{ inputs.catalogs }}
+          TZ: Europe/Brussels   # "Generated on" in Belgian time (CET / CEST)
+        run: |
+          mkdir -p reports
+          failed=0
+          for stream in ${INPUT_STREAMS:-$STREAMS}; do
+            for catalog in ${INPUT_CATALOGS:-$CATALOGS}; do
+              echo "::group::OpenShift $stream - $catalog"
+              report="reports/operators-$stream-$catalog.md"
+              # Write to a temp file first: a failed run (API outage) leaves the previous report untouched.
+              # Exit codes: 0 = report written, 1 = no operator in this catalog, 2 = API error
+              status=0
+              python3 list_operators.py "$stream" --catalog "$catalog" --format markdown \
+                --output "$report.tmp" || status=$?
+              case $status in
+                0) mv "$report.tmp" "$report" ;;
+                1) echo "::notice::No operator in $catalog for OpenShift $stream: no report" ;;
+                *) echo "::error::$catalog for OpenShift $stream failed (exit $status): previous report kept"
+                   failed=1 ;;
+              esac
+              rm -f "$report.tmp"
+              echo "::endgroup::"
+            done
+          done
+          # The other reports are still committed by the next step; the run is then marked failed
+          echo "FAILED=$failed" >> "$GITHUB_ENV"
+
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          # Drop the reports whose only change is the "Generated on" line: no daily commit for a new date alone
+          for f in reports/operators-*.md; do
+            [ -e "$f" ] || continue
+            if git cat-file -e "HEAD:$f" 2>/dev/null &&
+               cmp -s <(git show "HEAD:$f" | grep -v '^Generated on ') <(grep -v '^Generated on ' "$f"); then
+              git checkout -- "$f"
+            fi
+          done
+          git add reports/operators-*.md 2>/dev/null || true
+          if git diff --cached --quiet; then
+            # ::notice:: shows on the run's summary page, no need to open the logs
+            echo "::notice::No change in the reports since the last commit: nothing to commit"
+          else
+            git diff --cached --stat
+            git commit -m "Operators report update $(date -u +%Y-%m-%d)"
+            git pull --rebase --quiet   # in case something else was pushed during the run
+            git push
+          fi
+          [ "$FAILED" = 0 ]   # mark the run failed when a catalog could not be fetched
