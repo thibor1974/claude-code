@@ -35,7 +35,8 @@ chmod +x list_operators.py
 | `-p, --package` | Only operators whose package name or display name contains this text (case-insensitive) |
 | `-d, --default-only` | Only show the default channel of each operator |
 | `-a, --all-versions` | List every version available in each channel, not only the latest one |
-| `-f, --format` | `table` (default), `csv` or `json` |
+| `-f, --format` | `table` (default), `csv`, `json` or `markdown` |
+| `-o, --output` | Write to this file instead of stdout (e.g. `reports/operators-4.21.md`) |
 
 ### Examples
 
@@ -57,6 +58,9 @@ chmod +x list_operators.py
 
 # Every catalog, exported to CSV
 ./list_operators.py 4.21 -c all -f csv > operators-4.21.csv
+
+# Markdown page (e.g. for a git-tracked report): one table per catalog, default channel marked
+./list_operators.py 4.21 -f markdown -o reports/operators-4.21.md
 
 # Compare two OpenShift versions
 ./list_operators.py 4.20 -d -f csv > ops-4.20.csv

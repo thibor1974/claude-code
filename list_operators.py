@@ -15,6 +15,7 @@ import re
 import subprocess
 import sys
 import time
+from datetime import datetime
 from typing import Dict, List
 from urllib.parse import quote
 
@@ -132,6 +133,44 @@ def format_table(rows: List[Dict], ocp_version: str, all_versions: bool) -> str:
     return "\n".join(lines)
 
 
+def format_markdown(rows: List[Dict], ocp_version: str, all_versions: bool) -> str:
+    """Markdown page: summary, then one table per catalog (package and name shown once per operator)"""
+    def cell(text) -> str:
+        return str(text or '').replace('|', '\\|').replace('\n', ' ').strip()
+
+    packages = {(r['catalog'], r['package']) for r in rows}
+    channels = {(r['catalog'], r['package'], r['channel']) for r in rows}
+    generated = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M:%S %Z')
+    lines = [f"# Operators for OpenShift {ocp_version}", "",
+             f"Generated on {generated} by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).", "",
+             f"- **Operators:** {len(packages)}",
+             f"- **Channels:** {len(channels)}"]
+    if all_versions:
+        lines.append(f"- **Versions:** {len(rows)} (channel heads in bold)")
+    for catalog in CATALOGS:
+        count = sum(1 for c, _ in packages if c == catalog)
+        if count:
+            lines.append(f"- **{catalog}:** {count} operators")
+    lines += ["- Default channel (installed when no channel is chosen) marked *(default)*"]
+
+    current = None
+    for r in rows:
+        if r['catalog'] != (current or {}).get('catalog'):
+            lines += ["", f"## {r['catalog']}", "",
+                      "| Package | Name | Channel | Version | Published |", "|---|---|---|---|---|"]
+            current = None
+        same_pkg = current is not None and current['package'] == r['package']
+        package = '' if same_pkg else f"`{r['package']}`"
+        channel = cell(r['channel']) + (' *(default)*' if r['default'] else '')
+        version = cell(r['version'])
+        if all_versions and r['latest']:
+            version = f"**{version}**"
+        lines.append(f"| {package} | {'' if same_pkg else cell(r['display_name'])} | {channel} | {version} "
+                     f"| {r['published']} |")
+        current = r
+    return "\n".join(lines)
+
+
 def format_csv(rows: List[Dict]) -> str:
     out = io.StringIO()
     writer = csv.DictWriter(out, fieldnames=['catalog', 'package', 'display_name', 'channel', 'default',
@@ -162,7 +201,8 @@ def main():
                "  %(prog)s 4.21 --default-only               # only the default channel of each operator\n"
                "  %(prog)s 4.21 --all-versions -p cluster-logging   # every version of each channel\n"
                "  %(prog)s 4.21 --catalog certified-operators --catalog community-operators\n"
-               "  %(prog)s 4.21 --catalog all --format csv > operators-4.21.csv",
+               "  %(prog)s 4.21 --catalog all --format csv > operators-4.21.csv\n"
+               "  %(prog)s 4.21 --format markdown -o reports/operators-4.21.md",
         formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('ocp_version', help="OpenShift version, e.g. 4.21 (or 4.21.17, only the stream is used)")
     parser.add_argument('--catalog', '-c', choices=CATALOGS + ['all'], action='append',
@@ -171,8 +211,10 @@ def main():
     parser.add_argument('--default-only', '-d', action='store_true', help="Only show the default channel of each operator")
     parser.add_argument('--all-versions', '-a', action='store_true',
                         help="List every version available in each channel, not only the channel head")
-    parser.add_argument('--format', '-f', default='table', choices=['table', 'csv', 'json'],
+    parser.add_argument('--format', '-f', default='table', choices=['table', 'csv', 'json', 'markdown'],
                         help="Output format (default: table)")
+    parser.add_argument('--output', '-o', metavar='FILE',
+                        help="Write to FILE instead of stdout (e.g. reports/operators-4.21.md)")
     args = parser.parse_args()
 
     match = re.fullmatch(r'(\d+\.\d+)(\.\d+)?', args.ocp_version)
@@ -197,11 +239,24 @@ def main():
         sys.exit(1)
 
     if args.format == 'json':
-        print(format_json(rows, ocp_version))
+        output = format_json(rows, ocp_version)
     elif args.format == 'csv':
-        print(format_csv(rows))
+        output = format_csv(rows)
+    elif args.format == 'markdown':
+        output = format_markdown(rows, ocp_version, args.all_versions)
     else:
-        print(format_table(rows, ocp_version, args.all_versions))
+        output = format_table(rows, ocp_version, args.all_versions)
+
+    if args.output:
+        try:
+            with open(args.output, 'w', encoding='utf-8') as f:
+                f.write(output + "\n")
+        except OSError as e:
+            print(f"Error: cannot write {args.output}: {e.strerror}", file=sys.stderr)
+            sys.exit(2)
+        print(f"Report written to {args.output}", file=sys.stderr)
+    else:
+        print(output)
 
 
 if __name__ == '__main__':
