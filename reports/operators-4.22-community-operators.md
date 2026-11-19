@@ -1,10 +1,10 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-19 16:56:13 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
-- **Operators:** 317
-- **Channels:** 523
-- **community-operators:** 317 operators
+- **Operators:** 321
+- **Channels:** 530
+- **community-operators:** 321 operators
 - Default channel (installed when no channel is chosen) marked *(default)*
 
 ## community-operators
@@ -35,7 +35,7 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 | `ack-documentdb-controller` | AWS Controllers for Kubernetes - Amazon DocumentDB | alpha *(default)* | 1.10.0 | 2026-11-12 |
 | `ack-dsql-controller` | AWS Controllers for Kubernetes - Amazon Aurora DSQL | alpha *(default)* | 1.5.0 | 2026-11-12 |
 | `ack-dynamodb-controller` | AWS Controllers for Kubernetes - Amazon DynamoDB | alpha *(default)* | 1.15.0 | 2026-11-12 |
-| `ack-ec2-controller` | AWS Controllers for Kubernetes - Amazon EC2 | alpha *(default)* | 1.24.0 | 2026-11-13 |
+| `ack-ec2-controller` | AWS Controllers for Kubernetes - Amazon EC2 | alpha *(default)* | 1.25.1 | 2026-11-19 |
 | `ack-ecr-controller` | AWS Controllers for Kubernetes - Amazon ECR | alpha *(default)* | 1.12.0 | 2026-11-13 |
 | `ack-ecrpublic-controller` | AWS Controllers for Kubernetes - Amazon ECR PUBLIC | alpha *(default)* | 1.8.0 | 2026-11-13 |
 | `ack-ecs-controller` | AWS Controllers for Kubernetes - Amazon ECS | alpha *(default)* | 1.10.0 | 2026-11-13 |
@@ -48,14 +48,14 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 | `ack-emrserverless-controller` | AWS Controllers for Kubernetes - Amazon EMR Serverless | alpha *(default)* | 1.5.0 | 2026-11-13 |
 | `ack-eventbridge-controller` | AWS Controllers for Kubernetes - Amazon EventBridge | alpha *(default)* | 1.10.0 | 2026-11-14 |
 | `ack-firehose-controller` | AWS Controllers for Kubernetes - Amazon Firehose | alpha *(default)* | 0.8.1 | 2026-11-05 |
-| `ack-fsx-controller` | AWS Controllers for Kubernetes - Amazon FSx | alpha *(default)* | 0.2.0 | 2026-11-13 |
+| `ack-fsx-controller` | AWS Controllers for Kubernetes - Amazon FSx | alpha *(default)* | 0.4.0 | 2026-11-19 |
 | `ack-glue-controller` | AWS Controllers for Kubernetes - Amazon Glue | alpha *(default)* | 1.6.0 | 2026-11-12 |
 | `ack-iam-controller` | AWS Controllers for Kubernetes - Amazon IAM | alpha *(default)* | 1.12.0 | 2026-11-13 |
 | `ack-kafka-controller` | AWS Controllers for Kubernetes - Amazon Kafka | alpha *(default)* | 1.14.0 | 2026-10-30 |
 | `ack-keyspaces-controller` | AWS Controllers for Kubernetes - Amazon Keyspaces | alpha *(default)* | 1.9.0 | 2026-11-13 |
 | `ack-kinesis-controller` | AWS Controllers for Kubernetes - Amazon Kinesis | alpha *(default)* | 1.8.0 | 2026-11-14 |
-| `ack-kms-controller` | AWS Controllers for Kubernetes - Amazon KMS | alpha *(default)* | 1.6.1 | 2026-10-16 |
-| `ack-lambda-controller` | AWS Controllers for Kubernetes - Amazon Lambda | alpha *(default)* | 1.19.0 | 2026-10-26 |
+| `ack-kms-controller` | AWS Controllers for Kubernetes - Amazon KMS | alpha *(default)* | 1.8.0 | 2026-11-18 |
+| `ack-lambda-controller` | AWS Controllers for Kubernetes - Amazon Lambda | alpha *(default)* | 1.20.0 | 2026-11-18 |
 | `ack-lambdamicrovms-controller` | AWS Controllers for Kubernetes - Amazon Lambda Microvms | alpha *(default)* | 0.6.0 | 2026-11-13 |
 | `ack-memorydb-controller` | AWS Controllers for Kubernetes - MemoryDB | alpha *(default)* | 1.10.0 | 2026-11-13 |
 | `ack-mq-controller` | AWS Controllers for Kubernetes - Amazon MQ | alpha *(default)* | 1.9.0 | 2026-11-13 |
@@ -88,6 +88,7 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 | `ack-wafv2-controller` | AWS Controllers for Kubernetes - Amazon WAFV2 | alpha *(default)* | 1.8.1 | 2026-11-04 |
 | `aerospike-kubernetes-operator` | Aerospike Kubernetes Operator | alpha | 2.5.0 | 2026-03-20 |
 |  |  | stable *(default)* | 4.7.0 | 2026-11-05 |
+| `agent-router-operator` | The Agent Router (Community) | alpha *(default)* | 0.1.1 | 2026-11-18 |
 | `ahv-to-ove-operator` | AHV to OVE Migration Operator | alpha *(default)* | 0.1.0 | 2026-07-16 |
 | `airflow-helm-operator` | Airflow Helm Operator | alpha *(default)* | 0.0.1 | 2026-03-20 |
 | `alibaba-cloud-csi-operator` | Alibaba Cloud CSI Operator | stable *(default)* | 0.1.14 | 2026-07-16 |
@@ -122,7 +123,7 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 |  |  | ocm-2.10 | 0.7.71 | 2026-03-20 |
 |  |  | ocm-2.11 | 0.7.73 | 2026-03-20 |
 |  |  | ocm-2.13 | 0.7.74 | 2026-03-20 |
-| `attune` | Attune | stable *(default)* | 0.1.37 | 2026-11-08 |
+| `attune` | Attune | stable *(default)* | 0.1.38 | 2026-11-18 |
 | `authorino-operator` | Authorino Operator | alpha | 0.8.0 | 2026-03-20 |
 |  |  | stable *(default)* | 0.16.0 | 2026-03-20 |
 | `automotive-infra` | Automotive-CI | alpha *(default)* | 0.0.10 | 2026-03-20 |
@@ -185,7 +186,7 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 | `deployment-validation-operator` | Deployment Validation Operator | alpha *(default)* | 0.7.12 | 2026-03-20 |
 | `devopsinabox` | Devops-in-a-box | alpha *(default)* | 0.0.45 | 2026-03-20 |
 | `dns-operator` | DNS Operator | stable *(default)* | 0.6.0 | 2026-03-20 |
-| `dotvirt-operator` | dotvirt operator | stable-v0 *(default)* | 0.2.0 | 2026-11-09 |
+| `dotvirt-operator` | dotvirt operator | stable-v0 *(default)* | 0.2.2 | 2026-11-18 |
 | `dynatrace-operator` | Dynatrace Operator | alpha *(default)* | 1.11.1 | 2026-10-23 |
 | `eclipse-amlen-operator` | eclipse-amlen-operator | alpha *(default)* | 1.0.0 | 2026-03-20 |
 |  |  | stable | 1.1.3 | 2026-03-20 |
@@ -196,6 +197,7 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 | `eginnovations-operator` | eG Innovations Universal Agent Operator | beta *(default)* | 0.0.11 | 2026-03-20 |
 | `egressip-ipam-operator` | Egressip Ipam Operator | alpha *(default)* | 1.2.4 | 2026-03-20 |
 | `ember-csi-community-operator` | Ember CSI Operator | beta *(default)* | 0.9.9 | 2026-03-20 |
+| `envoy-gateway-operator` | Envoy Gateway (Community) | alpha *(default)* | 0.1.1 | 2026-11-18 |
 | `etcd` | etcd | alpha | 0.6.1 | 2026-03-20 |
 |  |  | clusterwide-alpha | 0.9.4-clusterwide | 2026-03-20 |
 |  |  | singlenamespace-alpha *(default)* | 0.9.4 | 2026-03-20 |
@@ -219,7 +221,7 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 | `gitops-primer` | gitops-primer | alpha *(default)* | 0.0.11 | 2026-03-20 |
 | `gitwebhook-operator` | GitWebhook operator | alpha *(default)* | 0.1.2 | 2026-03-20 |
 | `global-load-balancer-operator` | Global Load Balancer Operator | alpha *(default)* | 1.4.2 | 2026-03-20 |
-| `grafana-operator` | Grafana Operator | v5 *(default)* | 5.25.0 | 2026-10-18 |
+| `grafana-operator` | Grafana Operator | v5 *(default)* | 5.26.0 | 2026-11-19 |
 | `group-sync-operator` | Group Sync Operator | alpha *(default)* | 0.1.2 | 2026-10-26 |
 | `hawtio-operator` | Hawtio Operator | alpha | 0.5.0 | 2026-03-20 |
 |  |  | latest | 1.2.0 | 2026-03-20 |
@@ -233,7 +235,7 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 |  |  | ocm-2.4 | 2.4.3231-ba51985 | 2026-03-20 |
 | `horreum-operator` | Horreum | alpha *(default)* | 0.7.9 | 2026-03-20 |
 | `hostzero-keycloak-operator` | Keycloak Operator | stable *(default)* | 0.14.0 | 2026-10-23 |
-| `hyperfoil-bundle` | Hyperfoil | alpha *(default)* | 0.26.0 | 2026-03-20 |
+| `hyperfoil-bundle` | Hyperfoil | alpha *(default)* | 0.29.3 | 2026-11-19 |
 | `ibm-block-csi-operator-community` | IBM block storage CSI driver operator | stable *(default)* | 1.14.1 | 2026-11-01 |
 |  |  | stable-v1.14 | 1.14.1 | 2026-11-01 |
 |  |  | stable-v1.14.0 | 1.14.0 | 2026-09-22 |
@@ -257,6 +259,8 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 | `jupyter-notebook-validator-operator` | Jupyter Notebook Validator Operator | stable *(default)* | 1.0.9 | 2026-09-29 |
 | `k8boss-operator` | K8Boss | alpha *(default)* | 0.1.0 | 2026-09-15 |
 | `k8gb` | k8gb | alpha *(default)* | 0.11.4 | 2026-03-20 |
+| `k8s-overcommit` | K8s Overcommit Operator | alpha | 1.3.6 | 2026-11-19 |
+|  |  | stable *(default)* | 1.3.6 | 2026-11-19 |
 | `kairos-operator` | Kairos Operator | candidate-v2 *(default)* | 2.2.0 | 2026-07-29 |
 | `kaoto-operator` | Kaoto Operator | alpha *(default)* | 2.14.0 | 2026-11-05 |
 | `keda` | [DEPRECATED] KEDA | alpha *(default)* | 2.7.1 | 2026-03-20 |
@@ -278,7 +282,7 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-v0.0 | 0.0.14 | 2026-07-29 |
 |  |  | stable-v0.1 | 0.1.13 | 2026-07-29 |
 |  |  | stable-v0.2 *(default)* | 0.2.2 | 2026-09-08 |
-| `konveyor-operator` | Konveyor Operator | alpha *(default)* | 0.11.0-alpha.4 | 2026-09-11 |
+| `konveyor-operator` | Konveyor Operator | alpha | 0.11.0-alpha.4 | 2026-09-11 |
 |  |  | beta | 0.9.0-beta.1 | 2026-03-20 |
 |  |  | konveyor-0.1 | 0.1.2 | 2026-03-20 |
 |  |  | konveyor-0.2 | 0.2.1 | 2026-03-20 |
@@ -289,6 +293,7 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 |  |  | konveyor-0.7 | 0.7.1 | 2026-03-20 |
 |  |  | konveyor-0.8 | 0.8.0 | 2026-03-20 |
 |  |  | konveyor-0.9 | 0.9.2 | 2026-04-15 |
+|  |  | konveyor-0.11 *(default)* | 0.11.1 | 2026-11-19 |
 |  |  | rc | 0.9.0-rc.5 | 2026-02-28 |
 |  |  | release-0.6 | 0.6.2 | 2026-03-20 |
 |  |  | release-0.7 | 0.7.0-rc.1 | 2026-03-20 |
@@ -300,6 +305,8 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 | `kuadrant-operator` | Kuadrant Operator | alpha | 0.3.1 | 2026-03-20 |
 |  |  | stable *(default)* | 0.11.1 | 2026-03-20 |
 | `kube-green` | kube-green | alpha *(default)* | 0.7.1 | 2026-08-26 |
+| `kubebrowser` | KubeBrowser Operator | alpha | 0.1.1 | 2026-11-18 |
+|  |  | fast *(default)* | 0.1.1 | 2026-11-18 |
 | `kubeheal-operator` | KubeHeal AIOps Self-Healing Platform | alpha *(default)* | 0.1.10 | 2026-10-06 |
 | `kubernaut-operator` | Kubernaut Operator | candidate-v1 *(default)* | 1.5.0 | 2026-06-11 |
 | `kubernetes-imagepuller-operator` | Kubernetes Image Puller Operator | stable *(default)* | 1.1.2 | 2026-07-20 |
@@ -372,7 +379,7 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 | `opentelemetry-operator` | Community OpenTelemetry Operator | alpha *(default)* | 0.161.0 | 2026-10-15 |
 | `paperclip-operator` | Paperclip Operator | stable *(default)* | 0.19.1 | 2026-09-07 |
 | `patch-operator` | Patch Operator | alpha *(default)* | 0.1.11 | 2026-03-20 |
-| `patterns-operator` | Validated Patterns Operator | fast *(default)* | 0.0.82 | 2026-10-23 |
+| `patterns-operator` | Validated Patterns Operator | fast *(default)* | 0.0.83 | 2026-11-18 |
 | `pcc-operator` | Prisma Cloud Compute Operator | stable *(default)* | 0.2.0 | 2026-03-20 |
 | `pelorus-operator` | Pelorus Operator | alpha *(default)* | 0.0.9 | 2026-03-20 |
 | `percona-postgresql-operator` | Percona Operator for PostgreSQL | stable *(default)* | 3.1.0 | 2026-09-17 |
@@ -387,19 +394,19 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-3.9 | 3.9.27 | 2026-10-20 |
 |  |  | stable-3.10 | 3.10.27 | 2026-10-09 |
 |  |  | stable-3.11 | 3.11.13 | 2026-03-20 |
-|  |  | stable-3.12 | 3.12.23 | 2026-10-12 |
+|  |  | stable-3.12 | 3.12.24 | 2026-11-18 |
 |  |  | stable-3.13 | 3.13.11 | 2026-03-20 |
 |  |  | stable-3.14 | 3.14.9 | 2026-09-26 |
 |  |  | stable-3.15 | 3.15.8 | 2026-09-04 |
 |  |  | stable-3.16 | 3.16.6 | 2026-10-05 |
-|  |  | stable-3.17 *(default)* | 3.17.6 | 2026-10-18 |
+|  |  | stable-3.17 *(default)* | 3.17.7 | 2026-11-19 |
 |  |  | stable-3.18 | 3.18.2 | 2026-10-22 |
 | `prometheus` | Prometheus Operator | beta *(default)* | 0.56.3 | 2026-03-20 |
 | `prometheus-exporter-operator` | Prometheus Exporter Operator | alpha *(default)* | 0.7.0 | 2026-03-20 |
 | `pubsubplus-eventbroker-operator` | Solace PubSub+ Event Broker Operator | stable *(default)* | 1.4.2 | 2026-08-19 |
 | `pulp-operator` | Pulp Project | alpha | 1.0.0-alpha.1 | 2026-03-20 |
 |  |  | beta *(default)* | 1.0.0-beta.4 | 2026-03-20 |
-| `rabbitmq-cluster-operator` | RabbitMQ-cluster-operator | stable *(default)* | 2.23.2 | 2026-10-29 |
+| `rabbitmq-cluster-operator` | RabbitMQ-cluster-operator | stable *(default)* | 2.23.3 | 2026-11-18 |
 | `rabbitmq-messaging-topology-operator` | rabbitmq-messaging-topology-operator | stable *(default)* | 1.20.5 | 2026-10-29 |
 | `redis-operator` | Redis Operator | preview | 0.4.0 | 2026-03-20 |
 |  |  | stable *(default)* | 0.27.0 | 2026-11-09 |
@@ -519,7 +526,7 @@ Generated on 2026-11-18 18:26:53 CET by `list_operators.py` from the Red Hat Eco
 | `tempo-operator` | Community Tempo Operator | alpha *(default)* | 0.23.0 | 2026-10-22 |
 | `tf-controller` | Weave GitOps Terraform Controller | stable *(default)* | 0.9.0-rc.8 | 2026-03-20 |
 | `tidb-operator` | TiDB Operator | stable *(default)* | 1.3.1 | 2026-03-20 |
-| `tls-compliance-operator` | TLS Compliance Operator | stable *(default)* | 1.1.19 | 2026-10-29 |
+| `tls-compliance-operator` | TLS Compliance Operator | stable *(default)* | 1.2.1 | 2026-11-18 |
 | `trident-operator` | NetApp Trident | stable *(default)* | 26.2.1 | 2026-07-10 |
 | `trustify-operator` | Trustify Operator | alpha *(default)* | 0.1.0-alpha.9 | 2026-03-20 |
 | `ucs-ci-solutions-operator` | UCS-CI-Solutions-Operator | alpha *(default)* | 0.0.1 | 2026-03-20 |

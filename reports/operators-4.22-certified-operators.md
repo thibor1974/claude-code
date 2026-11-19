@@ -1,10 +1,10 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-19 16:56:01 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
-- **Operators:** 177
-- **Channels:** 378
-- **certified-operators:** 177 operators
+- **Operators:** 176
+- **Channels:** 379
+- **certified-operators:** 176 operators
 - Default channel (installed when no channel is chosen) marked *(default)*
 
 ## certified-operators
@@ -29,7 +29,6 @@ Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Eco
 | `appian-operator` | Appian operator | alpha *(default)* | 0.218.0 | 2026-10-26 |
 | `appsentinels-sslsniffer-operator` | AppSentinels SSL Sniffer | alpha *(default)* | 0.0.3 | 2026-10-30 |
 | `aqua-operator-certified` | Aqua Security Operator | 2022.4 *(default)* | 2022.4.941 | 2026-10-15 |
-| `axera-operator` | Axera Microsegmentation & NDR | alpha *(default)* | 2.1.0 | 2026-11-08 |
 | `cfm-operator` | Cloudera Flow Management - Kubernetes Operator for Apache NiFi | alpha | 2.9.0-b96 | 2026-02-23 |
 |  |  | stable *(default)* | 2.11.0-b57 | 2026-02-23 |
 | `cilium-enterprise` | Cilium Enterprise | 1.10 | 1.10.13+xed86eae | 2026-02-23 |
@@ -58,7 +57,7 @@ Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Eco
 |  |  | 1.5.x | 1.5.0-b123 | 2026-02-23 |
 |  |  | stable *(default)* | 1.5.0-b123 | 2026-02-23 |
 | `cloudnative-pg` | CloudNativePG | candidate | 1.30.0-rc1 | 2026-07-06 |
-|  |  | stable-v1 *(default)* | 1.30.1 | 2026-09-23 |
+|  |  | stable-v1 *(default)* | 1.30.2 | 2026-11-19 |
 | `cockroachdb-certified` | CockroachDB Public Operator | stable *(default)* | 2.18.7 | 2026-11-05 |
 | `coherence-operator` | Coherence Kubernetes Operator | stable *(default)* | 3.5.9 | 2026-02-27 |
 | `commvault-operator` | Commvault for OpenShift | stable *(default)* | 1.0.2 | 2026-10-29 |
@@ -78,7 +77,7 @@ Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable *(default)* | 2.0.33 | 2026-09-17 |
 | `datadog-operator-certified` | Datadog Operator | alpha | 1.0.4 | 2026-02-23 |
 |  |  | stable *(default)* | 1.31.2 | 2026-10-22 |
-| `dell-csm-operator-certified` | Dell Container Storage Modules | stable *(default)* | 1.13.2 | 2026-11-06 |
+| `dell-csm-operator-certified` | Dell Container Storage Modules | stable *(default)* | 1.13.3 | 2026-11-19 |
 | `digitalai-deploy-operator` | Digital.ai Deploy | beta | 26.3.2 | 2026-11-03 |
 |  |  | stable | 24.1.10 | 2026-02-23 |
 |  |  | stable-v24.1 | 24.1.17 | 2026-02-23 |
@@ -104,7 +103,7 @@ Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Eco
 | `exascaler-csi-driver-operator` | EXAScaler CSI File Driver | alpha *(default)* | 2.10.0 | 2026-09-19 |
 | `f5-ai-security-operator` | F5 Ai Security Operator | alpha | 0.4.3 | 2026-09-04 |
 |  |  | release-testing | 0.0.3 | 2026-09-04 |
-|  |  | stable *(default)* | 0.17.1 | 2026-11-09 |
+|  |  | stable *(default)* | 0.18.0 | 2026-11-18 |
 | `falcon-operator` | CrowdStrike Falcon Platform - Operator | certified-1.0 *(default)* | 1.16.0 | 2026-10-28 |
 | `flow-cni-operator` | nutanix-flow-cni | alpha *(default)* | 1.1.0 | 2026-09-22 |
 | `fujitsu-enterprise-postgres-operator` | Fujitsu Enterprise Postgres Operator | stable *(default)* | 8.3.5 | 2026-11-02 |
@@ -115,7 +114,7 @@ Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Eco
 | `gitlab-runner-operator` | GitLab Runner | stable *(default)* | 1.54.1 | 2026-10-23 |
 | `google-cloud-cluster-services-for-openshift-telemetry` | Cluster Services for OpenShift Telemetry | alpha | 0.0.6 | 2026-07-14 |
 |  |  | stable *(default)* | 0.0.7 | 2026-07-15 |
-| `gpu-operator-certified` | NVIDIA GPU Operator | stable | 26.7.2 | 2026-10-13 |
+| `gpu-operator-certified` | NVIDIA GPU Operator | stable | 26.7.3 | 2026-11-19 |
 |  |  | v1.10 | 1.10.1 | 2026-06-10 |
 |  |  | v1.11 | 1.11.1 | 2026-06-10 |
 |  |  | v22.9 | 22.9.2 | 2026-06-10 |
@@ -128,7 +127,7 @@ Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Eco
 |  |  | v25.3 | 25.3.4 | 2026-06-10 |
 |  |  | v25.10 | 25.10.1 | 2026-06-10 |
 |  |  | v26.3 | 26.3.3 | 2026-06-25 |
-|  |  | v26.7 *(default)* | 26.7.2 | 2026-10-13 |
+|  |  | v26.7 *(default)* | 26.7.3 | 2026-11-19 |
 | `habana-ai-operator` | Intel Gaudi Base Operator | 1.24 | 1.24.2-481 | 2026-10-08 |
 |  |  | stable *(default)* | 1.24.2-481 | 2026-10-08 |
 | `hammerspace-csi-operator` | Hammerspace CSI Operator | stable *(default)* | 0.1.1 | 2026-10-21 |
@@ -181,7 +180,7 @@ Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable *(default)* | 0.37.1 | 2026-10-14 |
 | `intel-tdx-dcap-operator` | Intel TDX DCAP Operator | alpha | 0.1.0 | 2026-06-16 |
 |  |  | stable *(default)* | 0.27.0 | 2026-11-10 |
-| `k10-kasten-operator-rhmp` | Veeam Kasten | stable *(default)* | 9.0.10 | 2026-11-03 |
+| `k10-kasten-operator-rhmp` | Veeam Kasten | stable *(default)* | 9.0.11 | 2026-11-19 |
 | `k8s-triliovault` | Trilio for Kubernetes | 3.1.x | 3.1.3 | 2026-07-27 |
 |  |  | 4.0.x | 4.0.5 | 2026-07-27 |
 |  |  | 5.0.x | 5.0.4 | 2026-07-27 |
@@ -223,16 +222,16 @@ Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Eco
 | `neuvector-certified-operator` | NeuVector Operator | beta *(default)* | 1.5.9 | 2026-09-17 |
 | `nexus-repository-ha-operator-certified` | Nexus Repository HA Operator | stable *(default)* | 3.97.2-1 | 2026-10-23 |
 | `nginx-gateway-fabric` | NGINX Gateway Fabric | stable *(default)* | 1.6.1 | 2026-11-04 |
-| `nginx-ingress-operator` | Nginx Ingress Operator | alpha *(default)* | 3.8.1 | 2026-11-05 |
+| `nginx-ingress-operator` | Nginx Ingress Operator | alpha *(default)* | 3.9.0 | 2026-11-18 |
 | `nim-operator-certified` | The NVIDIA NIM Operator for Kubernetes | stable *(default)* | 3.1.2 | 2026-08-19 |
 | `nspc-operator` | NEC Storage Plug-in for Containers | stable *(default)* | 1.18.3 | 2026-10-27 |
 | `nutanixcsioperator` | Nutanix CSI Operator | stable-3.x *(default)* | 3.9.0 | 2026-10-16 |
-| `nvidia-maintenance-operator` | NVIDIA Maintenance Operator | stable *(default)* | 26.7.0 | 2026-09-02 |
+| `nvidia-maintenance-operator` | NVIDIA Maintenance Operator | stable *(default)* | 26.7.1 | 2026-11-18 |
 |  |  | v26.4 | 26.4.0 | 2026-06-15 |
-|  |  | v26.7 | 26.7.0 | 2026-09-02 |
-| `nvidia-network-operator` | NVIDIA Network Operator | stable *(default)* | 26.7.0-1 | 2026-09-10 |
+|  |  | v26.7 | 26.7.1 | 2026-11-18 |
+| `nvidia-network-operator` | NVIDIA Network Operator | stable *(default)* | 26.7.1 | 2026-11-19 |
 |  |  | v26.4 | 26.4.1 | 2026-07-23 |
-|  |  | v26.7 | 26.7.0-1 | 2026-09-10 |
+|  |  | v26.7 | 26.7.1 | 2026-11-19 |
 | `nxiq-operator-certified` | Nexus IQ Operator | stable *(default)* | 1.204.5-1 | 2026-10-31 |
 | `odigos-operator` | Odigos Operator | alpha *(default)* | 1.37.1 | 2026-09-22 |
 | `open-liberty-certified` | Open Liberty | beta2 | 0.8.1 | 2026-02-23 |
@@ -260,7 +259,9 @@ Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Eco
 |  |  | 8.2.0-15.1 | 8.2.0-15.1 | 2026-09-10 |
 |  |  | 8.2.0-18.0 | 8.2.0-18.0 | 2026-10-01 |
 |  |  | 8.2.0-19.1 | 8.2.0-19.1 | 2026-10-20 |
-|  |  | production *(default)* | 8.2.0-19.1 | 2026-10-20 |
+|  |  | 8.2.6 | 8.2.6-26.1 | 2026-11-19 |
+|  |  | 8.2.6-26.1 | 8.2.6-26.1 | 2026-11-19 |
+|  |  | production *(default)* | 8.2.6-26.1 | 2026-11-19 |
 | `runtime-component-operator-certified` | Runtime Component | beta2 | 0.8.1 | 2026-02-23 |
 |  |  | v1.2 | 1.2.2 | 2026-02-23 |
 |  |  | v1.3 | 1.3.3 | 2026-02-23 |
@@ -364,7 +365,7 @@ Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Eco
 |  |  | release-1.9 | 1.9.1 | 2026-08-12 |
 |  |  | release-1.10 | 1.10.2 | 2026-10-20 |
 |  |  | release-1.11 *(default)* | 1.11.0 | 2026-10-29 |
-| `tenanttab-operator` | Denegra TenantTab | alpha *(default)* | 0.4.1 | 2026-11-02 |
+| `tenanttab-operator` | Denegra TenantTab | alpha *(default)* | 0.4.7 | 2026-11-19 |
 | `tensormesh-platform` | Tensormesh Platform | stable *(default)* | 1.0.1 | 2026-10-27 |
 | `tigera-operator` | Tigera Operator v1.38 | release-v1.42 | 1.42.2 | 2026-06-12 |
 |  |  | release-v1.44 *(default)* | 1.44.0 | 2026-11-10 |
@@ -373,7 +374,7 @@ Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Eco
 | `truenas-csi` | TrueNAS CSI Driver | stable *(default)* | 1.1.2 | 2026-07-17 |
 | `tvo-operator` | Trilio for OpenStack | 6.0.x *(default)* | 6.1.1 | 2026-02-23 |
 |  |  | 6.1.x | 6.1.13 | 2026-05-22 |
-|  |  | 6.2.x | 6.2.4 | 2026-09-29 |
+|  |  | 6.2.x | 6.2.6 | 2026-11-19 |
 | `vast-csi-operator` | VAST CSI driver operator | stable *(default)* | 2.7.3 | 2026-10-28 |
 | `vault-secrets-operator` | Vault Secrets Operator | stable *(default)* | 2.0.0 | 2026-11-13 |
 | `vcp-operator` | Venafi Control Plane Operator | alpha | 1.0.0 | 2026-02-23 |
@@ -388,4 +389,4 @@ Generated on 2026-11-18 18:26:50 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-v7.0 *(default)* | 7.0.32-1 | 2026-10-22 |
 |  |  | stable-v8.0 | 8.0.0 | 2026-11-10 |
 | `zk-operator` | ZooKeeper Operator | stable *(default)* | 0.0.1 | 2026-09-02 |
-| `ztouch-os-operator` | zTouch.OS | stable *(default)* | 1.0.1 | 2026-11-06 |
+| `ztouch-os-operator` | zTouch.OS | stable *(default)* | 1.0.2 | 2026-11-19 |
