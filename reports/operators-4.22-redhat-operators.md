@@ -1,6 +1,6 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-18 18:26:49 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-20 16:38:45 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 151
 - **Channels:** 469
@@ -35,25 +35,25 @@ Generated on 2026-11-18 18:26:49 CET by `list_operators.py` from the Red Hat Eco
 |  |  | amq-streams-2.x | 2.9.4-9 | 2026-11-04 |
 |  |  | amq-streams-3.0.x | 3.0.1-7 | 2026-01-15 |
 |  |  | amq-streams-3.1.x | 3.1.0-14 | 2026-03-06 |
-|  |  | amq-streams-3.2.x | 3.2.2-7 | 2026-11-04 |
-|  |  | amq-streams-3.x | 3.2.2-7 | 2026-11-04 |
+|  |  | amq-streams-3.2.x | 3.2.2-9 | 2026-11-20 |
+|  |  | amq-streams-3.x | 3.2.2-9 | 2026-11-20 |
 |  |  | amq-streams-lts | 2.5.2-8 | 2026-01-15 |
-|  |  | stable *(default)* | 3.2.2-7 | 2026-11-04 |
+|  |  | stable *(default)* | 3.2.2-9 | 2026-11-20 |
 | `amq-streams-console` | Streams for Apache Kafka Console | alpha | 3.0.1-5 | 2026-01-15 |
 |  |  | amq-streams-2.8.x | 2.8.0-13+0.1738265629.p | 2026-01-15 |
 |  |  | amq-streams-2.9.x | 2.9.4-16 | 2026-11-04 |
 |  |  | amq-streams-2.x | 2.9.4-16 | 2026-11-04 |
 |  |  | amq-streams-3.0.x | 3.0.1-5 | 2026-01-15 |
 |  |  | amq-streams-3.1.x | 3.1.0-10 | 2026-03-06 |
-|  |  | amq-streams-3.2.x | 3.2.2-5 | 2026-11-04 |
-|  |  | amq-streams-3.x | 3.2.2-5 | 2026-11-04 |
-|  |  | stable *(default)* | 3.2.2-5 | 2026-11-04 |
+|  |  | amq-streams-3.2.x | 3.2.2-6 | 2026-11-20 |
+|  |  | amq-streams-3.x | 3.2.2-6 | 2026-11-20 |
+|  |  | stable *(default)* | 3.2.2-6 | 2026-11-20 |
 | `amq-streams-proxy` | Streams for Apache Kafka Proxy | alpha | 3.0.1-4 | 2026-01-15 |
 |  |  | amq-streams-3.0.x | 3.0.1-4 | 2026-01-15 |
 |  |  | amq-streams-3.1.x | 3.1.0-15 | 2026-03-06 |
-|  |  | amq-streams-3.2.x | 3.2.2-6 | 2026-11-04 |
-|  |  | amq-streams-3.x | 3.2.2-6 | 2026-11-04 |
-|  |  | stable *(default)* | 3.2.2-6 | 2026-11-04 |
+|  |  | amq-streams-3.2.x | 3.2.2-7 | 2026-11-20 |
+|  |  | amq-streams-3.x | 3.2.2-7 | 2026-11-20 |
+|  |  | stable *(default)* | 3.2.2-7 | 2026-11-20 |
 | `amq7-interconnect-operator` | Red Hat Integration - AMQ Interconnect | 1.2.0 | 1.10.20 | 2026-01-15 |
 |  |  | 1.10.x *(default)* | 1.10.20 | 2026-01-15 |
 |  |  | latest | 1.10.20 | 2026-01-15 |

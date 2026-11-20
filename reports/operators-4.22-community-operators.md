@@ -1,6 +1,6 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-19 16:56:13 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-20 16:38:49 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 321
 - **Channels:** 530
@@ -51,7 +51,7 @@ Generated on 2026-11-19 16:56:13 CET by `list_operators.py` from the Red Hat Eco
 | `ack-fsx-controller` | AWS Controllers for Kubernetes - Amazon FSx | alpha *(default)* | 0.4.0 | 2026-11-19 |
 | `ack-glue-controller` | AWS Controllers for Kubernetes - Amazon Glue | alpha *(default)* | 1.6.0 | 2026-11-12 |
 | `ack-iam-controller` | AWS Controllers for Kubernetes - Amazon IAM | alpha *(default)* | 1.12.0 | 2026-11-13 |
-| `ack-kafka-controller` | AWS Controllers for Kubernetes - Amazon Kafka | alpha *(default)* | 1.14.0 | 2026-10-30 |
+| `ack-kafka-controller` | AWS Controllers for Kubernetes - Amazon Kafka | alpha *(default)* | 1.15.0 | 2026-11-19 |
 | `ack-keyspaces-controller` | AWS Controllers for Kubernetes - Amazon Keyspaces | alpha *(default)* | 1.9.0 | 2026-11-13 |
 | `ack-kinesis-controller` | AWS Controllers for Kubernetes - Amazon Kinesis | alpha *(default)* | 1.8.0 | 2026-11-14 |
 | `ack-kms-controller` | AWS Controllers for Kubernetes - Amazon KMS | alpha *(default)* | 1.8.0 | 2026-11-18 |
@@ -60,15 +60,15 @@ Generated on 2026-11-19 16:56:13 CET by `list_operators.py` from the Red Hat Eco
 | `ack-memorydb-controller` | AWS Controllers for Kubernetes - MemoryDB | alpha *(default)* | 1.10.0 | 2026-11-13 |
 | `ack-mq-controller` | AWS Controllers for Kubernetes - Amazon MQ | alpha *(default)* | 1.9.0 | 2026-11-13 |
 | `ack-mwaa-controller` | AWS Controllers for Kubernetes - Amazon Managed Workflows for Apache Airflow | alpha *(default)* | 1.5.0 | 2026-11-14 |
-| `ack-mwaaserverless-controller` | AWS Controllers for Kubernetes - Amazon MWAA Serverless | alpha *(default)* | 0.2.1 | 2026-10-16 |
+| `ack-mwaaserverless-controller` | AWS Controllers for Kubernetes - Amazon MWAA Serverless | alpha *(default)* | 0.4.0 | 2026-11-19 |
 | `ack-networkfirewall-controller` | AWS Controllers for Kubernetes - Amazon Network Firewall | alpha *(default)* | 1.8.0 | 2026-11-12 |
-| `ack-opensearchserverless-controller` | AWS Controllers for Kubernetes - Amazon OpenSearchServerless | alpha *(default)* | 1.5.1 | 2026-10-17 |
-| `ack-opensearchservice-controller` | AWS Controllers for Kubernetes - Amazon OpenSearch Service | alpha *(default)* | 1.9.0 | 2026-10-26 |
+| `ack-opensearchserverless-controller` | AWS Controllers for Kubernetes - Amazon OpenSearchServerless | alpha *(default)* | 1.7.0 | 2026-11-20 |
+| `ack-opensearchservice-controller` | AWS Controllers for Kubernetes - Amazon OpenSearch Service | alpha *(default)* | 1.10.0 | 2026-11-19 |
 | `ack-organizations-controller` | AWS Controllers for Kubernetes - Amazon Organizations | alpha *(default)* | 1.7.0 | 2026-10-28 |
 | `ack-pipes-controller` | AWS Controllers for Kubernetes - Amazon EventBridge Pipes | alpha *(default)* | 1.9.0 | 2026-11-13 |
 | `ack-prometheusservice-controller` | AWS Controllers for Kubernetes - Amazon Prometheus | alpha *(default)* | 1.10.0 | 2026-11-11 |
 | `ack-quicksight-controller` | AWS Controllers for Kubernetes - Amazon QuickSight | alpha *(default)* | 1.4.0 | 2026-11-12 |
-| `ack-ram-controller` | AWS Controllers for Kubernetes - Amazon RAM | alpha *(default)* | 1.7.0 | 2026-10-24 |
+| `ack-ram-controller` | AWS Controllers for Kubernetes - Amazon RAM | alpha *(default)* | 1.8.0 | 2026-11-20 |
 | `ack-rds-controller` | AWS Controllers for Kubernetes - Amazon RDS | alpha *(default)* | 1.15.0 | 2026-11-12 |
 | `ack-recyclebin-controller` | AWS Controllers for Kubernetes - Amazon Recycle Bin | alpha *(default)* | 1.8.0 | 2026-11-12 |
 | `ack-route53-controller` | AWS Controllers for Kubernetes - Amazon Route53 | alpha *(default)* | 1.9.0 | 2026-11-11 |
@@ -128,8 +128,8 @@ Generated on 2026-11-19 16:56:13 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable *(default)* | 0.16.0 | 2026-03-20 |
 | `automotive-infra` | Automotive-CI | alpha *(default)* | 0.0.10 | 2026-03-20 |
 | `aws-efs-operator` | AWS EFS Operator | stable *(default)* | 0.0.8 | 2026-03-20 |
-| `aws-neuron-operator` | Aws Neuron Operator | Fast *(default)* | 1.3.0 | 2026-09-03 |
-|  |  | Stable | 1.3.0 | 2026-09-03 |
+| `aws-neuron-operator` | Aws Neuron Operator | Fast *(default)* | 1.3.1 | 2026-11-20 |
+|  |  | Stable | 1.3.1 | 2026-11-20 |
 | `awss3-operator-registry` | AWS S3 Operator | alpha *(default)* | 1.0.1 | 2026-03-20 |
 | `azure-service-operator` | Azure Service Operator | stable *(default)* | 1.0.59040 | 2026-03-20 |
 | `beegfs-csi-driver-operator` | BeeGFS CSI Driver | stable *(default)* | 1.8.0 | 2026-03-20 |
@@ -190,7 +190,7 @@ Generated on 2026-11-19 16:56:13 CET by `list_operators.py` from the Red Hat Eco
 | `dynatrace-operator` | Dynatrace Operator | alpha *(default)* | 1.11.1 | 2026-10-23 |
 | `eclipse-amlen-operator` | eclipse-amlen-operator | alpha *(default)* | 1.0.0 | 2026-03-20 |
 |  |  | stable | 1.1.3 | 2026-03-20 |
-| `eclipse-che` | Eclipse Che | stable *(default)* | 7.124.0 | 2026-10-21 |
+| `eclipse-che` | Eclipse Che | stable *(default)* | 7.125.0 | 2026-11-19 |
 | `ecr-secret-operator` | ECR Secret Operator | alpha *(default)* | 0.5.0 | 2026-07-23 |
 | `edp-keycloak-operator` | EDP Keycloak Operator | alpha | 1.35.0 | 2026-07-13 |
 |  |  | stable *(default)* | 1.35.0 | 2026-07-13 |
@@ -215,8 +215,8 @@ Generated on 2026-11-19 16:56:13 CET by `list_operators.py` from the Red Hat Eco
 | `fqdn-egress-operator` | FQDN Egress Operator | stable *(default)* | 1.0.7 | 2026-10-05 |
 | `frappe-operator` | Frappe Operator | alpha *(default)* | 5.2.7 | 2026-10-05 |
 | `github-arc-operator` | github-arc-operator | alpha *(default)* | 1.1.0 | 2026-03-20 |
-| `gitlab-operator-kubernetes` | GitLab | stable *(default)* | 3.5.3 | 2026-10-30 |
-|  |  | unstable | 3.5.3 | 2026-10-30 |
+| `gitlab-operator-kubernetes` | GitLab | stable *(default)* | 3.6.1 | 2026-11-20 |
+|  |  | unstable | 3.6.1 | 2026-11-20 |
 | `gitlab-runner-operator` | GitLab Runner | stable *(default)* | 1.54.3 | 2026-11-06 |
 | `gitops-primer` | gitops-primer | alpha *(default)* | 0.0.11 | 2026-03-20 |
 | `gitwebhook-operator` | GitWebhook operator | alpha *(default)* | 0.1.2 | 2026-03-20 |
@@ -246,7 +246,7 @@ Generated on 2026-11-19 16:56:13 CET by `list_operators.py` from the Red Hat Eco
 | `infinispan` | Infinispan Operator | 2.2.x | 2.2.5 | 2026-04-02 |
 |  |  | 2.3.x | 2.3.8 | 2026-04-02 |
 |  |  | 2.4.x | 2.4.18 | 2026-04-02 |
-|  |  | stable *(default)* | 2.5.18 | 2026-10-22 |
+|  |  | stable *(default)* | 2.5.19 | 2026-11-19 |
 | `integrity-shield-operator` | K8s Integrity Shield | alpha-0.3.0 | 0.3.0 | 2026-03-20 |
 |  |  | alpha-0.3.1 | 0.3.1 | 2026-03-20 |
 |  |  | alpha-0.3.2 | 0.3.2 | 2026-03-20 |
@@ -361,7 +361,7 @@ Generated on 2026-11-19 16:56:13 CET by `list_operators.py` from the Red Hat Eco
 | `observability-operator` | Observability Operator | candidate | 0.0.28 | 2026-03-20 |
 |  |  | development | 0.0.28 | 2026-03-20 |
 |  |  | stable *(default)* | 0.0.28 | 2026-03-20 |
-| `oc-mirror` | oc-mirror Operator | alpha *(default)* | 0.1.9 | 2026-10-31 |
+| `oc-mirror` | oc-mirror Operator | alpha *(default)* | 0.1.10 | 2026-11-20 |
 | `oci-ccm-operator` | oci-ccm-operator | alpha *(default)* | 0.0.9 | 2026-03-20 |
 | `ocp-kea-dhcp` | Kea DHCP Operator | alpha *(default)* | 0.0.33 | 2026-10-20 |
 | `odoo-operator` | Odoo Operator | alpha *(default)* | 0.0.2 | 2026-03-20 |

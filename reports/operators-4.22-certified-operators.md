@@ -1,10 +1,10 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-19 16:56:01 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-20 16:38:46 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
-- **Operators:** 176
-- **Channels:** 379
-- **certified-operators:** 176 operators
+- **Operators:** 178
+- **Channels:** 384
+- **certified-operators:** 178 operators
 - Default channel (installed when no channel is chosen) marked *(default)*
 
 ## certified-operators
@@ -44,14 +44,14 @@ Generated on 2026-11-19 16:56:01 CET by `list_operators.py` from the Red Hat Eco
 |  |  | 1.18 | 1.18.15-cee.1 | 2026-10-29 |
 |  |  | 1.19 *(default)* | 1.19.9-cee.1 | 2026-11-02 |
 | `cloud-native-postgresql` | EDB Postgres for Kubernetes | candidate | 1.30.0-rc1 | 2026-07-02 |
-|  |  | fast *(default)* | 1.30.1 | 2026-09-29 |
-|  |  | stable | 1.28.5 | 2026-09-29 |
+|  |  | fast *(default)* | 1.30.2 | 2026-11-20 |
+|  |  | stable | 1.28.6 | 2026-11-20 |
 |  |  | stable-v1.25 | 1.25.9 | 2026-07-02 |
 |  |  | stable-v1.26 | 1.26.3 | 2026-07-02 |
 |  |  | stable-v1.27 | 1.27.4 | 2026-07-02 |
-|  |  | stable-v1.28 | 1.28.5 | 2026-09-28 |
+|  |  | stable-v1.28 | 1.28.6 | 2026-11-20 |
 |  |  | stable-v1.29 | 1.29.3 | 2026-09-29 |
-|  |  | stable-v1.30 | 1.30.1 | 2026-09-29 |
+|  |  | stable-v1.30 | 1.30.2 | 2026-11-20 |
 | `cloudcasa-operator` | CloudCasa Operator | stable *(default)* | 4.1.6 | 2026-11-13 |
 | `cloudera-streams-messaging-kubernetes-operator` | Cloudera Streams Messaging - Kubernetes Operator for Apache Kafka | 1.2.x | 1.4.0-b199 | 2026-02-23 |
 |  |  | 1.5.x | 1.5.0-b123 | 2026-02-23 |
@@ -93,7 +93,7 @@ Generated on 2026-11-19 16:56:01 CET by `list_operators.py` from the Red Hat Eco
 | `dxoperator-v2` | DxOperator | alpha *(default)* | 2.0.89 | 2026-09-10 |
 | `dynatrace-operator` | Dynatrace Operator | alpha *(default)* | 1.11.1 | 2026-10-23 |
 | `eda-k8s-operator` | eda-openshift-operator | 6.0 *(default)* | 6.0.1 | 2026-06-02 |
-|  |  | 7.0 | 7.0.0 | 2026-09-10 |
+|  |  | 7.0 | 7.0.1 | 2026-11-19 |
 |  |  | stable | 6.0.0 | 2026-04-30 |
 | `edb-hcp-operator` | EDB Postgres AI | stable *(default)* | 2.3.0 | 2026-11-10 |
 | `edb-plugin-for-cnpg` | EDB Postgres® AI Plugin for CloudNativePG™ | preview *(default)* | 0.0.9 | 2026-11-09 |
@@ -104,7 +104,10 @@ Generated on 2026-11-19 16:56:01 CET by `list_operators.py` from the Red Hat Eco
 | `f5-ai-security-operator` | F5 Ai Security Operator | alpha | 0.4.3 | 2026-09-04 |
 |  |  | release-testing | 0.0.3 | 2026-09-04 |
 |  |  | stable *(default)* | 0.18.0 | 2026-11-18 |
-| `falcon-operator` | CrowdStrike Falcon Platform - Operator | certified-1.0 *(default)* | 1.16.0 | 2026-10-28 |
+| `f5-bigip-ctlr-operator` | F5 Container Ingress Services | alpha | 1.24.0 | 2026-11-20 |
+|  |  | beta | 1.24.0 | 2026-11-20 |
+|  |  | stable *(default)* | 1.24.0 | 2026-11-20 |
+| `falcon-operator` | CrowdStrike Falcon Platform - Operator | certified-1.0 *(default)* | 1.16.1 | 2026-11-19 |
 | `flow-cni-operator` | nutanix-flow-cni | alpha *(default)* | 1.1.0 | 2026-09-22 |
 | `fujitsu-enterprise-postgres-operator` | Fujitsu Enterprise Postgres Operator | stable *(default)* | 8.3.5 | 2026-11-02 |
 |  |  | stable-z | 7.3.7 | 2026-09-02 |
@@ -194,7 +197,7 @@ Generated on 2026-11-19 16:56:01 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable *(default)* | 1.7.3 | 2026-06-10 |
 | `kubeblocks` | KubeBlocks | stable *(default)* | 1.0.1 | 2026-02-23 |
 | `kubecost-operator` | Kubecost | alpha | 2.8.2 | 2026-07-29 |
-|  |  | stable *(default)* | 3.3.1 | 2026-10-14 |
+|  |  | stable *(default)* | 3.3.2 | 2026-11-20 |
 | `kubeturbo-certified` | Kubeturbo Operator | beta | 8.21.50-beta.1 | 2026-11-04 |
 |  |  | stable *(default)* | 8.21.50 | 2026-11-11 |
 | `kurrentdb-operator` | KurrentDB Operator | stable-v1 *(default)* | 1.6.0-0 | 2026-06-08 |
@@ -207,9 +210,10 @@ Generated on 2026-11-19 16:56:01 CET by `list_operators.py` from the Red Hat Eco
 |  |  | beta | 8.21.50-beta.1 | 2026-11-04 |
 |  |  | stable *(default)* | 8.21.50 | 2026-11-12 |
 | `merak-ai-agent` | Merak AI Agent Operator | alpha *(default)* | 0.3.0 | 2026-10-27 |
+| `microsoft-defender-for-containers-operator` | Microsoft Defender for Containers Operator | insiderfast *(default)* | 0.0.2 | 2026-11-19 |
 | `minio-directpv` | DirectPV | stable *(default)* | 2026.4.9130438 | 2026-09-15 |
-| `minio-minkms-operator` | Minio AIStor Key management System (KMS) | stable *(default)* | 2026.11.2210011 | 2026-11-04 |
-| `minio-object-store-operator` | MinIO AIStor | stable *(default)* | 2026.11.2210011 | 2026-11-04 |
+| `minio-minkms-operator` | Minio AIStor Key management System (KMS) | stable *(default)* | 2026.11.13230251 | 2026-11-20 |
+| `minio-object-store-operator` | MinIO AIStor | stable *(default)* | 2026.11.13230251 | 2026-11-20 |
 | `mongodb-atlas-kubernetes` | MongoDB Atlas Operator | beta | 1.0.0 | 2026-02-23 |
 |  |  | stable *(default)* | 2.8.0 | 2026-02-23 |
 | `mongodb-kubernetes` | MongoDB Controllers for Kubernetes | stable *(default)* | 1.15.0 | 2026-11-04 |
@@ -217,7 +221,7 @@ Generated on 2026-11-19 16:56:01 CET by `list_operators.py` from the Red Hat Eco
 | `netai-demo-operator` | netai-demo-operator | alpha *(default)* | 0.0.1 | 2026-02-23 |
 | `netscaler-adm-agent-operator` | Netscaler Adm Agent Operator | alpha | 141.60.38 | 2026-02-23 |
 |  |  | stable *(default)* | 141.72.57 | 2026-06-10 |
-| `netscaler-operator` | NetScaler Operator | stable *(default)* | 3.6.0 | 2026-08-20 |
+| `netscaler-operator` | NetScaler Operator | stable *(default)* | 3.7.5 | 2026-11-19 |
 |  |  | tech-preview | 3.0.1 | 2026-02-23 |
 | `neuvector-certified-operator` | NeuVector Operator | beta *(default)* | 1.5.9 | 2026-09-17 |
 | `nexus-repository-ha-operator-certified` | Nexus Repository HA Operator | stable *(default)* | 3.97.2-1 | 2026-10-23 |
@@ -259,19 +263,20 @@ Generated on 2026-11-19 16:56:01 CET by `list_operators.py` from the Red Hat Eco
 |  |  | 8.2.0-15.1 | 8.2.0-15.1 | 2026-09-10 |
 |  |  | 8.2.0-18.0 | 8.2.0-18.0 | 2026-10-01 |
 |  |  | 8.2.0-19.1 | 8.2.0-19.1 | 2026-10-20 |
-|  |  | 8.2.6 | 8.2.6-26.1 | 2026-11-19 |
+|  |  | 8.2.6 | 8.2.6-26.2 | 2026-11-20 |
 |  |  | 8.2.6-26.1 | 8.2.6-26.1 | 2026-11-19 |
-|  |  | production *(default)* | 8.2.6-26.1 | 2026-11-19 |
+|  |  | 8.2.6-26.2 | 8.2.6-26.2 | 2026-11-20 |
+|  |  | production *(default)* | 8.2.6-26.2 | 2026-11-20 |
 | `runtime-component-operator-certified` | Runtime Component | beta2 | 0.8.1 | 2026-02-23 |
 |  |  | v1.2 | 1.2.2 | 2026-02-23 |
 |  |  | v1.3 | 1.3.3 | 2026-02-23 |
 |  |  | v1.4 | 1.4.4 | 2026-02-23 |
 |  |  | v1.5 | 1.5.2 | 2026-02-23 |
 |  |  | v1.6 *(default)* | 1.6.3 | 2026-10-06 |
-| `runtime-fabric-operator` | Runtime Fabric Operator | alpha | 3.0.38401 | 2026-11-02 |
-|  |  | stable *(default)* | 3.0.38401 | 2026-11-02 |
+| `runtime-fabric-operator` | Runtime Fabric Operator | alpha | 3.0.41102 | 2026-11-19 |
+|  |  | stable *(default)* | 3.0.41102 | 2026-11-19 |
 | `seawise-backup-operator` | Seawise Backup Dashboard | alpha *(default)* | 0.1.2 | 2026-06-29 |
-| `simplyblock-operator` | Simplyblock Operator | alpha *(default)* | 26.4.0-beta6 | 2026-11-13 |
+| `simplyblock-operator` | Simplyblock Operator | alpha *(default)* | 26.4.0-beta6.1 | 2026-11-20 |
 | `splunk-operator` | Splunk Operator | stable *(default)* | 3.2.0 | 2026-10-14 |
 | `spyre-operator` | IBM Spyre Operator | stable-v1.3 | 1.3.1 | 2026-08-17 |
 |  |  | stable-v1.4 *(default)* | 1.4.0 | 2026-10-01 |
