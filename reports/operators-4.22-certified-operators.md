@@ -1,6 +1,6 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-20 16:38:46 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-21 15:49:26 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 178
 - **Channels:** 384
@@ -67,16 +67,16 @@ Generated on 2026-11-20 16:38:46 CET by `list_operators.py` from the Red Hat Eco
 |  |  | preview | 2.10.1 | 2026-09-21 |
 |  |  | stable *(default)* | 2.10.1 | 2026-09-21 |
 | `cp-fko` | Confluent Distribution of the Apache Flink® Kubernetes Operator | alpha | 0.0.1 | 2026-02-23 |
-|  |  | stable | 1.16.1-cp1 | 2026-11-05 |
-|  |  | stable-v1.13 | 1.13.0-cp5 | 2026-10-05 |
-|  |  | stable-v1.14 | 1.14.0-cp4 | 2026-10-06 |
-|  |  | stable-v1.15 | 1.15.0-cp4 | 2026-10-06 |
-|  |  | stable-v1.16 *(default)* | 1.16.1-cp1 | 2026-11-05 |
+|  |  | stable | 1.16.1-cp2 | 2026-11-20 |
+|  |  | stable-v1.13 | 1.13.0-cp7 | 2026-11-21 |
+|  |  | stable-v1.14 | 1.14.0-cp5 | 2026-11-20 |
+|  |  | stable-v1.15 | 1.15.0-cp5 | 2026-11-20 |
+|  |  | stable-v1.16 *(default)* | 1.16.1-cp2 | 2026-11-20 |
 | `crunchy-postgres-operator` | Crunchy Postgres for Kubernetes | v5 *(default)* | 5.8.9 | 2026-08-28 |
 | `cte-k8s-operator` | Thales CipherTrust Transparent Encryption for Kubernetes (CTE-K8s) Operator | candidate | 2.0.33 | 2026-09-17 |
 |  |  | stable *(default)* | 2.0.33 | 2026-09-17 |
 | `datadog-operator-certified` | Datadog Operator | alpha | 1.0.4 | 2026-02-23 |
-|  |  | stable *(default)* | 1.31.2 | 2026-10-22 |
+|  |  | stable *(default)* | 1.32.0 | 2026-11-20 |
 | `dell-csm-operator-certified` | Dell Container Storage Modules | stable *(default)* | 1.13.3 | 2026-11-19 |
 | `digitalai-deploy-operator` | Digital.ai Deploy | beta | 26.3.2 | 2026-11-03 |
 |  |  | stable | 24.1.10 | 2026-02-23 |
@@ -370,11 +370,11 @@ Generated on 2026-11-20 16:38:46 CET by `list_operators.py` from the Red Hat Eco
 |  |  | release-1.9 | 1.9.1 | 2026-08-12 |
 |  |  | release-1.10 | 1.10.2 | 2026-10-20 |
 |  |  | release-1.11 *(default)* | 1.11.0 | 2026-10-29 |
-| `tenanttab-operator` | Denegra TenantTab | alpha *(default)* | 0.4.7 | 2026-11-19 |
+| `tenanttab-operator` | Denegra TenantTab | alpha *(default)* | 0.4.8 | 2026-11-21 |
 | `tensormesh-platform` | Tensormesh Platform | stable *(default)* | 1.0.1 | 2026-10-27 |
 | `tigera-operator` | Tigera Operator v1.38 | release-v1.42 | 1.42.2 | 2026-06-12 |
 |  |  | release-v1.44 *(default)* | 1.44.0 | 2026-11-10 |
-| `trident-operator` | NetApp Trident | stable *(default)* | 26.6.2 | 2026-10-13 |
+| `trident-operator` | NetApp Trident | stable *(default)* | 26.10.1 | 2026-11-20 |
 | `trident-protect-operator` | NetApp Trident Protect | stable *(default)* | 26.10.0 | 2026-11-18 |
 | `truenas-csi` | TrueNAS CSI Driver | stable *(default)* | 1.1.2 | 2026-07-17 |
 | `tvo-operator` | Trilio for OpenStack | 6.0.x *(default)* | 6.1.1 | 2026-02-23 |
@@ -384,7 +384,7 @@ Generated on 2026-11-20 16:38:46 CET by `list_operators.py` from the Red Hat Eco
 | `vault-secrets-operator` | Vault Secrets Operator | stable *(default)* | 2.0.0 | 2026-11-13 |
 | `vcp-operator` | Venafi Control Plane Operator | alpha | 1.0.0 | 2026-02-23 |
 |  |  | stable *(default)* | 1.11.0 | 2026-11-04 |
-| `vfunction-server-operator` | vFunction Operator | stable *(default)* | 5.1.2223 | 2026-11-10 |
+| `vfunction-server-operator` | vFunction Operator | stable *(default)* | 5.1.2236 | 2026-11-20 |
 | `victoriametrics-operator` | VictoriaMetrics Operator | beta *(default)* | 0.75.2 | 2026-11-04 |
 |  |  | stable | 0.68.5 | 2026-05-27 |
 | `wave` | Wave | stable *(default)* | 3.5.0 | 2026-10-16 |

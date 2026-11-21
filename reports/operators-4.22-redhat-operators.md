@@ -1,6 +1,6 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-20 16:38:45 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-21 15:49:25 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 151
 - **Channels:** 469
@@ -88,7 +88,7 @@ Generated on 2026-11-20 16:38:45 CET by `list_operators.py` from the Red Hat Eco
 | `bpfman-operator` | eBPF Manager Operator | stable *(default)* | 0.6.0 | 2026-06-02 |
 | `businessautomation-operator` | Business Automation | stable *(default)* | 7.13.5-23 | 2026-06-04 |
 | `cephcsi-operator` | CephCSI operator | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `cincinnati-operator` | OpenShift Update Service | v1 *(default)* | 5.0.3 | 2026-01-16 |
 | `cli-manager` | CLI Manager | tech-preview *(default)* | 0.2.0 | 2026-04-29 |
 | `cluster-kube-descheduler-operator` | Kube Descheduler Operator | stable *(default)* | 5.4.4 | 2026-11-04 |
@@ -123,7 +123,7 @@ Generated on 2026-11-20 16:38:45 CET by `list_operators.py` from the Red Hat Eco
 |  |  | 8.4.x | 8.4.16 | 2026-01-15 |
 |  |  | stable *(default)* | 8.6.10 | 2026-11-04 |
 | `deployment-validation-operator` | Deployment Validation Operator | alpha *(default)* | 0.7.18 | 2026-09-24 |
-| `devspaces` | Red Hat OpenShift Dev Spaces | stable *(default)* | 3.31.3 | 2026-11-10 |
+| `devspaces` | Red Hat OpenShift Dev Spaces | stable *(default)* | 3.31.4 | 2026-11-20 |
 | `devworkspace-operator` | DevWorkspace Operator | fast *(default)* | 1.0.0 | 2026-10-19 |
 | `dns-operator` | DNS Operator | stable *(default)* | 1.4.3 | 2026-10-15 |
 | `dpu-network-operator` | DPU Network Operator | stable *(default)* | 4.13.0-202309181427 | 2026-01-16 |
@@ -192,7 +192,7 @@ Generated on 2026-11-20 16:38:45 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-4.22 *(default)* | 4.22.0 | 2026-06-23 |
 | `machine-deletion-remediation` | Machine Deletion Remediation operator | stable *(default)* | 0.7.1 | 2026-08-12 |
 | `mcg-operator` | NooBaa Operator | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `mcp-gateway` | MCP Gateway Operator (Tech Preview) | preview *(default)* | 0.7.1 | 2026-06-25 |
 | `metallb-operator` | MetalLB Operator | stable *(default)* | 4.22.0-202611031655 | 2026-11-06 |
 | `model-validation-operator` | Model Validation Operator | tech-preview *(default)* | 0.1.4 | 2026-11-04 |
@@ -229,27 +229,27 @@ Generated on 2026-11-20 16:38:45 CET by `list_operators.py` from the Red Hat Eco
 |  |  | 4.22.3 | 4.22.3 | 2026-10-14 |
 |  |  | stable *(default)* | 4.22.3 | 2026-10-14 |
 | `ocs-client-operator` | OpenShift Data Foundation Client | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `ocs-operator` | OpenShift Container Storage | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
-| `ocs-tls-profiles` | OCS TLS Profiles | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
+| `ocs-tls-profiles` | OCS TLS Profiles | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `odf-csi-addons-operator` | CSI Addons | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `odf-dependencies` | Data Foundation Dependencies | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `odf-external-snapshotter-operator` | Snapshot Controller | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `odf-multicluster-orchestrator` | ODF Multicluster Orchestrator | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `odf-operator` | OpenShift Data Foundation | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `odf-prometheus-operator` | Prometheus Operator | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `odr-cluster-operator` | Openshift DR Cluster Operator | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `odr-hub-operator` | Openshift DR Hub Operator | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
-| `odr-volsync-plugin-operator` | OpenShift DR VolSync Plugin Operator | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
+| `odr-volsync-plugin-operator` | OpenShift DR VolSync Plugin Operator | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `openperouter-operator` | OpenPERouter Operator | 4.22 | 4.22.0 | 2026-07-08 |
 |  |  | alpha *(default)* | 4.22.0 | 2026-07-08 |
 | `openshift-builds-operator` | Builds for Red Hat OpenShift Operator | builds-1.8 | 1.8.3 | 2026-10-25 |
@@ -323,7 +323,7 @@ Generated on 2026-11-20 16:38:45 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-3.17 | 3.17.7 | 2026-11-11 |
 |  |  | stable-3.18 *(default)* | 3.18.3 | 2026-11-11 |
 | `recipe` | Recipe | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `red-hat-hawtio-operator` | HawtIO Operator | latest | 2.0.1+0.1793013910.p | 2026-10-28 |
 |  |  | stable-v1 | 1.3.1+0.1779241702.p | 2026-05-26 |
 |  |  | stable-v1.0 | 1.0.3 | 2026-01-16 |
@@ -417,7 +417,7 @@ Generated on 2026-11-20 16:38:45 CET by `list_operators.py` from the Red Hat Eco
 | `rhtpa-operator` | Red Hat Trusted Profile Analyzer | stable-v1.1 | 1.1.9 | 2026-11-05 |
 |  |  | stable-v3 *(default)* | 3.1.1 | 2026-10-14 |
 | `rook-ceph-operator` | Rook-Ceph | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
-|  |  | stable-4.22 *(default)* | 4.22.7-rhodf | 2026-10-29 |
+|  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `run-once-duration-override-operator` | Run Once Duration Override Operator | stable *(default)* | 1.4.2 | 2026-09-17 |
 | `runtimes-inventory-operator` | Runtimes Inventory Operator | stable *(default)* | 1.0.6 | 2026-11-10 |
 | `sandboxed-containers-operator` | OpenShift sandboxed containers Operator | preview-1.0 | 1.0.2 | 2026-01-15 |

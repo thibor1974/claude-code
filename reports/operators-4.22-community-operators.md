@@ -1,6 +1,6 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-20 16:38:49 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-21 15:49:28 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 321
 - **Channels:** 530
@@ -64,7 +64,7 @@ Generated on 2026-11-20 16:38:49 CET by `list_operators.py` from the Red Hat Eco
 | `ack-networkfirewall-controller` | AWS Controllers for Kubernetes - Amazon Network Firewall | alpha *(default)* | 1.8.0 | 2026-11-12 |
 | `ack-opensearchserverless-controller` | AWS Controllers for Kubernetes - Amazon OpenSearchServerless | alpha *(default)* | 1.7.0 | 2026-11-20 |
 | `ack-opensearchservice-controller` | AWS Controllers for Kubernetes - Amazon OpenSearch Service | alpha *(default)* | 1.10.0 | 2026-11-19 |
-| `ack-organizations-controller` | AWS Controllers for Kubernetes - Amazon Organizations | alpha *(default)* | 1.7.0 | 2026-10-28 |
+| `ack-organizations-controller` | AWS Controllers for Kubernetes - Amazon Organizations | alpha *(default)* | 1.8.0 | 2026-11-20 |
 | `ack-pipes-controller` | AWS Controllers for Kubernetes - Amazon EventBridge Pipes | alpha *(default)* | 1.9.0 | 2026-11-13 |
 | `ack-prometheusservice-controller` | AWS Controllers for Kubernetes - Amazon Prometheus | alpha *(default)* | 1.10.0 | 2026-11-11 |
 | `ack-quicksight-controller` | AWS Controllers for Kubernetes - Amazon QuickSight | alpha *(default)* | 1.4.0 | 2026-11-12 |
@@ -76,16 +76,16 @@ Generated on 2026-11-20 16:38:49 CET by `list_operators.py` from the Red Hat Eco
 | `ack-s3-controller` | AWS Controllers for Kubernetes - Amazon S3 | alpha *(default)* | 1.15.0 | 2026-11-09 |
 | `ack-s3control-controller` | AWS Controllers for Kubernetes - Amazon S3 Control | alpha *(default)* | 1.10.0 | 2026-11-14 |
 | `ack-s3files-controller` | AWS Controllers for Kubernetes - Amazon S3Files | alpha *(default)* | 1.3.1 | 2026-10-17 |
-| `ack-s3tables-controller` | AWS Controllers for Kubernetes - Amazon S3 Tables | alpha *(default)* | 1.4.0 | 2026-10-27 |
+| `ack-s3tables-controller` | AWS Controllers for Kubernetes - Amazon S3 Tables | alpha *(default)* | 1.5.0 | 2026-11-20 |
 | `ack-s3vectors-controller` | AWS Controllers for Kubernetes - Amazon S3 Vectors | alpha *(default)* | 1.4.0 | 2026-10-26 |
 | `ack-sagemaker-controller` | AWS Controllers for Kubernetes - Amazon SageMaker | alpha *(default)* | 1.12.0 | 2026-10-28 |
 | `ack-secretsmanager-controller` | AWS Controllers for Kubernetes - Amazon Secrets Manager | alpha *(default)* | 1.9.0 | 2026-11-12 |
 | `ack-ses-controller` | AWS Controllers for Kubernetes - Amazon SES | alpha *(default)* | 1.8.0 | 2026-11-11 |
 | `ack-sfn-controller` | AWS Controllers for Kubernetes - Amazon Step Functions | alpha *(default)* | 1.10.0 | 2026-11-12 |
 | `ack-sns-controller` | AWS Controllers for Kubernetes - Amazon SNS | alpha *(default)* | 1.14.0 | 2026-11-14 |
-| `ack-sqs-controller` | AWS Controllers for Kubernetes - Amazon SQS | alpha *(default)* | 1.9.0 | 2026-10-26 |
+| `ack-sqs-controller` | AWS Controllers for Kubernetes - Amazon SQS | alpha *(default)* | 1.10.0 | 2026-11-20 |
 | `ack-ssm-controller` | AWS Controllers for Kubernetes - Amazon SSM | alpha *(default)* | 1.9.0 | 2026-11-12 |
-| `ack-wafv2-controller` | AWS Controllers for Kubernetes - Amazon WAFV2 | alpha *(default)* | 1.8.1 | 2026-11-04 |
+| `ack-wafv2-controller` | AWS Controllers for Kubernetes - Amazon WAFV2 | alpha *(default)* | 1.9.0 | 2026-11-20 |
 | `aerospike-kubernetes-operator` | Aerospike Kubernetes Operator | alpha | 2.5.0 | 2026-03-20 |
 |  |  | stable *(default)* | 4.7.0 | 2026-11-05 |
 | `agent-router-operator` | The Agent Router (Community) | alpha *(default)* | 0.1.1 | 2026-11-18 |
@@ -123,7 +123,7 @@ Generated on 2026-11-20 16:38:49 CET by `list_operators.py` from the Red Hat Eco
 |  |  | ocm-2.10 | 0.7.71 | 2026-03-20 |
 |  |  | ocm-2.11 | 0.7.73 | 2026-03-20 |
 |  |  | ocm-2.13 | 0.7.74 | 2026-03-20 |
-| `attune` | Attune | stable *(default)* | 0.1.38 | 2026-11-18 |
+| `attune` | Attune | stable *(default)* | 0.1.39 | 2026-11-20 |
 | `authorino-operator` | Authorino Operator | alpha | 0.8.0 | 2026-03-20 |
 |  |  | stable *(default)* | 0.16.0 | 2026-03-20 |
 | `automotive-infra` | Automotive-CI | alpha *(default)* | 0.0.10 | 2026-03-20 |
@@ -174,7 +174,7 @@ Generated on 2026-11-20 16:38:49 CET by `list_operators.py` from the Red Hat Eco
 | `customized-user-remediation` | Customized User Remediation Operator - Community Edition | alpha *(default)* | 0.1.0 | 2026-03-20 |
 | `dapr-kubernetes-operator` | Dapr Control Plane Operator | alpha *(default)* | 0.0.15 | 2026-10-29 |
 | `datadog-operator` | Datadog Operator | alpha | 0.8.4 | 2026-03-20 |
-|  |  | stable *(default)* | 1.31.2 | 2026-10-22 |
+|  |  | stable *(default)* | 1.32.0 | 2026-11-20 |
 | `datatrucker-operator` | DataTrucker.IO | alpha *(default)* | 2.0.0 | 2026-03-20 |
 | `dbaas-operator` | OpenShift Database Access Operator | stable *(default)* | 0.5.0 | 2026-03-20 |
 | `debezium-operator` | Debezium Operator | debezium-2.4.x | 2.4.2 | 2026-03-20 |
@@ -208,7 +208,7 @@ Generated on 2026-11-20 16:38:49 CET by `list_operators.py` from the Red Hat Eco
 | `file-integrity-console-plugin` | File Integrity Console Plugin | stable-4.22 *(default)* | 0.4.1 | 2026-08-08 |
 | `flink-kubernetes-operator` | Flink Kubernetes Operator | alpha *(default)* | 1.16.1 | 2026-11-03 |
 | `flux` | Flux | stable *(default)* | 2.3.0 | 2026-03-20 |
-| `flux-operator` | Flux Operator | stable *(default)* | 0.62.1 | 2026-10-29 |
+| `flux-operator` | Flux Operator | stable *(default)* | 0.63.0 | 2026-11-21 |
 | `flyway-operator` | Flyway Operator | stable-v0 | 0.7.1 | 2026-11-10 |
 |  |  | stable-v0.7 *(default)* | 0.7.1 | 2026-11-10 |
 | `fossul-operator` | Fossul Operator | alpha *(default)* | 0.6.0 | 2026-03-20 |
@@ -418,8 +418,8 @@ Generated on 2026-11-20 16:38:49 CET by `list_operators.py` from the Red Hat Eco
 | `rhoas-operator` | OpenShift Application Services (RHOAS) | beta *(default)* | 0.13.0 | 2026-03-20 |
 | `ripsaw` | benchmark-operator | alpha *(default)* | 0.1.0 | 2026-03-20 |
 | `rsct-operator` | RSCT Operator for IBM Power Systems | alpha *(default)* | 0.0.1-alpha4 | 2026-07-23 |
-| `ruptura-operator` | Ruptura Operator | alpha | 1.4.2 | 2026-11-07 |
-|  |  | stable *(default)* | 1.4.2 | 2026-11-07 |
+| `ruptura-operator` | Ruptura Operator | alpha | 1.4.8 | 2026-11-20 |
+|  |  | stable *(default)* | 1.4.8 | 2026-11-20 |
 | `sailoperator` | Sail Operator | 1.31-nightly | 1.31.0-nightly-2026-09-30 | 2026-09-30 |
 |  |  | candidates | 0.1.0 | 2026-07-23 |
 |  |  | stable *(default)* | 1.31.3 | 2026-11-10 |
@@ -497,8 +497,8 @@ Generated on 2026-11-20 16:38:49 CET by `list_operators.py` from the Red Hat Eco
 |  |  | strimzi-1.0.x | 1.0.1 | 2026-06-18 |
 |  |  | strimzi-1.1.x | 1.1.0 | 2026-06-28 |
 |  |  | strimzi-1.2.x | 1.2.0 | 2026-08-21 |
-|  |  | strimzi-1.3.x | 1.3.1 | 2026-11-05 |
-|  |  | strimzi-1.x *(default)* | 1.3.1 | 2026-11-05 |
+|  |  | strimzi-1.3.x | 1.3.2 | 2026-11-21 |
+|  |  | strimzi-1.x *(default)* | 1.3.2 | 2026-11-21 |
 | `susql-operator` | SusQL | alpha *(default)* | 0.0.34 | 2026-03-20 |
 | `syndesis` | Syndesis Operator | 1.12.x | 1.12.0 | 2026-03-20 |
 |  |  | 1.13.x | 1.13.0 | 2026-03-20 |
