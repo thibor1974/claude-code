@@ -1,10 +1,10 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-21 15:49:26 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-22 15:45:17 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
-- **Operators:** 178
-- **Channels:** 384
-- **certified-operators:** 178 operators
+- **Operators:** 180
+- **Channels:** 390
+- **certified-operators:** 180 operators
 - Default channel (installed when no channel is chosen) marked *(default)*
 
 ## certified-operators
@@ -29,6 +29,7 @@ Generated on 2026-11-21 15:49:26 CET by `list_operators.py` from the Red Hat Eco
 | `appian-operator` | Appian operator | alpha *(default)* | 0.218.0 | 2026-10-26 |
 | `appsentinels-sslsniffer-operator` | AppSentinels SSL Sniffer | alpha *(default)* | 0.0.3 | 2026-10-30 |
 | `aqua-operator-certified` | Aqua Security Operator | 2022.4 *(default)* | 2022.4.941 | 2026-10-15 |
+| `axera-operator` | Axera Microsegmentation & NDR | alpha *(default)* | 2.2.3 | 2026-11-22 |
 | `cfm-operator` | Cloudera Flow Management - Kubernetes Operator for Apache NiFi | alpha | 2.9.0-b96 | 2026-02-23 |
 |  |  | stable *(default)* | 2.11.0-b57 | 2026-02-23 |
 | `cilium-enterprise` | Cilium Enterprise | 1.10 | 1.10.13+xed86eae | 2026-02-23 |
@@ -107,6 +108,9 @@ Generated on 2026-11-21 15:49:26 CET by `list_operators.py` from the Red Hat Eco
 | `f5-bigip-ctlr-operator` | F5 Container Ingress Services | alpha | 1.24.0 | 2026-11-20 |
 |  |  | beta | 1.24.0 | 2026-11-20 |
 |  |  | stable *(default)* | 1.24.0 | 2026-11-20 |
+| `f5-ipam-controller-operator` | F5 Ipam controller | alpha | 0.0.9 | 2026-11-22 |
+|  |  | beta | 0.0.9 | 2026-11-22 |
+|  |  | stable *(default)* | 0.0.9 | 2026-11-22 |
 | `falcon-operator` | CrowdStrike Falcon Platform - Operator | certified-1.0 *(default)* | 1.16.1 | 2026-11-19 |
 | `flow-cni-operator` | nutanix-flow-cni | alpha *(default)* | 1.1.0 | 2026-09-22 |
 | `fujitsu-enterprise-postgres-operator` | Fujitsu Enterprise Postgres Operator | stable *(default)* | 8.3.5 | 2026-11-02 |
@@ -230,12 +234,14 @@ Generated on 2026-11-21 15:49:26 CET by `list_operators.py` from the Red Hat Eco
 | `nim-operator-certified` | The NVIDIA NIM Operator for Kubernetes | stable *(default)* | 3.1.2 | 2026-08-19 |
 | `nspc-operator` | NEC Storage Plug-in for Containers | stable *(default)* | 1.18.3 | 2026-10-27 |
 | `nutanixcsioperator` | Nutanix CSI Operator | stable-3.x *(default)* | 3.9.0 | 2026-10-16 |
-| `nvidia-maintenance-operator` | NVIDIA Maintenance Operator | stable *(default)* | 26.7.1 | 2026-11-18 |
+| `nvidia-maintenance-operator` | NVIDIA Maintenance Operator | stable *(default)* | 26.10.0 | 2026-11-22 |
 |  |  | v26.4 | 26.4.0 | 2026-06-15 |
 |  |  | v26.7 | 26.7.1 | 2026-11-18 |
-| `nvidia-network-operator` | NVIDIA Network Operator | stable *(default)* | 26.7.1 | 2026-11-19 |
+|  |  | v26.10 | 26.10.0 | 2026-11-22 |
+| `nvidia-network-operator` | NVIDIA Network Operator | stable *(default)* | 26.10.0 | 2026-11-22 |
 |  |  | v26.4 | 26.4.1 | 2026-07-23 |
 |  |  | v26.7 | 26.7.1 | 2026-11-19 |
+|  |  | v26.10 | 26.10.0 | 2026-11-22 |
 | `nxiq-operator-certified` | Nexus IQ Operator | stable *(default)* | 1.204.5-1 | 2026-10-31 |
 | `odigos-operator` | Odigos Operator | alpha *(default)* | 1.37.1 | 2026-09-22 |
 | `open-liberty-certified` | Open Liberty | beta2 | 0.8.1 | 2026-02-23 |

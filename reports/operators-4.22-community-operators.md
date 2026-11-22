@@ -1,6 +1,6 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-21 15:49:28 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-22 15:45:22 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 321
 - **Channels:** 530
@@ -69,7 +69,7 @@ Generated on 2026-11-21 15:49:28 CET by `list_operators.py` from the Red Hat Eco
 | `ack-prometheusservice-controller` | AWS Controllers for Kubernetes - Amazon Prometheus | alpha *(default)* | 1.10.0 | 2026-11-11 |
 | `ack-quicksight-controller` | AWS Controllers for Kubernetes - Amazon QuickSight | alpha *(default)* | 1.4.0 | 2026-11-12 |
 | `ack-ram-controller` | AWS Controllers for Kubernetes - Amazon RAM | alpha *(default)* | 1.8.0 | 2026-11-20 |
-| `ack-rds-controller` | AWS Controllers for Kubernetes - Amazon RDS | alpha *(default)* | 1.15.0 | 2026-11-12 |
+| `ack-rds-controller` | AWS Controllers for Kubernetes - Amazon RDS | alpha *(default)* | 1.15.1 | 2026-11-21 |
 | `ack-recyclebin-controller` | AWS Controllers for Kubernetes - Amazon Recycle Bin | alpha *(default)* | 1.8.0 | 2026-11-12 |
 | `ack-route53-controller` | AWS Controllers for Kubernetes - Amazon Route53 | alpha *(default)* | 1.9.0 | 2026-11-11 |
 | `ack-route53resolver-controller` | AWS Controllers for Kubernetes - Amazon Route53Resolver | alpha *(default)* | 1.12.0 | 2026-11-13 |
@@ -396,7 +396,7 @@ Generated on 2026-11-21 15:49:28 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-3.11 | 3.11.13 | 2026-03-20 |
 |  |  | stable-3.12 | 3.12.24 | 2026-11-18 |
 |  |  | stable-3.13 | 3.13.11 | 2026-03-20 |
-|  |  | stable-3.14 | 3.14.9 | 2026-09-26 |
+|  |  | stable-3.14 | 3.14.10 | 2026-11-21 |
 |  |  | stable-3.15 | 3.15.8 | 2026-09-04 |
 |  |  | stable-3.16 | 3.16.6 | 2026-10-05 |
 |  |  | stable-3.17 *(default)* | 3.17.7 | 2026-11-19 |
@@ -418,8 +418,8 @@ Generated on 2026-11-21 15:49:28 CET by `list_operators.py` from the Red Hat Eco
 | `rhoas-operator` | OpenShift Application Services (RHOAS) | beta *(default)* | 0.13.0 | 2026-03-20 |
 | `ripsaw` | benchmark-operator | alpha *(default)* | 0.1.0 | 2026-03-20 |
 | `rsct-operator` | RSCT Operator for IBM Power Systems | alpha *(default)* | 0.0.1-alpha4 | 2026-07-23 |
-| `ruptura-operator` | Ruptura Operator | alpha | 1.4.8 | 2026-11-20 |
-|  |  | stable *(default)* | 1.4.8 | 2026-11-20 |
+| `ruptura-operator` | Ruptura Operator | alpha | 1.4.10 | 2026-11-22 |
+|  |  | stable *(default)* | 1.4.10 | 2026-11-22 |
 | `sailoperator` | Sail Operator | 1.31-nightly | 1.31.0-nightly-2026-09-30 | 2026-09-30 |
 |  |  | candidates | 0.1.0 | 2026-07-23 |
 |  |  | stable *(default)* | 1.31.3 | 2026-11-10 |
