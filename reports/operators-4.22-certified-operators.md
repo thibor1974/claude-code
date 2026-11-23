@@ -1,6 +1,6 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-22 15:45:17 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-23 19:31:30 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 180
 - **Channels:** 390
@@ -29,7 +29,7 @@ Generated on 2026-11-22 15:45:17 CET by `list_operators.py` from the Red Hat Eco
 | `appian-operator` | Appian operator | alpha *(default)* | 0.218.0 | 2026-10-26 |
 | `appsentinels-sslsniffer-operator` | AppSentinels SSL Sniffer | alpha *(default)* | 0.0.3 | 2026-10-30 |
 | `aqua-operator-certified` | Aqua Security Operator | 2022.4 *(default)* | 2022.4.941 | 2026-10-15 |
-| `axera-operator` | Axera Microsegmentation & NDR | alpha *(default)* | 2.2.3 | 2026-11-22 |
+| `axera-operator` | Axera Microsegmentation & NDR | alpha *(default)* | 2.2.4 | 2026-11-23 |
 | `cfm-operator` | Cloudera Flow Management - Kubernetes Operator for Apache NiFi | alpha | 2.9.0-b96 | 2026-02-23 |
 |  |  | stable *(default)* | 2.11.0-b57 | 2026-02-23 |
 | `cilium-enterprise` | Cilium Enterprise | 1.10 | 1.10.13+xed86eae | 2026-02-23 |
@@ -375,7 +375,7 @@ Generated on 2026-11-22 15:45:17 CET by `list_operators.py` from the Red Hat Eco
 |  |  | release-1.8 | 1.8.3 | 2026-07-06 |
 |  |  | release-1.9 | 1.9.1 | 2026-08-12 |
 |  |  | release-1.10 | 1.10.2 | 2026-10-20 |
-|  |  | release-1.11 *(default)* | 1.11.0 | 2026-10-29 |
+|  |  | release-1.11 *(default)* | 1.11.1 | 2026-11-23 |
 | `tenanttab-operator` | Denegra TenantTab | alpha *(default)* | 0.4.8 | 2026-11-21 |
 | `tensormesh-platform` | Tensormesh Platform | stable *(default)* | 1.0.1 | 2026-10-27 |
 | `tigera-operator` | Tigera Operator v1.38 | release-v1.42 | 1.42.2 | 2026-06-12 |

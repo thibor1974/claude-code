@@ -1,6 +1,6 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-22 15:45:22 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-23 19:31:38 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 321
 - **Channels:** 530
@@ -77,7 +77,7 @@ Generated on 2026-11-22 15:45:22 CET by `list_operators.py` from the Red Hat Eco
 | `ack-s3control-controller` | AWS Controllers for Kubernetes - Amazon S3 Control | alpha *(default)* | 1.10.0 | 2026-11-14 |
 | `ack-s3files-controller` | AWS Controllers for Kubernetes - Amazon S3Files | alpha *(default)* | 1.3.1 | 2026-10-17 |
 | `ack-s3tables-controller` | AWS Controllers for Kubernetes - Amazon S3 Tables | alpha *(default)* | 1.5.0 | 2026-11-20 |
-| `ack-s3vectors-controller` | AWS Controllers for Kubernetes - Amazon S3 Vectors | alpha *(default)* | 1.4.0 | 2026-10-26 |
+| `ack-s3vectors-controller` | AWS Controllers for Kubernetes - Amazon S3 Vectors | alpha *(default)* | 1.5.0 | 2026-11-23 |
 | `ack-sagemaker-controller` | AWS Controllers for Kubernetes - Amazon SageMaker | alpha *(default)* | 1.12.0 | 2026-10-28 |
 | `ack-secretsmanager-controller` | AWS Controllers for Kubernetes - Amazon Secrets Manager | alpha *(default)* | 1.9.0 | 2026-11-12 |
 | `ack-ses-controller` | AWS Controllers for Kubernetes - Amazon SES | alpha *(default)* | 1.8.0 | 2026-11-11 |
@@ -186,7 +186,7 @@ Generated on 2026-11-22 15:45:22 CET by `list_operators.py` from the Red Hat Eco
 | `deployment-validation-operator` | Deployment Validation Operator | alpha *(default)* | 0.7.12 | 2026-03-20 |
 | `devopsinabox` | Devops-in-a-box | alpha *(default)* | 0.0.45 | 2026-03-20 |
 | `dns-operator` | DNS Operator | stable *(default)* | 0.6.0 | 2026-03-20 |
-| `dotvirt-operator` | dotvirt operator | stable-v0 *(default)* | 0.2.2 | 2026-11-18 |
+| `dotvirt-operator` | dotvirt operator | stable-v0 *(default)* | 0.2.5 | 2026-11-23 |
 | `dynatrace-operator` | Dynatrace Operator | alpha *(default)* | 1.11.1 | 2026-10-23 |
 | `eclipse-amlen-operator` | eclipse-amlen-operator | alpha *(default)* | 1.0.0 | 2026-03-20 |
 |  |  | stable | 1.1.3 | 2026-03-20 |
@@ -208,7 +208,7 @@ Generated on 2026-11-22 15:45:22 CET by `list_operators.py` from the Red Hat Eco
 | `file-integrity-console-plugin` | File Integrity Console Plugin | stable-4.22 *(default)* | 0.4.1 | 2026-08-08 |
 | `flink-kubernetes-operator` | Flink Kubernetes Operator | alpha *(default)* | 1.16.1 | 2026-11-03 |
 | `flux` | Flux | stable *(default)* | 2.3.0 | 2026-03-20 |
-| `flux-operator` | Flux Operator | stable *(default)* | 0.63.0 | 2026-11-21 |
+| `flux-operator` | Flux Operator | stable *(default)* | 0.63.1 | 2026-11-22 |
 | `flyway-operator` | Flyway Operator | stable-v0 | 0.7.1 | 2026-11-10 |
 |  |  | stable-v0.7 *(default)* | 0.7.1 | 2026-11-10 |
 | `fossul-operator` | Fossul Operator | alpha *(default)* | 0.6.0 | 2026-03-20 |
@@ -217,7 +217,7 @@ Generated on 2026-11-22 15:45:22 CET by `list_operators.py` from the Red Hat Eco
 | `github-arc-operator` | github-arc-operator | alpha *(default)* | 1.1.0 | 2026-03-20 |
 | `gitlab-operator-kubernetes` | GitLab | stable *(default)* | 3.6.1 | 2026-11-20 |
 |  |  | unstable | 3.6.1 | 2026-11-20 |
-| `gitlab-runner-operator` | GitLab Runner | stable *(default)* | 1.54.3 | 2026-11-06 |
+| `gitlab-runner-operator` | GitLab Runner | stable *(default)* | 1.55.0 | 2026-11-23 |
 | `gitops-primer` | gitops-primer | alpha *(default)* | 0.0.11 | 2026-03-20 |
 | `gitwebhook-operator` | GitWebhook operator | alpha *(default)* | 0.1.2 | 2026-03-20 |
 | `global-load-balancer-operator` | Global Load Balancer Operator | alpha *(default)* | 1.4.2 | 2026-03-20 |
@@ -278,7 +278,7 @@ Generated on 2026-11-22 15:45:22 CET by `list_operators.py` from the Red Hat Eco
 | `kollect` | Kollect | stable *(default)* | 0.18.0 | 2026-08-19 |
 | `konflux-operator` | Konflux | candidate-v0.0 | 0.0.15-rc.7 | 2026-07-29 |
 |  |  | candidate-v0.1 | 0.1.13-rc.0 | 2026-07-29 |
-|  |  | candidate-v0.2 | 0.2.3-rc.8 | 2026-11-09 |
+|  |  | candidate-v0.2 | 0.2.3-rc.10 | 2026-11-23 |
 |  |  | stable-v0.0 | 0.0.14 | 2026-07-29 |
 |  |  | stable-v0.1 | 0.1.13 | 2026-07-29 |
 |  |  | stable-v0.2 *(default)* | 0.2.2 | 2026-09-08 |
