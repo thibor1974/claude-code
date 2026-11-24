@@ -1,10 +1,10 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-21 15:49:25 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-24 18:58:56 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
-- **Operators:** 151
-- **Channels:** 469
-- **redhat-operators:** 151 operators
+- **Operators:** 152
+- **Channels:** 471
+- **redhat-operators:** 152 operators
 - Default channel (installed when no channel is chosen) marked *(default)*
 
 ## redhat-operators
@@ -23,7 +23,7 @@ Generated on 2026-11-21 15:49:25 CET by `list_operators.py` from the Red Hat Eco
 |  |  | 7.11.x | 7.11.8-opr-1 | 2026-01-15 |
 |  |  | 7.12.x *(default)* | 7.12.7-opr-1+0.1780501200.p | 2026-06-04 |
 | `amq-broker-rhel9` | Red Hat Integration - AMQ Broker for RHEL 9 (Multiarch) | 7.13.x | 7.13.6-opr-1 | 2026-09-11 |
-|  |  | 7.14.x *(default)* | 7.14.1-opr-1+0.1793629954.p | 2026-11-03 |
+|  |  | 7.14.x *(default)* | 7.14.1-opr-1+0.1794427551.p | 2026-11-24 |
 | `amq-streams` | Red Hat Integration - AMQ Streams | amq-streams-2.2.x | 2.2.2-2 | 2026-01-15 |
 |  |  | amq-streams-2.3.x | 2.3.0-4 | 2026-01-15 |
 |  |  | amq-streams-2.4.x | 2.4.0-3 | 2026-01-15 |
@@ -57,10 +57,10 @@ Generated on 2026-11-21 15:49:25 CET by `list_operators.py` from the Red Hat Eco
 | `amq7-interconnect-operator` | Red Hat Integration - AMQ Interconnect | 1.2.0 | 1.10.20 | 2026-01-15 |
 |  |  | 1.10.x *(default)* | 1.10.20 | 2026-01-15 |
 |  |  | latest | 1.10.20 | 2026-01-15 |
-| `ansible-automation-platform-operator` | Ansible Automation Platform | stable-2.6 | 2.6.0+0.1793870311 | 2026-11-12 |
-|  |  | stable-2.6-cluster-scoped | 2.6.0+0.1793870349 | 2026-11-12 |
-|  |  | stable-2.7 *(default)* | 2.7.0+0.1794269743 | 2026-11-12 |
-|  |  | stable-2.7-cluster-scoped | 2.7.0+0.1794269668 | 2026-11-12 |
+| `ansible-automation-platform-operator` | Ansible Automation Platform | stable-2.6 | 2.6.0+0.1794615193 | 2026-11-24 |
+|  |  | stable-2.6-cluster-scoped | 2.6.0+0.1794615226 | 2026-11-24 |
+|  |  | stable-2.7 *(default)* | 2.7.0+0.1794591164 | 2026-11-24 |
+|  |  | stable-2.7-cluster-scoped | 2.7.0+0.1794591166 | 2026-11-24 |
 | `ansible-cloud-addons-operator` | Ansible Cloud Addons | stable-2.5-cluster-scoped *(default)* | 2.5.0+0.1761049779 | 2026-01-16 |
 | `apicast-operator` | Red Hat Integration - 3scale APIcast gateway | threescale-2.11 | 0.5.3 | 2026-01-16 |
 |  |  | threescale-2.12 | 0.6.4 | 2026-01-16 |
@@ -69,13 +69,13 @@ Generated on 2026-11-21 15:49:25 CET by `list_operators.py` from the Red Hat Eco
 |  |  | threescale-2.16 *(default)* | 0.13.4 | 2026-07-09 |
 |  |  | threescale-mas | 0.7.9-mas | 2026-01-16 |
 | `apicurio-registry-3` | Red Hat build of Apicurio Registry 3 | 3.2.x | 3.2.6-r2 | 2026-07-30 |
-|  |  | 3.3.x | 3.3.3-r2 | 2026-11-04 |
-|  |  | 3.x *(default)* | 3.3.3-r2 | 2026-11-04 |
+|  |  | 3.3.x | 3.3.4-r1 | 2026-11-24 |
+|  |  | 3.x *(default)* | 3.3.4-r1 | 2026-11-24 |
 | `authorino-operator` | Authorino Operator | stable *(default)* | 1.4.4 | 2026-10-15 |
 |  |  | tech-preview-v1 | 1.1.3 | 2026-01-16 |
 | `automation-orchestrator-operator` | Automation Orchestrator Operator | early-access | 2026.8.1793803831 | 2026-11-04 |
 |  |  | stable *(default)* | 2026.8.1793830765 | 2026-11-05 |
-| `automation-portal-operator` | Ansible automation portal (Technology Preview) | fast *(default)* | 2.3.20261105 | 2026-11-05 |
+| `automation-portal-operator` | Ansible automation portal (Technology Preview) | fast *(default)* | 2.3.20261123 | 2026-11-24 |
 | `aws-efs-csi-driver-operator` | AWS EFS CSI Driver Operator | stable *(default)* | 4.22.0-202611031655 | 2026-11-06 |
 | `aws-load-balancer-operator` | AWS Load Balancer Operator | stable-v1 *(default)* | 1.3.4 | 2026-11-12 |
 |  |  | stable-v1.1 | 1.1.1 | 2026-05-11 |
@@ -130,7 +130,7 @@ Generated on 2026-11-21 15:49:25 CET by `list_operators.py` from the Red Hat Eco
 | `dpu-operator` | DPU Operator | stable *(default)* | 4.21.0 | 2026-06-09 |
 | `eap` | JBoss EAP | stable *(default)* | 3.2.27 | 2026-11-02 |
 | `exploit-iq-operator` | Red Hat Trusted Profile Analyzer exploit intelligence | stable | 0.0.3 | 2026-08-20 |
-|  |  | stable-v3 *(default)* | 3.1.1 | 2026-10-13 |
+|  |  | stable-v3 *(default)* | 3.1.2 | 2026-11-24 |
 | `external-dns-operator` | ExternalDNS Operator | stable-v1 *(default)* | 1.3.12 | 2026-10-28 |
 |  |  | stable-v1.1 | 1.1.3 | 2026-07-30 |
 |  |  | stable-v1.2 | 1.2.5 | 2026-11-12 |
@@ -259,10 +259,11 @@ Generated on 2026-11-21 15:49:25 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-v1.19 | 1.19.2 | 2026-09-03 |
 |  |  | stable-v1.20 | 1.20.1 | 2026-09-29 |
 | `openshift-custom-metrics-autoscaler-operator` | Custom Metrics Autoscaler | stable *(default)* | 2.19.0-4 | 2026-09-23 |
-| `openshift-external-secrets-operator` | External Secrets Operator for Red Hat OpenShift | stable-v1 *(default)* | 1.2.1 | 2026-09-10 |
+| `openshift-external-secrets-operator` | External Secrets Operator for Red Hat OpenShift | stable-v1 *(default)* | 1.3.0 | 2026-11-24 |
 |  |  | stable-v1.0 | 1.0.1 | 2026-07-16 |
 |  |  | stable-v1.1 | 1.1.1 | 2026-08-13 |
 |  |  | stable-v1.2 | 1.2.1 | 2026-09-10 |
+|  |  | stable-v1.3 | 1.3.0 | 2026-11-24 |
 | `openshift-gitops-operator` | Red Hat OpenShift GitOps | gitops-1.6 | 1.6.6 | 2026-01-15 |
 |  |  | gitops-1.7 | 1.7.4+0.1690486082.p | 2026-01-15 |
 |  |  | gitops-1.8 | 1.8.6 | 2026-01-15 |
@@ -277,10 +278,10 @@ Generated on 2026-11-21 15:49:25 CET by `list_operators.py` from the Red Hat Eco
 |  |  | gitops-1.17 | 1.17.5 | 2026-03-26 |
 |  |  | gitops-1.18 | 1.18.6 | 2026-05-26 |
 |  |  | gitops-1.19 | 1.19.7 | 2026-09-03 |
-|  |  | gitops-1.20 | 1.20.11 | 2026-11-05 |
-|  |  | gitops-1.21 | 1.21.7 | 2026-11-03 |
-|  |  | gitops-1.22 | 1.22.3 | 2026-11-03 |
-|  |  | latest *(default)* | 1.22.3 | 2026-11-03 |
+|  |  | gitops-1.20 | 1.20.12 | 2026-11-24 |
+|  |  | gitops-1.21 | 1.21.8 | 2026-11-24 |
+|  |  | gitops-1.22 | 1.22.4 | 2026-11-24 |
+|  |  | latest *(default)* | 1.22.4 | 2026-11-24 |
 | `openshift-pipelines-operator-rh` | Red Hat OpenShift Pipelines | latest *(default)* | 1.24.3 | 2026-10-31 |
 |  |  | pipelines-1.21 | 1.21.3 | 2026-07-09 |
 |  |  | pipelines-1.22 | 1.22.7 | 2026-10-13 |
@@ -288,6 +289,7 @@ Generated on 2026-11-21 15:49:25 CET by `list_operators.py` from the Red Hat Eco
 |  |  | pipelines-1.24 | 1.24.3 | 2026-10-31 |
 | `openshift-secondary-scheduler-operator` | Secondary Scheduler Operator for Red Hat OpenShift | stable *(default)* | 1.6.1 | 2026-11-04 |
 | `openshift-zero-trust-workload-identity-manager` | Zero Trust Workload Identity Manager | stable-v1 *(default)* | 1.1.3 | 2026-11-03 |
+| `openstack-operator` | OpenStack | stable-v1.0 *(default)* | 1.24.0 | 2026-11-24 |
 | `opentelemetry-product` | Red Hat build of OpenTelemetry | stable *(default)* | 0.158.0-202611041238 | 2026-11-05 |
 | `pf-status-relay-operator` | pf-status-relay-operator | stable *(default)* | 4.22.0-202611031655 | 2026-11-06 |
 | `policy-controller-operator` | Policy Controller Operator | stable *(default)* | 1.1.2 | 2026-11-10 |
@@ -415,7 +417,7 @@ Generated on 2026-11-21 15:49:25 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-v1.4 | 1.4.5 | 2026-11-11 |
 |  |  | stable-v1.5 | 1.5.1 | 2026-11-04 |
 | `rhtpa-operator` | Red Hat Trusted Profile Analyzer | stable-v1.1 | 1.1.9 | 2026-11-05 |
-|  |  | stable-v3 *(default)* | 3.1.1 | 2026-10-14 |
+|  |  | stable-v3 *(default)* | 3.1.2 | 2026-11-24 |
 | `rook-ceph-operator` | Rook-Ceph | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
 |  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `run-once-duration-override-operator` | Run Once Duration Override Operator | stable *(default)* | 1.4.2 | 2026-09-17 |

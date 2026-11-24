@@ -1,9 +1,9 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-23 19:31:38 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-24 18:58:59 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 321
-- **Channels:** 530
+- **Channels:** 532
 - **community-operators:** 321 operators
 - Default channel (installed when no channel is chosen) marked *(default)*
 
@@ -73,9 +73,9 @@ Generated on 2026-11-23 19:31:38 CET by `list_operators.py` from the Red Hat Eco
 | `ack-recyclebin-controller` | AWS Controllers for Kubernetes - Amazon Recycle Bin | alpha *(default)* | 1.8.0 | 2026-11-12 |
 | `ack-route53-controller` | AWS Controllers for Kubernetes - Amazon Route53 | alpha *(default)* | 1.9.0 | 2026-11-11 |
 | `ack-route53resolver-controller` | AWS Controllers for Kubernetes - Amazon Route53Resolver | alpha *(default)* | 1.12.0 | 2026-11-13 |
-| `ack-s3-controller` | AWS Controllers for Kubernetes - Amazon S3 | alpha *(default)* | 1.15.0 | 2026-11-09 |
+| `ack-s3-controller` | AWS Controllers for Kubernetes - Amazon S3 | alpha *(default)* | 1.16.0 | 2026-11-24 |
 | `ack-s3control-controller` | AWS Controllers for Kubernetes - Amazon S3 Control | alpha *(default)* | 1.10.0 | 2026-11-14 |
-| `ack-s3files-controller` | AWS Controllers for Kubernetes - Amazon S3Files | alpha *(default)* | 1.3.1 | 2026-10-17 |
+| `ack-s3files-controller` | AWS Controllers for Kubernetes - Amazon S3Files | alpha *(default)* | 1.5.0 | 2026-11-24 |
 | `ack-s3tables-controller` | AWS Controllers for Kubernetes - Amazon S3 Tables | alpha *(default)* | 1.5.0 | 2026-11-20 |
 | `ack-s3vectors-controller` | AWS Controllers for Kubernetes - Amazon S3 Vectors | alpha *(default)* | 1.5.0 | 2026-11-23 |
 | `ack-sagemaker-controller` | AWS Controllers for Kubernetes - Amazon SageMaker | alpha *(default)* | 1.12.0 | 2026-10-28 |
@@ -172,7 +172,9 @@ Generated on 2026-11-23 19:31:38 CET by `list_operators.py` from the Red Hat Eco
 | `community-windows-machine-config-operator` | Community Windows Machine Config Operator | preview *(default)* | 6.0.0 | 2026-03-20 |
 | `commvault-operator` | Commvault for OpenShift | alpha *(default)* | 0.8.8 | 2026-09-01 |
 | `customized-user-remediation` | Customized User Remediation Operator - Community Edition | alpha *(default)* | 0.1.0 | 2026-03-20 |
-| `dapr-kubernetes-operator` | Dapr Control Plane Operator | alpha *(default)* | 0.0.15 | 2026-10-29 |
+| `dapr-kubernetes-operator` | Dapr Control Plane Operator | alpha *(default)* | 1.19.1 | 2026-11-24 |
+|  |  | dapr-1.18 | 1.18.10 | 2026-11-24 |
+|  |  | dapr-1.19 | 1.19.1 | 2026-11-24 |
 | `datadog-operator` | Datadog Operator | alpha | 0.8.4 | 2026-03-20 |
 |  |  | stable *(default)* | 1.32.0 | 2026-11-20 |
 | `datatrucker-operator` | DataTrucker.IO | alpha *(default)* | 2.0.0 | 2026-03-20 |
@@ -192,8 +194,8 @@ Generated on 2026-11-23 19:31:38 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable | 1.1.3 | 2026-03-20 |
 | `eclipse-che` | Eclipse Che | stable *(default)* | 7.125.0 | 2026-11-19 |
 | `ecr-secret-operator` | ECR Secret Operator | alpha *(default)* | 0.5.0 | 2026-07-23 |
-| `edp-keycloak-operator` | EDP Keycloak Operator | alpha | 1.35.0 | 2026-07-13 |
-|  |  | stable *(default)* | 1.35.0 | 2026-07-13 |
+| `edp-keycloak-operator` | EDP Keycloak Operator | alpha | 1.36.0 | 2026-11-24 |
+|  |  | stable *(default)* | 1.36.0 | 2026-11-24 |
 | `eginnovations-operator` | eG Innovations Universal Agent Operator | beta *(default)* | 0.0.11 | 2026-03-20 |
 | `egressip-ipam-operator` | Egressip Ipam Operator | alpha *(default)* | 1.2.4 | 2026-03-20 |
 | `ember-csi-community-operator` | Ember CSI Operator | beta *(default)* | 0.9.9 | 2026-03-20 |
@@ -328,7 +330,7 @@ Generated on 2026-11-23 19:31:38 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable *(default)* | 0.13.1 | 2026-03-20 |
 | `mercury-operator` | Mercury Operator | 1.0.x *(default)* | 1.0.1 | 2026-03-20 |
 | `microcks` | Microcks Operator | stable *(default)* | 1.10.0 | 2026-03-20 |
-| `mirror-operator` | The Silvermatic | alpha *(default)* | 0.1.8 | 2026-09-22 |
+| `mirror-operator` | The Silvermatic | alpha *(default)* | 0.1.9 | 2026-11-24 |
 | `mongodb-atlas-kubernetes` | MongoDB Atlas Operator | stable *(default)* | 2.18.1 | 2026-11-09 |
 | `mongodb-operator` | MongoDB Operator | alpha *(default)* | 0.3.0 | 2026-03-20 |
 | `move2kube-operator` | Konveyor Move2Kube | alpha | 0.3.10 | 2026-03-20 |
@@ -363,7 +365,7 @@ Generated on 2026-11-23 19:31:38 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable *(default)* | 0.0.28 | 2026-03-20 |
 | `oc-mirror` | oc-mirror Operator | alpha *(default)* | 0.1.10 | 2026-11-20 |
 | `oci-ccm-operator` | oci-ccm-operator | alpha *(default)* | 0.0.9 | 2026-03-20 |
-| `ocp-kea-dhcp` | Kea DHCP Operator | alpha *(default)* | 0.0.33 | 2026-10-20 |
+| `ocp-kea-dhcp` | Kea DHCP Operator | alpha *(default)* | 0.0.35 | 2026-11-24 |
 | `odoo-operator` | Odoo Operator | alpha *(default)* | 0.0.2 | 2026-03-20 |
 | `openclaw-operator` | OpenClaw Operator | stable *(default)* | 0.40.0 | 2026-09-07 |
 | `opendatahub-operator` | Open Data Hub Operator | fast | 2.35.0 | 2026-09-03 |
@@ -375,8 +377,8 @@ Generated on 2026-11-23 19:31:38 CET by `list_operators.py` from the Red Hat Eco
 | `openshift-integration-operator` | OpenShift Integration Operator | candidate-v0 *(default)* | 0.8.2 | 2026-06-19 |
 | `openshift-node-upgrade-mutex-operator` | OpenShift Node Upgrade Mutex Operator | alpha *(default)* | 0.2.66 | 2026-03-20 |
 | `openshift-qiskit-operator` | QiskitPlayground | alpha *(default)* | 0.2.1 | 2026-03-20 |
-| `openstack-lightspeed-operator` | OpenStack Lightspeed (Community) | alpha *(default)* | 0.0.4 | 2026-11-06 |
-| `opentelemetry-operator` | Community OpenTelemetry Operator | alpha *(default)* | 0.161.0 | 2026-10-15 |
+| `openstack-lightspeed-operator` | OpenStack Lightspeed (Community) | alpha *(default)* | 0.0.5 | 2026-11-24 |
+| `opentelemetry-operator` | Community OpenTelemetry Operator | alpha *(default)* | 0.163.0 | 2026-11-24 |
 | `paperclip-operator` | Paperclip Operator | stable *(default)* | 0.19.1 | 2026-09-07 |
 | `patch-operator` | Patch Operator | alpha *(default)* | 0.1.11 | 2026-03-20 |
 | `patterns-operator` | Validated Patterns Operator | fast *(default)* | 0.0.83 | 2026-11-18 |
@@ -384,15 +386,15 @@ Generated on 2026-11-23 19:31:38 CET by `list_operators.py` from the Red Hat Eco
 | `pelorus-operator` | Pelorus Operator | alpha *(default)* | 0.0.9 | 2026-03-20 |
 | `percona-postgresql-operator` | Percona Operator for PostgreSQL | stable *(default)* | 3.1.0 | 2026-09-17 |
 | `percona-server-mongodb-operator` | Percona Distribution for MongoDB Operator | stable *(default)* | 1.23.1 | 2026-10-09 |
-| `percona-server-mysql-operator` | Percona Operator for MySQL based on Percona Server for MySQL | stable *(default)* | 1.2.0 | 2026-07-10 |
+| `percona-server-mysql-operator` | Percona Operator for MySQL based on Percona Server for MySQL | stable *(default)* | 1.3.0 | 2026-11-24 |
 | `percona-xtradb-cluster-operator` | Percona XtraDB Cluster Operator | stable *(default)* | 1.9.0 | 2026-03-20 |
 | `proactive-node-scaling-operator` | Proactive Node Scaling Operator | alpha *(default)* | 0.4.2 | 2026-03-20 |
 | `project-onboarding-operator` | Project Onboarding | stable *(default)* | 0.0.51 | 2026-06-24 |
 | `project-quay` | Project Quay | stable-3.6 | 3.6.2 | 2026-03-20 |
 |  |  | stable-3.7 | 3.7.11 | 2026-03-20 |
 |  |  | stable-3.8 | 3.8.13 | 2026-03-20 |
-|  |  | stable-3.9 | 3.9.27 | 2026-10-20 |
-|  |  | stable-3.10 | 3.10.27 | 2026-10-09 |
+|  |  | stable-3.9 | 3.9.28 | 2026-11-24 |
+|  |  | stable-3.10 | 3.10.28 | 2026-11-24 |
 |  |  | stable-3.11 | 3.11.13 | 2026-03-20 |
 |  |  | stable-3.12 | 3.12.24 | 2026-11-18 |
 |  |  | stable-3.13 | 3.13.11 | 2026-03-20 |
@@ -400,7 +402,7 @@ Generated on 2026-11-23 19:31:38 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-3.15 | 3.15.8 | 2026-09-04 |
 |  |  | stable-3.16 | 3.16.6 | 2026-10-05 |
 |  |  | stable-3.17 *(default)* | 3.17.7 | 2026-11-19 |
-|  |  | stable-3.18 | 3.18.2 | 2026-10-22 |
+|  |  | stable-3.18 | 3.18.3 | 2026-11-24 |
 | `prometheus` | Prometheus Operator | beta *(default)* | 0.56.3 | 2026-03-20 |
 | `prometheus-exporter-operator` | Prometheus Exporter Operator | alpha *(default)* | 0.7.0 | 2026-03-20 |
 | `pubsubplus-eventbroker-operator` | Solace PubSub+ Event Broker Operator | stable *(default)* | 1.4.2 | 2026-08-19 |
@@ -410,9 +412,9 @@ Generated on 2026-11-23 19:31:38 CET by `list_operators.py` from the Red Hat Eco
 | `rabbitmq-messaging-topology-operator` | rabbitmq-messaging-topology-operator | stable *(default)* | 1.20.5 | 2026-10-29 |
 | `redis-operator` | Redis Operator | preview | 0.4.0 | 2026-03-20 |
 |  |  | stable *(default)* | 0.27.0 | 2026-11-09 |
-| `redkey-operator` | Redkey Operator | alpha | 0.2.0 | 2026-08-19 |
-|  |  | beta | 0.2.0 | 2026-08-19 |
-|  |  | stable *(default)* | 0.2.0 | 2026-08-19 |
+| `redkey-operator` | Redkey Operator | alpha | 0.2.1 | 2026-11-24 |
+|  |  | beta | 0.2.1 | 2026-11-24 |
+|  |  | stable *(default)* | 0.2.1 | 2026-11-24 |
 | `reportportal-operator` | reportportal-operator | alpha *(default)* | 0.0.8 | 2026-03-20 |
 | `resource-locker-operator` | Resource Locker Operator | alpha *(default)* | 1.1.3 | 2026-03-20 |
 | `rhoas-operator` | OpenShift Application Services (RHOAS) | beta *(default)* | 0.13.0 | 2026-03-20 |

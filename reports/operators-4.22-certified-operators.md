@@ -1,9 +1,9 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-23 19:31:30 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-24 18:58:57 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 180
-- **Channels:** 390
+- **Channels:** 391
 - **certified-operators:** 180 operators
 - Default channel (installed when no channel is chosen) marked *(default)*
 
@@ -29,7 +29,7 @@ Generated on 2026-11-23 19:31:30 CET by `list_operators.py` from the Red Hat Eco
 | `appian-operator` | Appian operator | alpha *(default)* | 0.218.0 | 2026-10-26 |
 | `appsentinels-sslsniffer-operator` | AppSentinels SSL Sniffer | alpha *(default)* | 0.0.3 | 2026-10-30 |
 | `aqua-operator-certified` | Aqua Security Operator | 2022.4 *(default)* | 2022.4.941 | 2026-10-15 |
-| `axera-operator` | Axera Microsegmentation & NDR | alpha *(default)* | 2.2.4 | 2026-11-23 |
+| `axera-operator` | Axera Microsegmentation & NDR | alpha *(default)* | 2.2.5 | 2026-11-23 |
 | `cfm-operator` | Cloudera Flow Management - Kubernetes Operator for Apache NiFi | alpha | 2.9.0-b96 | 2026-02-23 |
 |  |  | stable *(default)* | 2.11.0-b57 | 2026-02-23 |
 | `cilium-enterprise` | Cilium Enterprise | 1.10 | 1.10.13+xed86eae | 2026-02-23 |
@@ -104,7 +104,7 @@ Generated on 2026-11-23 19:31:30 CET by `list_operators.py` from the Red Hat Eco
 | `exascaler-csi-driver-operator` | EXAScaler CSI File Driver | alpha *(default)* | 2.10.0 | 2026-09-19 |
 | `f5-ai-security-operator` | F5 Ai Security Operator | alpha | 0.4.3 | 2026-09-04 |
 |  |  | release-testing | 0.0.3 | 2026-09-04 |
-|  |  | stable *(default)* | 0.18.0 | 2026-11-18 |
+|  |  | stable *(default)* | 0.19.0 | 2026-11-23 |
 | `f5-bigip-ctlr-operator` | F5 Container Ingress Services | alpha | 1.24.0 | 2026-11-20 |
 |  |  | beta | 1.24.0 | 2026-11-20 |
 |  |  | stable *(default)* | 1.24.0 | 2026-11-20 |
@@ -113,11 +113,11 @@ Generated on 2026-11-23 19:31:30 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable *(default)* | 0.0.9 | 2026-11-22 |
 | `falcon-operator` | CrowdStrike Falcon Platform - Operator | certified-1.0 *(default)* | 1.16.1 | 2026-11-19 |
 | `flow-cni-operator` | nutanix-flow-cni | alpha *(default)* | 1.1.0 | 2026-09-22 |
-| `fujitsu-enterprise-postgres-operator` | Fujitsu Enterprise Postgres Operator | stable *(default)* | 8.3.5 | 2026-11-02 |
+| `fujitsu-enterprise-postgres-operator` | Fujitsu Enterprise Postgres Operator | stable *(default)* | 8.3.6 | 2026-11-24 |
 |  |  | stable-z | 7.3.7 | 2026-09-02 |
 | `function-mesh` | Function Mesh Operator | alpha *(default)* | 0.7.0 | 2026-02-23 |
-| `gitlab-operator-kubernetes` | GitLab | stable *(default)* | 3.5.5 | 2026-11-12 |
-|  |  | unstable | 3.5.5 | 2026-11-12 |
+| `gitlab-operator-kubernetes` | GitLab | stable *(default)* | 3.6.0 | 2026-11-23 |
+|  |  | unstable | 3.6.0 | 2026-11-23 |
 | `gitlab-runner-operator` | GitLab Runner | stable *(default)* | 1.54.1 | 2026-10-23 |
 | `google-cloud-cluster-services-for-openshift-telemetry` | Cluster Services for OpenShift Telemetry | alpha | 0.0.6 | 2026-07-14 |
 |  |  | stable *(default)* | 0.0.7 | 2026-07-15 |
@@ -196,7 +196,7 @@ Generated on 2026-11-23 19:31:30 CET by `list_operators.py` from the Red Hat Eco
 |  |  | 5.3.x | 5.3.1 | 2026-07-27 |
 |  |  | 5.4.x *(default)* | 5.4.1 | 2026-10-07 |
 | `kalybr-ent-operator` | Kalybr Enterprise operator | stable *(default)* | 0.2.0 | 2026-09-19 |
-| `kove-operator` | Kove:SDM™ Operator | stable *(default)* | 3.2.0 | 2026-09-11 |
+| `kove-operator` | Kove:SDM™ Operator | stable *(default)* | 3.2.1 | 2026-11-23 |
 | `kubearmor-operator-certified` | Kubearmor Operator | alpha | 1.0.0 | 2026-02-23 |
 |  |  | stable *(default)* | 1.7.3 | 2026-06-10 |
 | `kubeblocks` | KubeBlocks | stable *(default)* | 1.0.1 | 2026-02-23 |
@@ -220,7 +220,7 @@ Generated on 2026-11-23 19:31:30 CET by `list_operators.py` from the Red Hat Eco
 | `minio-object-store-operator` | MinIO AIStor | stable *(default)* | 2026.11.13230251 | 2026-11-20 |
 | `mongodb-atlas-kubernetes` | MongoDB Atlas Operator | beta | 1.0.0 | 2026-02-23 |
 |  |  | stable *(default)* | 2.8.0 | 2026-02-23 |
-| `mongodb-kubernetes` | MongoDB Controllers for Kubernetes | stable *(default)* | 1.15.0 | 2026-11-04 |
+| `mongodb-kubernetes` | MongoDB Controllers for Kubernetes | stable *(default)* | 1.16.0 | 2026-11-24 |
 | `mto-dependencies-operator` | MTO Dependencies Operator | alpha *(default)* | 0.1.16 | 2026-10-13 |
 | `netai-demo-operator` | netai-demo-operator | alpha *(default)* | 0.0.1 | 2026-02-23 |
 | `netscaler-adm-agent-operator` | Netscaler Adm Agent Operator | alpha | 141.60.38 | 2026-02-23 |
@@ -229,8 +229,8 @@ Generated on 2026-11-23 19:31:30 CET by `list_operators.py` from the Red Hat Eco
 |  |  | tech-preview | 3.0.1 | 2026-02-23 |
 | `neuvector-certified-operator` | NeuVector Operator | beta *(default)* | 1.5.9 | 2026-09-17 |
 | `nexus-repository-ha-operator-certified` | Nexus Repository HA Operator | stable *(default)* | 3.97.2-1 | 2026-10-23 |
-| `nginx-gateway-fabric` | NGINX Gateway Fabric | stable *(default)* | 1.6.1 | 2026-11-04 |
-| `nginx-ingress-operator` | Nginx Ingress Operator | alpha *(default)* | 3.9.0 | 2026-11-18 |
+| `nginx-gateway-fabric` | NGINX Gateway Fabric | stable *(default)* | 1.7.1 | 2026-11-23 |
+| `nginx-ingress-operator` | Nginx Ingress Operator | alpha *(default)* | 3.9.1 | 2026-11-23 |
 | `nim-operator-certified` | The NVIDIA NIM Operator for Kubernetes | stable *(default)* | 3.1.2 | 2026-08-19 |
 | `nspc-operator` | NEC Storage Plug-in for Containers | stable *(default)* | 1.18.3 | 2026-10-27 |
 | `nutanixcsioperator` | Nutanix CSI Operator | stable-3.x *(default)* | 3.9.0 | 2026-10-16 |
@@ -376,7 +376,8 @@ Generated on 2026-11-23 19:31:30 CET by `list_operators.py` from the Red Hat Eco
 |  |  | release-1.9 | 1.9.1 | 2026-08-12 |
 |  |  | release-1.10 | 1.10.2 | 2026-10-20 |
 |  |  | release-1.11 *(default)* | 1.11.1 | 2026-11-23 |
-| `tenanttab-operator` | Denegra TenantTab | alpha *(default)* | 0.4.8 | 2026-11-21 |
+| `tenanttab-operator` | Denegra TenantTab | alpha *(default)* | 1.0.0 | 2026-11-24 |
+|  |  | stable | 1.0.0 | 2026-11-24 |
 | `tensormesh-platform` | Tensormesh Platform | stable *(default)* | 1.0.1 | 2026-10-27 |
 | `tigera-operator` | Tigera Operator v1.38 | release-v1.42 | 1.42.2 | 2026-06-12 |
 |  |  | release-v1.44 *(default)* | 1.44.0 | 2026-11-10 |
