@@ -1,6 +1,6 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-24 18:58:57 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-25 18:27:19 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 180
 - **Channels:** 391
@@ -57,13 +57,13 @@ Generated on 2026-11-24 18:58:57 CET by `list_operators.py` from the Red Hat Eco
 | `cloudera-streams-messaging-kubernetes-operator` | Cloudera Streams Messaging - Kubernetes Operator for Apache Kafka | 1.2.x | 1.4.0-b199 | 2026-02-23 |
 |  |  | 1.5.x | 1.5.0-b123 | 2026-02-23 |
 |  |  | stable *(default)* | 1.5.0-b123 | 2026-02-23 |
-| `cloudnative-pg` | CloudNativePG | candidate | 1.30.0-rc1 | 2026-07-06 |
+| `cloudnative-pg` | CloudNativePG | candidate | 1.31.0-rc1 | 2026-11-25 |
 |  |  | stable-v1 *(default)* | 1.30.2 | 2026-11-19 |
 | `cockroachdb-certified` | CockroachDB Public Operator | stable *(default)* | 2.18.7 | 2026-11-05 |
 | `coherence-operator` | Coherence Kubernetes Operator | stable *(default)* | 3.5.9 | 2026-02-27 |
 | `commvault-operator` | Commvault for OpenShift | stable *(default)* | 1.0.2 | 2026-10-29 |
-| `confluent-for-kubernetes` | Confluent for Kubernetes | 3.3 | 3.3.1 | 2026-09-25 |
-|  |  | 3.4 *(default)* | 3.4.0 | 2026-10-28 |
+| `confluent-for-kubernetes` | Confluent for Kubernetes | 3.3 | 3.3.2 | 2026-11-25 |
+|  |  | 3.4 *(default)* | 3.4.1 | 2026-11-25 |
 | `conjur-follower-operator` | Conjur Enterprise Follower Operator | 2.5 | 2.5.3 | 2026-02-23 |
 |  |  | preview | 2.10.1 | 2026-09-21 |
 |  |  | stable *(default)* | 2.10.1 | 2026-09-21 |
@@ -362,7 +362,7 @@ Generated on 2026-11-24 18:58:57 CET by `list_operators.py` from the Red Hat Eco
 | `t8c-tsc-client-certified` | Turbonomic Secure Connect Client | candidate | 1.7.4-candidate-20261001163912000 | 2026-10-06 |
 |  |  | stable *(default)* | 1.7.4 | 2026-10-12 |
 | `tawon-operator` | Tawon | alpha | 2.29.1 | 2026-02-23 |
-|  |  | candidate-v3 *(default)* | 3.2.0-rc1 | 2026-10-27 |
+|  |  | candidate-v3 *(default)* | 3.2.0-rc3 | 2026-11-25 |
 |  |  | fast-v3 | 3.1.1 | 2026-10-13 |
 | `template-operator` | Template Operator | release-0.0 | 0.0.1 | 2026-02-23 |
 |  |  | release-0.1 *(default)* | 0.1.8 | 2026-09-17 |
@@ -401,4 +401,4 @@ Generated on 2026-11-24 18:58:57 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-v7.0 *(default)* | 7.0.32-1 | 2026-10-22 |
 |  |  | stable-v8.0 | 8.0.0 | 2026-11-10 |
 | `zk-operator` | ZooKeeper Operator | stable *(default)* | 0.0.1 | 2026-09-02 |
-| `ztouch-os-operator` | zTouch.OS | stable *(default)* | 1.0.2 | 2026-11-19 |
+| `ztouch-os-operator` | zTouch.OS | stable *(default)* | 1.0.3 | 2026-11-25 |

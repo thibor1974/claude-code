@@ -1,9 +1,9 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-24 18:58:56 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-25 18:27:18 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 152
-- **Channels:** 471
+- **Channels:** 474
 - **redhat-operators:** 152 operators
 - Default channel (installed when no channel is chosen) marked *(default)*
 
@@ -74,7 +74,7 @@ Generated on 2026-11-24 18:58:56 CET by `list_operators.py` from the Red Hat Eco
 | `authorino-operator` | Authorino Operator | stable *(default)* | 1.4.4 | 2026-10-15 |
 |  |  | tech-preview-v1 | 1.1.3 | 2026-01-16 |
 | `automation-orchestrator-operator` | Automation Orchestrator Operator | early-access | 2026.8.1793803831 | 2026-11-04 |
-|  |  | stable *(default)* | 2026.8.1793830765 | 2026-11-05 |
+|  |  | stable *(default)* | 2026.8.1795521034 | 2026-11-25 |
 | `automation-portal-operator` | Ansible automation portal (Technology Preview) | fast *(default)* | 2.3.20261123 | 2026-11-24 |
 | `aws-efs-csi-driver-operator` | AWS EFS CSI Driver Operator | stable *(default)* | 4.22.0-202611031655 | 2026-11-06 |
 | `aws-load-balancer-operator` | AWS Load Balancer Operator | stable-v1 *(default)* | 1.3.4 | 2026-11-12 |
@@ -115,9 +115,10 @@ Generated on 2026-11-24 18:58:56 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-3.15 | 3.15.9 | 2026-11-11 |
 |  |  | stable-3.16 | 3.16.7 | 2026-11-11 |
 |  |  | stable-3.17 | 3.17.7 | 2026-11-11 |
-|  |  | stable-3.18 *(default)* | 3.18.3 | 2026-11-11 |
+|  |  | stable-3.18 | 3.18.4 | 2026-11-25 |
+|  |  | stable-5.0 *(default)* | 5.0.0 | 2026-11-25 |
 | `costmanagement-metrics-operator` | Cost Management Metrics Operator | stable *(default)* | 4.5.1 | 2026-11-04 |
-| `cryostat-operator` | Red Hat build of Cryostat | stable *(default)* | 4.2.0+15 | 2026-11-05 |
+| `cryostat-operator` | Red Hat build of Cryostat | stable *(default)* | 4.2.0+16 | 2026-11-25 |
 | `datagrid` | Data Grid | 8.2.x | 8.2.8 | 2026-01-15 |
 |  |  | 8.3.x | 8.3.9 | 2026-01-15 |
 |  |  | 8.4.x | 8.4.16 | 2026-01-15 |
@@ -309,7 +310,8 @@ Generated on 2026-11-24 18:58:56 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-3.15 | 3.15.9 | 2026-11-11 |
 |  |  | stable-3.16 | 3.16.7 | 2026-11-11 |
 |  |  | stable-3.17 | 3.17.7 | 2026-11-11 |
-|  |  | stable-3.18 *(default)* | 3.18.3 | 2026-11-11 |
+|  |  | stable-3.18 | 3.18.4 | 2026-11-25 |
+|  |  | stable-5.0 *(default)* | 5.0.0 | 2026-11-25 |
 | `quay-operator` | Red Hat Quay | quay-v3.4 | 3.4.7 | 2026-02-24 |
 |  |  | quay-v3.5 | 3.5.7 | 2026-02-24 |
 |  |  | stable-3.6 | 3.6.10 | 2026-02-24 |
@@ -323,7 +325,8 @@ Generated on 2026-11-24 18:58:56 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-3.15 | 3.15.9 | 2026-11-11 |
 |  |  | stable-3.16 | 3.16.7 | 2026-11-11 |
 |  |  | stable-3.17 | 3.17.7 | 2026-11-11 |
-|  |  | stable-3.18 *(default)* | 3.18.3 | 2026-11-11 |
+|  |  | stable-3.18 | 3.18.4 | 2026-11-25 |
+|  |  | stable-5.0 *(default)* | 5.0.0 | 2026-11-25 |
 | `recipe` | Recipe | stable-4.21 | 4.21.15-rhodf | 2026-10-29 |
 |  |  | stable-4.22 *(default)* | 4.22.9-rhodf | 2026-11-21 |
 | `red-hat-hawtio-operator` | HawtIO Operator | latest | 2.0.1+0.1793013910.p | 2026-10-28 |
@@ -367,11 +370,11 @@ Generated on 2026-11-24 18:58:56 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-v22.0 | 22.0.13-opr.1 | 2026-06-15 |
 |  |  | stable-v24 | 24.0.11-opr.1 | 2026-06-15 |
 |  |  | stable-v24.0 | 24.0.11-opr.1 | 2026-06-15 |
-|  |  | stable-v26 | 26.6.9-opr.1 | 2026-11-07 |
+|  |  | stable-v26 | 26.6.9-opr.2 | 2026-11-25 |
 |  |  | stable-v26.0 | 26.0.17-opr.1 | 2026-06-15 |
 |  |  | stable-v26.2 | 26.2.16-opr.1 | 2026-06-15 |
-|  |  | stable-v26.4 | 26.4.18-opr.1 | 2026-11-07 |
-|  |  | stable-v26.6 *(default)* | 26.6.9-opr.1 | 2026-11-07 |
+|  |  | stable-v26.4 | 26.4.18-opr.2 | 2026-11-25 |
+|  |  | stable-v26.6 *(default)* | 26.6.9-opr.2 | 2026-11-25 |
 | `rhcl-operator` | Red Hat Connectivity Link | stable *(default)* | 1.4.3 | 2026-09-08 |
 |  |  | stable-1.4 | 1.4.4 | 2026-10-15 |
 |  |  | stable-1.5 | 1.5.0 | 2026-10-23 |
@@ -393,7 +396,7 @@ Generated on 2026-11-24 18:58:56 CET by `list_operators.py` from the Red Hat Eco
 |  |  | eus-2.8 | 2.8.5 | 2026-06-18 |
 |  |  | eus-2.16 | 2.16.3 | 2026-06-18 |
 |  |  | eus-2.25 | 2.25.8 | 2026-07-02 |
-|  |  | eus-3.5 | 3.5.3 | 2026-11-12 |
+|  |  | eus-3.5 | 3.5.4 | 2026-11-25 |
 |  |  | fast | 2.25.8 | 2026-07-02 |
 |  |  | fast-3.x | 3.3.1 | 2026-06-18 |
 |  |  | stable | 2.25.8 | 2026-07-02 |
@@ -406,10 +409,10 @@ Generated on 2026-11-24 18:58:56 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-2.25 | 2.25.8 | 2026-07-02 |
 |  |  | stable-3.3 | 3.3.4 | 2026-07-02 |
 |  |  | stable-3.4 | 3.4.6 | 2026-11-02 |
-|  |  | stable-3.5 | 3.5.3 | 2026-11-12 |
-|  |  | stable-3.x *(default)* | 3.5.3 | 2026-11-12 |
+|  |  | stable-3.5 | 3.5.4 | 2026-11-25 |
+|  |  | stable-3.x *(default)* | 3.5.4 | 2026-11-25 |
 |  |  | support-required-upgrade | 3.3.4 | 2026-07-02 |
-|  |  | support-required-upgrade-3.5 | 3.5.3 | 2026-11-12 |
+|  |  | support-required-upgrade-3.5 | 3.5.4 | 2026-11-25 |
 | `rhpam-kogito-operator` | RHPAM Kogito Operator | 7.x *(default)* | 7.13.5-4 | 2026-01-15 |
 | `rhsso-operator` | Red Hat Single Sign-On Operator | alpha | 7.5.1-opr-005 | 2026-01-15 |
 |  |  | stable *(default)* | 7.6.14-opr-001 | 2026-11-12 |
