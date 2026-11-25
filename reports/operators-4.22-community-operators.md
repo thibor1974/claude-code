@@ -1,6 +1,6 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-24 18:58:59 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-25 18:27:21 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 321
 - **Channels:** 532
@@ -19,12 +19,12 @@ Generated on 2026-11-24 18:58:59 CET by `list_operators.py` from the Red Hat Eco
 | `ack-apigateway-controller` | AWS Controllers for Kubernetes - Amazon API Gateway | alpha *(default)* | 1.12.0 | 2026-11-11 |
 | `ack-apigatewayv2-controller` | AWS Controllers for Kubernetes - Amazon API Gateway v2 | alpha *(default)* | 1.9.0 | 2026-11-11 |
 | `ack-applicationautoscaling-controller` | AWS Controllers for Kubernetes - Amazon Application Auto Scaling | alpha *(default)* | 1.10.0 | 2026-11-11 |
-| `ack-athena-controller` | AWS Controllers for Kubernetes - Amazon Athena | alpha *(default)* | 1.11.0 | 2026-11-11 |
+| `ack-athena-controller` | AWS Controllers for Kubernetes - Amazon Athena | alpha *(default)* | 1.11.1 | 2026-11-25 |
 | `ack-autoscaling-controller` | AWS Controllers for Kubernetes - Amazon EC2 Auto Scaling | alpha *(default)* | 1.6.0 | 2026-11-11 |
 | `ack-backup-controller` | AWS Controllers for Kubernetes - Amazon Backup | alpha *(default)* | 1.6.0 | 2026-11-11 |
 | `ack-bedrock-controller` | AWS Controllers for Kubernetes - Amazon Bedrock | alpha *(default)* | 1.7.0 | 2026-11-11 |
 | `ack-bedrockagent-controller` | AWS Controllers for Kubernetes - Amazon Bedrock Agent | alpha *(default)* | 1.7.0 | 2026-11-11 |
-| `ack-bedrockagentcorecontrol-controller` | AWS Controllers for Kubernetes - Amazon Bedrock Agent Core Control | alpha *(default)* | 1.20.0 | 2026-11-12 |
+| `ack-bedrockagentcorecontrol-controller` | AWS Controllers for Kubernetes - Amazon Bedrock Agent Core Control | alpha *(default)* | 1.21.0 | 2026-11-25 |
 | `ack-cloudfront-controller` | AWS Controllers for Kubernetes - Amazon CloudFront | alpha *(default)* | 1.11.0 | 2026-11-11 |
 | `ack-cloudtrail-controller` | AWS Controllers for Kubernetes - Amazon CloudTrail | alpha *(default)* | 1.10.0 | 2026-11-11 |
 | `ack-cloudwatch-controller` | AWS Controllers for Kubernetes - Amazon CloudWatch | alpha *(default)* | 1.12.0 | 2026-11-12 |
@@ -34,7 +34,7 @@ Generated on 2026-11-24 18:58:59 CET by `list_operators.py` from the Red Hat Eco
 | `ack-dms-controller` | AWS Controllers for Kubernetes - Amazon Database Migration Service | alpha *(default)* | 0.5.0 | 2026-11-12 |
 | `ack-documentdb-controller` | AWS Controllers for Kubernetes - Amazon DocumentDB | alpha *(default)* | 1.10.0 | 2026-11-12 |
 | `ack-dsql-controller` | AWS Controllers for Kubernetes - Amazon Aurora DSQL | alpha *(default)* | 1.5.0 | 2026-11-12 |
-| `ack-dynamodb-controller` | AWS Controllers for Kubernetes - Amazon DynamoDB | alpha *(default)* | 1.15.0 | 2026-11-12 |
+| `ack-dynamodb-controller` | AWS Controllers for Kubernetes - Amazon DynamoDB | alpha *(default)* | 1.16.0 | 2026-11-25 |
 | `ack-ec2-controller` | AWS Controllers for Kubernetes - Amazon EC2 | alpha *(default)* | 1.25.1 | 2026-11-19 |
 | `ack-ecr-controller` | AWS Controllers for Kubernetes - Amazon ECR | alpha *(default)* | 1.12.0 | 2026-11-13 |
 | `ack-ecrpublic-controller` | AWS Controllers for Kubernetes - Amazon ECR PUBLIC | alpha *(default)* | 1.8.0 | 2026-11-13 |
@@ -78,7 +78,7 @@ Generated on 2026-11-24 18:58:59 CET by `list_operators.py` from the Red Hat Eco
 | `ack-s3files-controller` | AWS Controllers for Kubernetes - Amazon S3Files | alpha *(default)* | 1.5.0 | 2026-11-24 |
 | `ack-s3tables-controller` | AWS Controllers for Kubernetes - Amazon S3 Tables | alpha *(default)* | 1.5.0 | 2026-11-20 |
 | `ack-s3vectors-controller` | AWS Controllers for Kubernetes - Amazon S3 Vectors | alpha *(default)* | 1.5.0 | 2026-11-23 |
-| `ack-sagemaker-controller` | AWS Controllers for Kubernetes - Amazon SageMaker | alpha *(default)* | 1.12.0 | 2026-10-28 |
+| `ack-sagemaker-controller` | AWS Controllers for Kubernetes - Amazon SageMaker | alpha *(default)* | 1.13.0 | 2026-11-25 |
 | `ack-secretsmanager-controller` | AWS Controllers for Kubernetes - Amazon Secrets Manager | alpha *(default)* | 1.9.0 | 2026-11-12 |
 | `ack-ses-controller` | AWS Controllers for Kubernetes - Amazon SES | alpha *(default)* | 1.8.0 | 2026-11-11 |
 | `ack-sfn-controller` | AWS Controllers for Kubernetes - Amazon Step Functions | alpha *(default)* | 1.10.0 | 2026-11-12 |
@@ -400,7 +400,7 @@ Generated on 2026-11-24 18:58:59 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-3.13 | 3.13.11 | 2026-03-20 |
 |  |  | stable-3.14 | 3.14.10 | 2026-11-21 |
 |  |  | stable-3.15 | 3.15.8 | 2026-09-04 |
-|  |  | stable-3.16 | 3.16.6 | 2026-10-05 |
+|  |  | stable-3.16 | 3.16.7 | 2026-11-25 |
 |  |  | stable-3.17 *(default)* | 3.17.7 | 2026-11-19 |
 |  |  | stable-3.18 | 3.18.3 | 2026-11-24 |
 | `prometheus` | Prometheus Operator | beta *(default)* | 0.56.3 | 2026-03-20 |
