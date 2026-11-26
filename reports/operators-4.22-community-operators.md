@@ -1,6 +1,6 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-25 18:27:21 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-26 18:08:27 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 321
 - **Channels:** 532
@@ -16,7 +16,7 @@ Generated on 2026-11-25 18:27:21 CET by `list_operators.py` from the Red Hat Eco
 |  |  | threescale-2.13 *(default)* | 0.10.1 | 2026-03-20 |
 | `ack-acm-controller` | AWS Controllers for Kubernetes - Amazon ACM | alpha *(default)* | 1.12.0 | 2026-11-11 |
 | `ack-acmpca-controller` | AWS Controllers for Kubernetes - Amazon ACM PCA | alpha *(default)* | 1.8.0 | 2026-11-11 |
-| `ack-apigateway-controller` | AWS Controllers for Kubernetes - Amazon API Gateway | alpha *(default)* | 1.12.0 | 2026-11-11 |
+| `ack-apigateway-controller` | AWS Controllers for Kubernetes - Amazon API Gateway | alpha *(default)* | 1.12.1 | 2026-11-26 |
 | `ack-apigatewayv2-controller` | AWS Controllers for Kubernetes - Amazon API Gateway v2 | alpha *(default)* | 1.9.0 | 2026-11-11 |
 | `ack-applicationautoscaling-controller` | AWS Controllers for Kubernetes - Amazon Application Auto Scaling | alpha *(default)* | 1.10.0 | 2026-11-11 |
 | `ack-athena-controller` | AWS Controllers for Kubernetes - Amazon Athena | alpha *(default)* | 1.11.1 | 2026-11-25 |
@@ -24,7 +24,7 @@ Generated on 2026-11-25 18:27:21 CET by `list_operators.py` from the Red Hat Eco
 | `ack-backup-controller` | AWS Controllers for Kubernetes - Amazon Backup | alpha *(default)* | 1.6.0 | 2026-11-11 |
 | `ack-bedrock-controller` | AWS Controllers for Kubernetes - Amazon Bedrock | alpha *(default)* | 1.7.0 | 2026-11-11 |
 | `ack-bedrockagent-controller` | AWS Controllers for Kubernetes - Amazon Bedrock Agent | alpha *(default)* | 1.7.0 | 2026-11-11 |
-| `ack-bedrockagentcorecontrol-controller` | AWS Controllers for Kubernetes - Amazon Bedrock Agent Core Control | alpha *(default)* | 1.21.0 | 2026-11-25 |
+| `ack-bedrockagentcorecontrol-controller` | AWS Controllers for Kubernetes - Amazon Bedrock Agent Core Control | alpha *(default)* | 1.21.1 | 2026-11-25 |
 | `ack-cloudfront-controller` | AWS Controllers for Kubernetes - Amazon CloudFront | alpha *(default)* | 1.11.0 | 2026-11-11 |
 | `ack-cloudtrail-controller` | AWS Controllers for Kubernetes - Amazon CloudTrail | alpha *(default)* | 1.10.0 | 2026-11-11 |
 | `ack-cloudwatch-controller` | AWS Controllers for Kubernetes - Amazon CloudWatch | alpha *(default)* | 1.12.0 | 2026-11-12 |
@@ -123,7 +123,7 @@ Generated on 2026-11-25 18:27:21 CET by `list_operators.py` from the Red Hat Eco
 |  |  | ocm-2.10 | 0.7.71 | 2026-03-20 |
 |  |  | ocm-2.11 | 0.7.73 | 2026-03-20 |
 |  |  | ocm-2.13 | 0.7.74 | 2026-03-20 |
-| `attune` | Attune | stable *(default)* | 0.1.39 | 2026-11-20 |
+| `attune` | Attune | stable *(default)* | 0.1.40 | 2026-11-26 |
 | `authorino-operator` | Authorino Operator | alpha | 0.8.0 | 2026-03-20 |
 |  |  | stable *(default)* | 0.16.0 | 2026-03-20 |
 | `automotive-infra` | Automotive-CI | alpha *(default)* | 0.0.10 | 2026-03-20 |
@@ -193,7 +193,7 @@ Generated on 2026-11-25 18:27:21 CET by `list_operators.py` from the Red Hat Eco
 | `eclipse-amlen-operator` | eclipse-amlen-operator | alpha *(default)* | 1.0.0 | 2026-03-20 |
 |  |  | stable | 1.1.3 | 2026-03-20 |
 | `eclipse-che` | Eclipse Che | stable *(default)* | 7.125.0 | 2026-11-19 |
-| `ecr-secret-operator` | ECR Secret Operator | alpha *(default)* | 0.5.0 | 2026-07-23 |
+| `ecr-secret-operator` | ECR Secret Operator | alpha *(default)* | 0.6.0 | 2026-11-25 |
 | `edp-keycloak-operator` | EDP Keycloak Operator | alpha | 1.36.0 | 2026-11-24 |
 |  |  | stable *(default)* | 1.36.0 | 2026-11-24 |
 | `eginnovations-operator` | eG Innovations Universal Agent Operator | beta *(default)* | 0.0.11 | 2026-03-20 |
@@ -217,9 +217,9 @@ Generated on 2026-11-25 18:27:21 CET by `list_operators.py` from the Red Hat Eco
 | `fqdn-egress-operator` | FQDN Egress Operator | stable *(default)* | 1.0.7 | 2026-10-05 |
 | `frappe-operator` | Frappe Operator | alpha *(default)* | 5.2.7 | 2026-10-05 |
 | `github-arc-operator` | github-arc-operator | alpha *(default)* | 1.1.0 | 2026-03-20 |
-| `gitlab-operator-kubernetes` | GitLab | stable *(default)* | 3.6.1 | 2026-11-20 |
-|  |  | unstable | 3.6.1 | 2026-11-20 |
-| `gitlab-runner-operator` | GitLab Runner | stable *(default)* | 1.55.0 | 2026-11-23 |
+| `gitlab-operator-kubernetes` | GitLab | stable *(default)* | 3.6.3 | 2026-11-26 |
+|  |  | unstable | 3.6.3 | 2026-11-26 |
+| `gitlab-runner-operator` | GitLab Runner | stable *(default)* | 1.55.1 | 2026-11-25 |
 | `gitops-primer` | gitops-primer | alpha *(default)* | 0.0.11 | 2026-03-20 |
 | `gitwebhook-operator` | GitWebhook operator | alpha *(default)* | 0.1.2 | 2026-03-20 |
 | `global-load-balancer-operator` | Global Load Balancer Operator | alpha *(default)* | 1.4.2 | 2026-03-20 |
@@ -331,7 +331,7 @@ Generated on 2026-11-25 18:27:21 CET by `list_operators.py` from the Red Hat Eco
 | `mercury-operator` | Mercury Operator | 1.0.x *(default)* | 1.0.1 | 2026-03-20 |
 | `microcks` | Microcks Operator | stable *(default)* | 1.10.0 | 2026-03-20 |
 | `mirror-operator` | The Silvermatic | alpha *(default)* | 0.1.9 | 2026-11-24 |
-| `mongodb-atlas-kubernetes` | MongoDB Atlas Operator | stable *(default)* | 2.18.1 | 2026-11-09 |
+| `mongodb-atlas-kubernetes` | MongoDB Atlas Operator | stable *(default)* | 2.19.0 | 2026-11-25 |
 | `mongodb-operator` | MongoDB Operator | alpha *(default)* | 0.3.0 | 2026-03-20 |
 | `move2kube-operator` | Konveyor Move2Kube | alpha | 0.3.10 | 2026-03-20 |
 |  |  | prerelease | 0.3.15-rc.0 | 2026-03-20 |
@@ -363,9 +363,9 @@ Generated on 2026-11-25 18:27:21 CET by `list_operators.py` from the Red Hat Eco
 | `observability-operator` | Observability Operator | candidate | 0.0.28 | 2026-03-20 |
 |  |  | development | 0.0.28 | 2026-03-20 |
 |  |  | stable *(default)* | 0.0.28 | 2026-03-20 |
-| `oc-mirror` | oc-mirror Operator | alpha *(default)* | 0.1.10 | 2026-11-20 |
+| `oc-mirror` | oc-mirror Operator | alpha *(default)* | 0.1.12 | 2026-11-26 |
 | `oci-ccm-operator` | oci-ccm-operator | alpha *(default)* | 0.0.9 | 2026-03-20 |
-| `ocp-kea-dhcp` | Kea DHCP Operator | alpha *(default)* | 0.0.35 | 2026-11-24 |
+| `ocp-kea-dhcp` | Kea DHCP Operator | alpha *(default)* | 0.0.36 | 2026-11-25 |
 | `odoo-operator` | Odoo Operator | alpha *(default)* | 0.0.2 | 2026-03-20 |
 | `openclaw-operator` | OpenClaw Operator | stable *(default)* | 0.40.0 | 2026-09-07 |
 | `opendatahub-operator` | Open Data Hub Operator | fast | 2.35.0 | 2026-09-03 |
@@ -378,10 +378,10 @@ Generated on 2026-11-25 18:27:21 CET by `list_operators.py` from the Red Hat Eco
 | `openshift-node-upgrade-mutex-operator` | OpenShift Node Upgrade Mutex Operator | alpha *(default)* | 0.2.66 | 2026-03-20 |
 | `openshift-qiskit-operator` | QiskitPlayground | alpha *(default)* | 0.2.1 | 2026-03-20 |
 | `openstack-lightspeed-operator` | OpenStack Lightspeed (Community) | alpha *(default)* | 0.0.5 | 2026-11-24 |
-| `opentelemetry-operator` | Community OpenTelemetry Operator | alpha *(default)* | 0.163.0 | 2026-11-24 |
+| `opentelemetry-operator` | Community OpenTelemetry Operator | alpha *(default)* | 0.164.0 | 2026-11-26 |
 | `paperclip-operator` | Paperclip Operator | stable *(default)* | 0.19.1 | 2026-09-07 |
 | `patch-operator` | Patch Operator | alpha *(default)* | 0.1.11 | 2026-03-20 |
-| `patterns-operator` | Validated Patterns Operator | fast *(default)* | 0.0.83 | 2026-11-18 |
+| `patterns-operator` | Validated Patterns Operator | fast *(default)* | 0.0.84 | 2026-11-25 |
 | `pcc-operator` | Prisma Cloud Compute Operator | stable *(default)* | 0.2.0 | 2026-03-20 |
 | `pelorus-operator` | Pelorus Operator | alpha *(default)* | 0.0.9 | 2026-03-20 |
 | `percona-postgresql-operator` | Percona Operator for PostgreSQL | stable *(default)* | 3.1.0 | 2026-09-17 |
@@ -540,6 +540,6 @@ Generated on 2026-11-25 18:27:21 CET by `list_operators.py` from the Red Hat Eco
 | `victoriametrics-operator` | VictoriaMetrics Operator | beta *(default)* | 0.75.2 | 2026-10-29 |
 |  |  | stable | 0.68.5 | 2026-05-29 |
 | `volume-expander-operator` | Volume Expander Operator | alpha *(default)* | 0.3.6 | 2026-03-20 |
-| `wandb-operator` | Weights & Biases Operator | stable *(default)* | 1.22.0 | 2026-08-20 |
+| `wandb-operator` | Weights & Biases Operator | stable *(default)* | 1.23.6 | 2026-11-25 |
 | `windup-operator` | Windup Operator | alpha *(default)* | 0.0.25 | 2026-03-20 |
 | `yaks` | YAKS Operator | alpha *(default)* | 0.17.1 | 2026-03-20 |

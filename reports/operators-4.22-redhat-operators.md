@@ -1,6 +1,6 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-25 18:27:18 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-26 18:08:24 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
 - **Operators:** 152
 - **Channels:** 474
@@ -35,25 +35,25 @@ Generated on 2026-11-25 18:27:18 CET by `list_operators.py` from the Red Hat Eco
 |  |  | amq-streams-2.x | 2.9.4-9 | 2026-11-04 |
 |  |  | amq-streams-3.0.x | 3.0.1-7 | 2026-01-15 |
 |  |  | amq-streams-3.1.x | 3.1.0-14 | 2026-03-06 |
-|  |  | amq-streams-3.2.x | 3.2.2-9 | 2026-11-20 |
-|  |  | amq-streams-3.x | 3.2.2-9 | 2026-11-20 |
+|  |  | amq-streams-3.2.x | 3.2.2-10 | 2026-11-26 |
+|  |  | amq-streams-3.x | 3.2.2-10 | 2026-11-26 |
 |  |  | amq-streams-lts | 2.5.2-8 | 2026-01-15 |
-|  |  | stable *(default)* | 3.2.2-9 | 2026-11-20 |
+|  |  | stable *(default)* | 3.2.2-10 | 2026-11-26 |
 | `amq-streams-console` | Streams for Apache Kafka Console | alpha | 3.0.1-5 | 2026-01-15 |
 |  |  | amq-streams-2.8.x | 2.8.0-13+0.1738265629.p | 2026-01-15 |
 |  |  | amq-streams-2.9.x | 2.9.4-16 | 2026-11-04 |
 |  |  | amq-streams-2.x | 2.9.4-16 | 2026-11-04 |
 |  |  | amq-streams-3.0.x | 3.0.1-5 | 2026-01-15 |
 |  |  | amq-streams-3.1.x | 3.1.0-10 | 2026-03-06 |
-|  |  | amq-streams-3.2.x | 3.2.2-6 | 2026-11-20 |
-|  |  | amq-streams-3.x | 3.2.2-6 | 2026-11-20 |
-|  |  | stable *(default)* | 3.2.2-6 | 2026-11-20 |
+|  |  | amq-streams-3.2.x | 3.2.2-7 | 2026-11-26 |
+|  |  | amq-streams-3.x | 3.2.2-7 | 2026-11-26 |
+|  |  | stable *(default)* | 3.2.2-7 | 2026-11-26 |
 | `amq-streams-proxy` | Streams for Apache Kafka Proxy | alpha | 3.0.1-4 | 2026-01-15 |
 |  |  | amq-streams-3.0.x | 3.0.1-4 | 2026-01-15 |
 |  |  | amq-streams-3.1.x | 3.1.0-15 | 2026-03-06 |
-|  |  | amq-streams-3.2.x | 3.2.2-7 | 2026-11-20 |
-|  |  | amq-streams-3.x | 3.2.2-7 | 2026-11-20 |
-|  |  | stable *(default)* | 3.2.2-7 | 2026-11-20 |
+|  |  | amq-streams-3.2.x | 3.2.2-8 | 2026-11-26 |
+|  |  | amq-streams-3.x | 3.2.2-8 | 2026-11-26 |
+|  |  | stable *(default)* | 3.2.2-8 | 2026-11-26 |
 | `amq7-interconnect-operator` | Red Hat Integration - AMQ Interconnect | 1.2.0 | 1.10.20 | 2026-01-15 |
 |  |  | 1.10.x *(default)* | 1.10.20 | 2026-01-15 |
 |  |  | latest | 1.10.20 | 2026-01-15 |
@@ -73,7 +73,7 @@ Generated on 2026-11-25 18:27:18 CET by `list_operators.py` from the Red Hat Eco
 |  |  | 3.x *(default)* | 3.3.4-r1 | 2026-11-24 |
 | `authorino-operator` | Authorino Operator | stable *(default)* | 1.4.4 | 2026-10-15 |
 |  |  | tech-preview-v1 | 1.1.3 | 2026-01-16 |
-| `automation-orchestrator-operator` | Automation Orchestrator Operator | early-access | 2026.8.1793803831 | 2026-11-04 |
+| `automation-orchestrator-operator` | Automation Orchestrator Operator | early-access | 2026.8.1795693421 | 2026-11-26 |
 |  |  | stable *(default)* | 2026.8.1795521034 | 2026-11-25 |
 | `automation-portal-operator` | Ansible automation portal (Technology Preview) | fast *(default)* | 2.3.20261123 | 2026-11-24 |
 | `aws-efs-csi-driver-operator` | AWS EFS CSI Driver Operator | stable *(default)* | 4.22.0-202611031655 | 2026-11-06 |
@@ -124,8 +124,8 @@ Generated on 2026-11-25 18:27:18 CET by `list_operators.py` from the Red Hat Eco
 |  |  | 8.4.x | 8.4.16 | 2026-01-15 |
 |  |  | stable *(default)* | 8.6.10 | 2026-11-04 |
 | `deployment-validation-operator` | Deployment Validation Operator | alpha *(default)* | 0.7.18 | 2026-09-24 |
-| `devspaces` | Red Hat OpenShift Dev Spaces | stable *(default)* | 3.31.4 | 2026-11-20 |
-| `devworkspace-operator` | DevWorkspace Operator | fast *(default)* | 1.0.0 | 2026-10-19 |
+| `devspaces` | Red Hat OpenShift Dev Spaces | stable *(default)* | 3.31.5 | 2026-11-26 |
+| `devworkspace-operator` | DevWorkspace Operator | fast *(default)* | 1.1.1 | 2026-11-26 |
 | `dns-operator` | DNS Operator | stable *(default)* | 1.4.3 | 2026-10-15 |
 | `dpu-network-operator` | DPU Network Operator | stable *(default)* | 4.13.0-202309181427 | 2026-01-16 |
 | `dpu-operator` | DPU Operator | stable *(default)* | 4.21.0 | 2026-06-09 |
@@ -208,7 +208,7 @@ Generated on 2026-11-25 18:27:18 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-v8.3 *(default)* | 8.3.3 | 2026-10-28 |
 | `mtr-operator` | Migration Toolkit for Runtimes Operator | alpha *(default)* | 1.2.7 | 2026-01-15 |
 | `mtv-operator` | Migration Toolkit for Virtualization Operator | release-v2.11 | 2.11.7 | 2026-06-08 |
-|  |  | release-v2.12 *(default)* | 2.12.10 | 2026-10-13 |
+|  |  | release-v2.12 *(default)* | 2.12.11 | 2026-11-26 |
 |  |  | release-v5.0 | 5.0.0 | 2026-11-05 |
 | `multiarch-tuning-operator` | Multiarch Tuning Operator | stable *(default)* | 1.4.0 | 2026-10-28 |
 | `multicluster-engine` | multicluster engine for Kubernetes | stable-2.11 | 2.11.8 | 2026-11-14 |

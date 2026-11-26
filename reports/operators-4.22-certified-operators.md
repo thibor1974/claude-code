@@ -1,10 +1,10 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-25 18:27:19 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-26 18:08:25 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
-- **Operators:** 180
-- **Channels:** 391
-- **certified-operators:** 180 operators
+- **Operators:** 181
+- **Channels:** 393
+- **certified-operators:** 181 operators
 - Default channel (installed when no channel is chosen) marked *(default)*
 
 ## certified-operators
@@ -44,7 +44,7 @@ Generated on 2026-11-25 18:27:19 CET by `list_operators.py` from the Red Hat Eco
 |  |  | 1.17 | 1.17.21-cee.1 | 2026-11-02 |
 |  |  | 1.18 | 1.18.15-cee.1 | 2026-10-29 |
 |  |  | 1.19 *(default)* | 1.19.9-cee.1 | 2026-11-02 |
-| `cloud-native-postgresql` | EDB Postgres for Kubernetes | candidate | 1.30.0-rc1 | 2026-07-02 |
+| `cloud-native-postgresql` | EDB Postgres for Kubernetes | candidate | 1.31.0-rc1 | 2026-11-26 |
 |  |  | fast *(default)* | 1.30.2 | 2026-11-20 |
 |  |  | stable | 1.28.6 | 2026-11-20 |
 |  |  | stable-v1.25 | 1.25.9 | 2026-07-02 |
@@ -53,7 +53,7 @@ Generated on 2026-11-25 18:27:19 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-v1.28 | 1.28.6 | 2026-11-20 |
 |  |  | stable-v1.29 | 1.29.3 | 2026-09-29 |
 |  |  | stable-v1.30 | 1.30.2 | 2026-11-20 |
-| `cloudcasa-operator` | CloudCasa Operator | stable *(default)* | 4.1.6 | 2026-11-13 |
+| `cloudcasa-operator` | CloudCasa Operator | stable *(default)* | 4.1.7 | 2026-11-26 |
 | `cloudera-streams-messaging-kubernetes-operator` | Cloudera Streams Messaging - Kubernetes Operator for Apache Kafka | 1.2.x | 1.4.0-b199 | 2026-02-23 |
 |  |  | 1.5.x | 1.5.0-b123 | 2026-02-23 |
 |  |  | stable *(default)* | 1.5.0-b123 | 2026-02-23 |
@@ -116,8 +116,8 @@ Generated on 2026-11-25 18:27:19 CET by `list_operators.py` from the Red Hat Eco
 | `fujitsu-enterprise-postgres-operator` | Fujitsu Enterprise Postgres Operator | stable *(default)* | 8.3.6 | 2026-11-24 |
 |  |  | stable-z | 7.3.7 | 2026-09-02 |
 | `function-mesh` | Function Mesh Operator | alpha *(default)* | 0.7.0 | 2026-02-23 |
-| `gitlab-operator-kubernetes` | GitLab | stable *(default)* | 3.6.0 | 2026-11-23 |
-|  |  | unstable | 3.6.0 | 2026-11-23 |
+| `gitlab-operator-kubernetes` | GitLab | stable *(default)* | 3.6.3 | 2026-11-26 |
+|  |  | unstable | 3.6.3 | 2026-11-26 |
 | `gitlab-runner-operator` | GitLab Runner | stable *(default)* | 1.54.1 | 2026-10-23 |
 | `google-cloud-cluster-services-for-openshift-telemetry` | Cluster Services for OpenShift Telemetry | alpha | 0.0.6 | 2026-07-14 |
 |  |  | stable *(default)* | 0.0.7 | 2026-07-15 |
@@ -187,6 +187,7 @@ Generated on 2026-11-25 18:27:19 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable *(default)* | 0.37.1 | 2026-10-14 |
 | `intel-tdx-dcap-operator` | Intel TDX DCAP Operator | alpha | 0.1.0 | 2026-06-16 |
 |  |  | stable *(default)* | 0.27.0 | 2026-11-10 |
+| `ipm-controller` | Intel® Infrastructure Power Manager | stable *(default)* | 26.11.0 | 2026-11-26 |
 | `k10-kasten-operator-rhmp` | Veeam Kasten | stable *(default)* | 9.0.11 | 2026-11-19 |
 | `k8s-triliovault` | Trilio for Kubernetes | 3.1.x | 3.1.3 | 2026-07-27 |
 |  |  | 4.0.x | 4.0.5 | 2026-07-27 |
@@ -227,7 +228,7 @@ Generated on 2026-11-25 18:27:19 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable *(default)* | 141.72.57 | 2026-06-10 |
 | `netscaler-operator` | NetScaler Operator | stable *(default)* | 3.7.5 | 2026-11-19 |
 |  |  | tech-preview | 3.0.1 | 2026-02-23 |
-| `neuvector-certified-operator` | NeuVector Operator | beta *(default)* | 1.5.9 | 2026-09-17 |
+| `neuvector-certified-operator` | NeuVector Operator | beta *(default)* | 1.6.0 | 2026-11-26 |
 | `nexus-repository-ha-operator-certified` | Nexus Repository HA Operator | stable *(default)* | 3.97.2-1 | 2026-10-23 |
 | `nginx-gateway-fabric` | NGINX Gateway Fabric | stable *(default)* | 1.7.1 | 2026-11-23 |
 | `nginx-ingress-operator` | Nginx Ingress Operator | alpha *(default)* | 3.9.1 | 2026-11-23 |
@@ -238,10 +239,10 @@ Generated on 2026-11-25 18:27:19 CET by `list_operators.py` from the Red Hat Eco
 |  |  | v26.4 | 26.4.0 | 2026-06-15 |
 |  |  | v26.7 | 26.7.1 | 2026-11-18 |
 |  |  | v26.10 | 26.10.0 | 2026-11-22 |
-| `nvidia-network-operator` | NVIDIA Network Operator | stable *(default)* | 26.10.0 | 2026-11-22 |
+| `nvidia-network-operator` | NVIDIA Network Operator | stable *(default)* | 26.10.0-1 | 2026-11-26 |
 |  |  | v26.4 | 26.4.1 | 2026-07-23 |
 |  |  | v26.7 | 26.7.1 | 2026-11-19 |
-|  |  | v26.10 | 26.10.0 | 2026-11-22 |
+|  |  | v26.10 | 26.10.0-1 | 2026-11-26 |
 | `nxiq-operator-certified` | Nexus IQ Operator | stable *(default)* | 1.204.5-1 | 2026-10-31 |
 | `odigos-operator` | Odigos Operator | alpha *(default)* | 1.37.1 | 2026-09-22 |
 | `open-liberty-certified` | Open Liberty | beta2 | 0.8.1 | 2026-02-23 |
@@ -250,7 +251,8 @@ Generated on 2026-11-25 18:27:19 CET by `list_operators.py` from the Red Hat Eco
 |  |  | v1.4 | 1.4.4 | 2026-02-23 |
 |  |  | v1.5 | 1.5.2 | 2026-02-23 |
 |  |  | v1.6 *(default)* | 1.6.3 | 2026-10-07 |
-| `operator-aims-mobile` | AIMS Mobile Operator | alpha *(default)* | 0.0.27 | 2026-08-21 |
+| `operator-aims-mobile` | AIMS Mobile Operator | alpha | 0.0.27 | 2026-08-21 |
+|  |  | stable *(default)* | 0.1.28 | 2026-11-26 |
 | `operator-certification-operator` | Operator Certification Operator | alpha *(default)* | 1.6.2 | 2026-09-04 |
 | `percona-postgresql-operator-certified` | Percona Operator for PostgreSQL | stable *(default)* | 3.1.0 | 2026-09-12 |
 | `percona-server-mongodb-operator-certified` | Percona Distribution for MongoDB Operator | stable *(default)* | 1.23.1 | 2026-10-08 |
@@ -282,7 +284,7 @@ Generated on 2026-11-25 18:27:19 CET by `list_operators.py` from the Red Hat Eco
 | `runtime-fabric-operator` | Runtime Fabric Operator | alpha | 3.0.41102 | 2026-11-19 |
 |  |  | stable *(default)* | 3.0.41102 | 2026-11-19 |
 | `seawise-backup-operator` | Seawise Backup Dashboard | alpha *(default)* | 0.1.2 | 2026-06-29 |
-| `simplyblock-operator` | Simplyblock Operator | alpha *(default)* | 26.4.0-beta6.1 | 2026-11-20 |
+| `simplyblock-operator` | Simplyblock Operator | alpha *(default)* | 26.4.0-beta6.2 | 2026-11-26 |
 | `splunk-operator` | Splunk Operator | stable *(default)* | 3.2.0 | 2026-10-14 |
 | `spyre-operator` | IBM Spyre Operator | stable-v1.3 | 1.3.1 | 2026-08-17 |
 |  |  | stable-v1.4 *(default)* | 1.4.0 | 2026-10-01 |
@@ -362,7 +364,7 @@ Generated on 2026-11-25 18:27:19 CET by `list_operators.py` from the Red Hat Eco
 | `t8c-tsc-client-certified` | Turbonomic Secure Connect Client | candidate | 1.7.4-candidate-20261001163912000 | 2026-10-06 |
 |  |  | stable *(default)* | 1.7.4 | 2026-10-12 |
 | `tawon-operator` | Tawon | alpha | 2.29.1 | 2026-02-23 |
-|  |  | candidate-v3 *(default)* | 3.2.0-rc3 | 2026-11-25 |
+|  |  | candidate-v3 *(default)* | 3.2.0-rc5 | 2026-11-26 |
 |  |  | fast-v3 | 3.1.1 | 2026-10-13 |
 | `template-operator` | Template Operator | release-0.0 | 0.0.1 | 2026-02-23 |
 |  |  | release-0.1 *(default)* | 0.1.8 | 2026-09-17 |
@@ -391,7 +393,7 @@ Generated on 2026-11-25 18:27:19 CET by `list_operators.py` from the Red Hat Eco
 | `vault-secrets-operator` | Vault Secrets Operator | stable *(default)* | 2.0.0 | 2026-11-13 |
 | `vcp-operator` | Venafi Control Plane Operator | alpha | 1.0.0 | 2026-02-23 |
 |  |  | stable *(default)* | 1.11.0 | 2026-11-04 |
-| `vfunction-server-operator` | vFunction Operator | stable *(default)* | 5.1.2236 | 2026-11-20 |
+| `vfunction-server-operator` | vFunction Operator | stable *(default)* | 5.1.2245 | 2026-11-26 |
 | `victoriametrics-operator` | VictoriaMetrics Operator | beta *(default)* | 0.75.2 | 2026-11-04 |
 |  |  | stable | 0.68.5 | 2026-05-27 |
 | `wave` | Wave | stable *(default)* | 3.5.0 | 2026-10-16 |
