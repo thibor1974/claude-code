@@ -1,15 +1,16 @@
 # OpenShift 4.22 releases (amd64)
 
-Generated on 2026-11-19 16:15:06 CET by `list_versions.py` from the OpenShift update graph (Cincinnati).
+Generated on 2026-11-26 17:22:53 CET by `list_versions.py` from the OpenShift update graph (Cincinnati).
 
-- **Releases:** 36
-- **Latest in candidate-4.22:** 4.22.23 (released 2026-11-13*)
+- **Releases:** 37
+- **Latest in candidate-4.22:** 4.22.24 (released 2026-11-25*)
 - **Latest in fast-4.22:** 4.22.22 (released 2026-11-06)
 - **Latest in stable-4.22:** 4.22.22 (released 2026-11-06)
 - **Latest in eus-4.22:** 4.22.22 (released 2026-11-06)
 
 | Version | Released | candidate | fast | stable | eus | Errata |
 |---|---|---|---|---|---|---|
+| 4.22.24 | 2026-11-25* | ✓ |  |  |  | [RHSA-2026:103453](https://access.redhat.com/errata/RHSA-2026:103453) |
 | 4.22.23 | 2026-11-13* | ✓ |  |  |  | [RHSA-2026:99759](https://access.redhat.com/errata/RHSA-2026:99759) |
 | 4.22.22 | 2026-11-06 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:95347](https://access.redhat.com/errata/RHSA-2026:95347) |
 | 4.22.21 | 2026-11-03 | ✓ | ✓ | ✓ | ✓ | [RHSA-2026:92330](https://access.redhat.com/errata/RHSA-2026:92330) |
