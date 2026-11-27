@@ -1,10 +1,10 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-26 18:08:27 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-27 17:51:27 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
-- **Operators:** 321
-- **Channels:** 532
-- **community-operators:** 321 operators
+- **Operators:** 322
+- **Channels:** 531
+- **community-operators:** 322 operators
 - Default channel (installed when no channel is chosen) marked *(default)*
 
 ## community-operators
@@ -101,8 +101,8 @@ Generated on 2026-11-26 18:08:27 CET by `list_operators.py` from the Red Hat Eco
 | `apicurio-api-controller` | Apicurio API Controller | 0.x *(default)* | 0.0.1 | 2026-03-20 |
 | `apicurio-registry` | Apicurio Registry Operator | 2.x *(default)* | 1.1.3-v2.6.4.final | 2026-03-20 |
 | `apicurio-registry-3` | Apicurio Registry 3 | 3.2.x | 3.2.6 | 2026-08-04 |
-|  |  | 3.3.x | 3.3.4 | 2026-11-05 |
-|  |  | 3.x *(default)* | 3.3.4 | 2026-11-05 |
+|  |  | 3.3.x | 3.3.5 | 2026-11-26 |
+|  |  | 3.x *(default)* | 3.3.5 | 2026-11-26 |
 | `apicurito` | API Designer | 1.0.x | 1.0.3 | 2026-03-20 |
 |  |  | candidate | 1.0.3 | 2026-03-20 |
 |  |  | latest *(default)* | 1.0.3 | 2026-03-20 |
@@ -210,7 +210,7 @@ Generated on 2026-11-26 18:08:27 CET by `list_operators.py` from the Red Hat Eco
 | `file-integrity-console-plugin` | File Integrity Console Plugin | stable-4.22 *(default)* | 0.4.1 | 2026-08-08 |
 | `flink-kubernetes-operator` | Flink Kubernetes Operator | alpha *(default)* | 1.16.1 | 2026-11-03 |
 | `flux` | Flux | stable *(default)* | 2.3.0 | 2026-03-20 |
-| `flux-operator` | Flux Operator | stable *(default)* | 0.63.1 | 2026-11-22 |
+| `flux-operator` | Flux Operator | stable *(default)* | 0.64.0 | 2026-11-26 |
 | `flyway-operator` | Flyway Operator | stable-v0 | 0.7.1 | 2026-11-10 |
 |  |  | stable-v0.7 *(default)* | 0.7.1 | 2026-11-10 |
 | `fossul-operator` | Fossul Operator | alpha *(default)* | 0.6.0 | 2026-03-20 |
@@ -347,7 +347,7 @@ Generated on 2026-11-26 18:08:27 CET by `list_operators.py` from the Red Hat Eco
 |  |  | betav1 *(default)* | 0.9.8 | 2026-03-20 |
 | `ndb-operator` | Ndb Operator | alpha *(default)* | 1.6.0 | 2026-03-20 |
 | `ndmspc-operator` | NdmSpc operator | alpha *(default)* | 0.20250209.0 | 2026-03-20 |
-| `neuvector-community-operator` | NeuVector Operator | beta *(default)* | 1.6.4 | 2026-09-21 |
+| `neuvector-community-operator` | NeuVector Operator | beta *(default)* | 1.6.5 | 2026-11-26 |
 | `nexus-operator` | EDP Nexus Operator | alpha *(default)* | 3.0.0 | 2026-03-20 |
 | `nexus-operator-m88i` | Nexus Operator | alpha *(default)* | 0.6.0 | 2026-03-20 |
 | `nfs-provisioner-operator` | NFS Provisioner Operator | alpha *(default)* | 0.0.9 | 2026-04-16 |
@@ -363,7 +363,7 @@ Generated on 2026-11-26 18:08:27 CET by `list_operators.py` from the Red Hat Eco
 | `observability-operator` | Observability Operator | candidate | 0.0.28 | 2026-03-20 |
 |  |  | development | 0.0.28 | 2026-03-20 |
 |  |  | stable *(default)* | 0.0.28 | 2026-03-20 |
-| `oc-mirror` | oc-mirror Operator | alpha *(default)* | 0.1.12 | 2026-11-26 |
+| `oc-mirror` | oc-mirror Operator | alpha *(default)* | 0.1.13 | 2026-11-26 |
 | `oci-ccm-operator` | oci-ccm-operator | alpha *(default)* | 0.0.9 | 2026-03-20 |
 | `ocp-kea-dhcp` | Kea DHCP Operator | alpha *(default)* | 0.0.36 | 2026-11-25 |
 | `odoo-operator` | Odoo Operator | alpha *(default)* | 0.0.2 | 2026-03-20 |
@@ -393,16 +393,10 @@ Generated on 2026-11-26 18:08:27 CET by `list_operators.py` from the Red Hat Eco
 | `project-quay` | Project Quay | stable-3.6 | 3.6.2 | 2026-03-20 |
 |  |  | stable-3.7 | 3.7.11 | 2026-03-20 |
 |  |  | stable-3.8 | 3.8.13 | 2026-03-20 |
-|  |  | stable-3.9 | 3.9.28 | 2026-11-24 |
-|  |  | stable-3.10 | 3.10.28 | 2026-11-24 |
 |  |  | stable-3.11 | 3.11.13 | 2026-03-20 |
 |  |  | stable-3.12 | 3.12.24 | 2026-11-18 |
 |  |  | stable-3.13 | 3.13.11 | 2026-03-20 |
-|  |  | stable-3.14 | 3.14.10 | 2026-11-21 |
 |  |  | stable-3.15 | 3.15.8 | 2026-09-04 |
-|  |  | stable-3.16 | 3.16.7 | 2026-11-25 |
-|  |  | stable-3.17 *(default)* | 3.17.7 | 2026-11-19 |
-|  |  | stable-3.18 | 3.18.3 | 2026-11-24 |
 | `prometheus` | Prometheus Operator | beta *(default)* | 0.56.3 | 2026-03-20 |
 | `prometheus-exporter-operator` | Prometheus Exporter Operator | alpha *(default)* | 0.7.0 | 2026-03-20 |
 | `pubsubplus-eventbroker-operator` | Solace PubSub+ Event Broker Operator | stable *(default)* | 1.4.2 | 2026-08-19 |
@@ -420,8 +414,8 @@ Generated on 2026-11-26 18:08:27 CET by `list_operators.py` from the Red Hat Eco
 | `rhoas-operator` | OpenShift Application Services (RHOAS) | beta *(default)* | 0.13.0 | 2026-03-20 |
 | `ripsaw` | benchmark-operator | alpha *(default)* | 0.1.0 | 2026-03-20 |
 | `rsct-operator` | RSCT Operator for IBM Power Systems | alpha *(default)* | 0.0.1-alpha4 | 2026-07-23 |
-| `ruptura-operator` | Ruptura Operator | alpha | 1.4.10 | 2026-11-22 |
-|  |  | stable *(default)* | 1.4.10 | 2026-11-22 |
+| `ruptura-operator` | Ruptura Operator | alpha | 1.4.12 | 2026-11-27 |
+|  |  | stable *(default)* | 1.4.12 | 2026-11-27 |
 | `sailoperator` | Sail Operator | 1.31-nightly | 1.31.0-nightly-2026-09-30 | 2026-09-30 |
 |  |  | candidates | 0.1.0 | 2026-07-23 |
 |  |  | stable *(default)* | 1.31.3 | 2026-11-10 |
@@ -455,6 +449,9 @@ Generated on 2026-11-26 18:08:27 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable-1.7 | 1.7.1 | 2026-03-20 |
 |  |  | stable-1.8 | 1.8.4 | 2026-03-20 |
 |  |  | stable-1.9 | 1.9.6 | 2026-06-30 |
+| `sn-operator` | StreamNative Operator | alpha *(default)* | 0.21.21 | 2026-11-27 |
+|  |  | beta | 0.21.21 | 2026-11-27 |
+|  |  | stable | 0.21.21 | 2026-11-27 |
 | `snapscheduler` | SnapScheduler | candidate | 3.5.0 | 2026-03-20 |
 |  |  | stable *(default)* | 3.5.0 | 2026-03-20 |
 | `socmmd` | socmmd | stable *(default)* | 0.0.2 | 2026-03-20 |
@@ -465,6 +462,9 @@ Generated on 2026-11-26 18:08:27 CET by `list_operators.py` from the Red Hat Eco
 | `sosreport-operator` | sosreport-operator | alpha *(default)* | 0.0.2 | 2026-03-20 |
 | `spark-helm-operator` | Spark Helm Operator | alpha *(default)* | 0.0.2 | 2026-03-20 |
 | `special-resource-operator` | Special Resource Operator | alpha *(default)* | 4.9.0 | 2026-03-20 |
+| `stackgres-community` | StackGres | candidate | 1.19.4 | 2026-11-27 |
+|  |  | fast | 1.19.4 | 2026-11-27 |
+|  |  | stable *(default)* | 1.19.4 | 2026-11-27 |
 | `storage-based-remediation` | Storage-Based Remediation - Community Edition | stable *(default)* | 0.3.0 | 2026-06-19 |
 | `strimzi-kafka-operator` | Strimzi | stable | 0.51.0 | 2026-03-20 |
 |  |  | strimzi-0.23.x | 0.23.0 | 2026-03-20 |
@@ -528,7 +528,6 @@ Generated on 2026-11-26 18:08:27 CET by `list_operators.py` from the Red Hat Eco
 | `tempo-operator` | Community Tempo Operator | alpha *(default)* | 0.23.0 | 2026-10-22 |
 | `tf-controller` | Weave GitOps Terraform Controller | stable *(default)* | 0.9.0-rc.8 | 2026-03-20 |
 | `tidb-operator` | TiDB Operator | stable *(default)* | 1.3.1 | 2026-03-20 |
-| `tls-compliance-operator` | TLS Compliance Operator | stable *(default)* | 1.2.1 | 2026-11-18 |
 | `trident-operator` | NetApp Trident | stable *(default)* | 26.2.1 | 2026-07-10 |
 | `trustify-operator` | Trustify Operator | alpha *(default)* | 0.1.0-alpha.9 | 2026-03-20 |
 | `ucs-ci-solutions-operator` | UCS-CI-Solutions-Operator | alpha *(default)* | 0.0.1 | 2026-03-20 |

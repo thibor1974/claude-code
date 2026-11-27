@@ -1,10 +1,10 @@
 # Operators for OpenShift 4.22
 
-Generated on 2026-11-26 18:08:25 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
+Generated on 2026-11-27 17:51:24 CET by `list_operators.py` from the Red Hat Ecosystem Catalog (Pyxis).
 
-- **Operators:** 181
-- **Channels:** 393
-- **certified-operators:** 181 operators
+- **Operators:** 182
+- **Channels:** 396
+- **certified-operators:** 182 operators
 - Default channel (installed when no channel is chosen) marked *(default)*
 
 ## certified-operators
@@ -285,6 +285,9 @@ Generated on 2026-11-26 18:08:25 CET by `list_operators.py` from the Red Hat Eco
 |  |  | stable *(default)* | 3.0.41102 | 2026-11-19 |
 | `seawise-backup-operator` | Seawise Backup Dashboard | alpha *(default)* | 0.1.2 | 2026-06-29 |
 | `simplyblock-operator` | Simplyblock Operator | alpha *(default)* | 26.4.0-beta6.2 | 2026-11-26 |
+| `sn-operator` | StreamNative Operator | alpha *(default)* | 0.21.21 | 2026-11-27 |
+|  |  | beta | 0.21.21 | 2026-11-27 |
+|  |  | stable | 0.21.21 | 2026-11-27 |
 | `splunk-operator` | Splunk Operator | stable *(default)* | 3.2.0 | 2026-10-14 |
 | `spyre-operator` | IBM Spyre Operator | stable-v1.3 | 1.3.1 | 2026-08-17 |
 |  |  | stable-v1.4 *(default)* | 1.4.0 | 2026-10-01 |
@@ -354,9 +357,9 @@ Generated on 2026-11-26 18:08:25 CET by `list_operators.py` from the Red Hat Eco
 |  |  | 26.3 | 26.3.0 | 2026-07-27 |
 |  |  | 26.7 | 26.7.0 | 2026-07-30 |
 |  |  | stable *(default)* | 26.7.0 | 2026-07-30 |
-| `stackgres-certified` | StackGres | candidate | 1.19.5 | 2026-11-13 |
-|  |  | fast | 1.19.5 | 2026-11-13 |
-|  |  | stable *(default)* | 1.19.5 | 2026-11-13 |
+| `stackgres-certified` | StackGres | candidate | 1.19.6 | 2026-11-26 |
+|  |  | fast | 1.19.6 | 2026-11-26 |
+|  |  | stable *(default)* | 1.19.6 | 2026-11-26 |
 | `synaxg-operator` | SynaXG vDU card 102X Operator | alpha *(default)* | 1.2.0 | 2026-02-23 |
 | `synology-csi-operator` | Synology CSI Operator | alpha *(default)* | 0.4.2 | 2026-09-03 |
 | `t8c-certified` | Turbonomic Platform Operator | beta | 42.119.0-beta.1 | 2026-11-05 |
