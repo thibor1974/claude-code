@@ -11,7 +11,7 @@ on:
   # GitHub often starts scheduled runs 5-30 minutes late.
   # To run it right now: Actions tab -> Versions report -> Run workflow.
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '0 18 * * *'
   workflow_dispatch:
     inputs:
       streams:
